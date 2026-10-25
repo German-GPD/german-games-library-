@@ -16,3 +16,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,.g
 .game-card[aria-label]:focus-visible{border-color:var(--accentStrong)}
 .button:disabled{opacity:.55;cursor:not-allowed;transform:none}
 @media(prefers-color-scheme:dark){meta[name="theme-color"]{color-scheme:dark}}
+
+.skip-link{position:fixed;top:8px;left:8px;z-index:1000;padding:10px 14px;border-radius:8px;background:var(--text);color:var(--bg);transform:translateY(-150%);transition:transform .15s}
+.skip-link:focus{transform:translateY(0)}
+.letter-button:disabled{opacity:.32;cursor:not-allowed;background:var(--surface);border-style:dashed}
+.letter-button:disabled:hover{transform:none;border-color:var(--line)}
+#status-filters{flex-wrap:wrap}
+@media(max-width:720px){#status-filters{flex-basis:100%}}
