@@ -33,7 +33,7 @@ window.GAMES = [
 {id:"nfs-mw05",title:"Need for Speed: Most Wanted (2005)",letter:"N",genre:"Гонки",tags:["Уличные гонки","Классика"],status:"known",appid:13240,featured:true},
 {id:"nfs-mw12",title:"Need for Speed: Most Wanted (2012)",letter:"N",genre:"Гонки",tags:["Открытый мир","Автомобили"],status:"known",appid:1262600},
 {id:"nfs-payback",title:"Need for Speed Payback",letter:"N",genre:"Гонки",tags:["Открытый мир","Автомобили"],status:"known",appid:1262580},
-{id:"nfs-paradise",title:"Need for Speed: Paradise",letter:"N",genre:"Гонки",tags:["Открытый мир","Аркада"],status:"known",appid:1238080},
+{id:"burnout-paradise",title:"Burnout Paradise Remastered",letter:"B",genre:"Гонки",tags:["Открытый мир","Аркада"],status:"known",appid:1238080},
 {id:"tomb-raider-2013",title:"Tomb Raider",letter:"T",genre:"Приключение",tags:["Экшен","Исследование"],status:"known",appid:203160,featured:true},
 {id:"rise-tomb-raider",title:"Rise of the Tomb Raider",letter:"R",genre:"Приключение",tags:["Экшен","Исследование"],status:"known",appid:391220},
 {id:"shadow-tomb-raider",title:"Shadow of the Tomb Raider",letter:"S",genre:"Приключение",tags:["Экшен","Исследование"],status:"known",appid:750920},
@@ -98,12 +98,7 @@ window.GAMES = [
 {id:"resident-evil-4",title:"Resident Evil 4",letter:"R",genre:"Хоррор",tags:["Экшен","Выживание"],status:"candidate",appid:2050650},
 {id:"postal",title:"POSTAL",letter:"P",genre:"Экшен",tags:["Чёрный юмор","Классика"],status:"known",appid:232770},
 {id:"portal-stories",title:"Portal Stories: Mel",letter:"P",genre:"Головоломка",tags:["Фанатская игра","Научная фантастика"],status:"candidate",appid:317400},
-{id:"the-simpsons-hit-run",title:"The Simpsons: Hit & Run",letter:"T",genre:"Открытый мир",tags:["Гонки","Комедия"],status:"known",appid:0},
-{id:"sleeping-dogs-original",title:"Sleeping Dogs",letter:"S",genre:"Криминал",tags:["Открытый мир","Боевые искусства"],status:"known",appid:202170},
 {id:"far-cry-2",title:"Far Cry 2",letter:"F",genre:"Шутер",tags:["Открытый мир","Выживание"],status:"candidate",appid:19900},
-{id:"far-cry-5-gold",title:"Far Cry 5",letter:"F",genre:"Шутер",tags:["Открытый мир","Приключение"],status:"known",appid:552520},
-{id:"watch-dogs-2-alt",title:"Watch Dogs 2",letter:"W",genre:"Открытый мир",tags:["Хакерство","Криминал"],status:"known",appid:447040},
 {id:"subnautica",title:"Subnautica",letter:"S",genre:"Выживание",tags:["Исследование","Подводный мир"],status:"candidate",appid:264710},
 {id:"teardown",title:"Teardown",letter:"T",genre:"Песочница",tags:["Разрушения","Физика"],status:"candidate",appid:1167630},
-{id:"just-cause-4-reloaded",title:"Just Cause 4: Reloaded",letter:"J",genre:"Экшен",tags:["Открытый мир","Разрушения"],status:"known",appid:517630}
 ];
