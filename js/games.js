@@ -141,10 +141,8 @@ window.GAMES = [
 {id:"prototype-2",title:"Prototype 2",letter:"P",genre:"Экшен",tags:["Открытый мир","Суперспособности"],status:"candidate",appid:115320},
 {id:"crackdown-3",title:"Crackdown 3",letter:"C",genre:"Экшен",tags:["Открытый мир","Песочница"],status:"candidate",appid:0},
 {id:"lego-city",title:"LEGO City Undercover",letter:"L",genre:"Открытый мир",tags:["Комедия","Приключение"],status:"candidate",appid:578330},
-{id:"watch-dogs-legion",title:"Watch Dogs: Legion",letter:"W",genre:"Открытый мир",tags:["Хакерство","Криминал"],status:"candidate",appid:2239550},
 {id:"far-cry-new-dawn",title:"Far Cry New Dawn",letter:"F",genre:"Шутер",tags:["Открытый мир","Постапокалипсис"],status:"candidate",appid:939960},
 {id:"far-cry-blood-dragon",title:"Far Cry 3: Blood Dragon",letter:"F",genre:"Шутер",tags:["Научная фантастика","Чёрный юмор"],status:"candidate",appid:233270},
-{id:"far-cry-2",title:"Far Cry 2",letter:"F",genre:"Шутер",tags:["Открытый мир","Выживание"],status:"candidate",appid:19900},
 {id:"far-cry-1",title:"Far Cry",letter:"F",genre:"Шутер",tags:["Классика","Приключение"],status:"candidate",appid:13520},
 {id:"portal-reloaded",title:"Portal Reloaded",letter:"P",genre:"Головоломка",tags:["Порталы","Фанатская игра"],status:"candidate",appid:1255980},
 {id:"aperture-desk-job",title:"Aperture Desk Job",letter:"A",genre:"Приключение",tags:["Комедия","Valve"],status:"candidate",appid:1902490},
@@ -156,4 +154,12 @@ window.GAMES = [
 {id:"ghost-recon-wildlands",title:"Tom Clancy's Ghost Recon Wildlands",letter:"T",genre:"Шутер",tags:["Открытый мир","Тактика"],status:"candidate",appid:460930},
 {id:"the-division-2",title:"Tom Clancy's The Division 2",letter:"T",genre:"Шутер",tags:["Открытый мир","Кооператив"],status:"candidate",appid:2221490},
 {id:"watch-dogs-bad-blood",title:"Watch Dogs: Bad Blood",letter:"W",genre:"Открытый мир",tags:["Хакерство","Криминал"],status:"candidate",appid:0}
+,
+{id:"nfs-mw-2015",title:"Need for Speed (2015)",letter:"N",genre:"Гонки",tags:["Уличные гонки","Тюнинг"],status:"known",appid:0,featured:true},
+{id:"tomb-raider-trilogy",title:"Tomb Raider Trilogy",letter:"T",genre:"Приключение",tags:["Экшен","Исследование"],status:"known",appid:0},
+{id:"nfs-underground-2",title:"Need for Speed: Underground 2",letter:"N",genre:"Гонки",tags:["Уличные гонки","Тюнинг"],status:"known",appid:0,featured:true},
+{id:"nfs-underground",title:"Need for Speed: Underground",letter:"N",genre:"Гонки",tags:["Уличные гонки","Классика"],status:"candidate",appid:0},
+{id:"nfs-carbon",title:"Need for Speed: Carbon",letter:"N",genre:"Гонки",tags:["Уличные гонки","Тюнинг"],status:"candidate",appid:0},
+{id:"gta-advance",title:"Grand Theft Auto Advance",letter:"G",genre:"Открытый мир",tags:["Криминал","Классика"],status:"candidate",appid:0},
+{id:"postal-3",title:"POSTAL III",letter:"P",genre:"Экшен",tags:["Чёрный юмор","Песочница"],status:"candidate",appid:0}
 ];
