@@ -91,7 +91,7 @@ function loadSaved(){
  try{const saved=JSON.parse(localStorage.getItem("german-games-status")||"{}");games.forEach(g=>{if(saved[g.id]==="known"||saved[g.id]==="candidate")g.status=saved[g.id]})}catch(_){}
 }
 function themeLabel(){
- const media=window.matchMedia("(prefers-color-scheme: dark)"),update=()=>{$("#theme-label").textContent=media.matches?"Тёмная тема":"Светлая тема"};
+ const media=window.matchMedia("(prefers-color-scheme: dark)"),update=()=>{$("#theme-label").textContent=media.matches?"Тёмная тема":"Светлая тема";const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=media.matches?"#111316":"#f4f5f7"};
  update();if(media.addEventListener)media.addEventListener("change",update);else if(media.addListener)media.addListener(update);
 }
 alphabetGrid.addEventListener("click",e=>{const b=e.target.closest("[data-letter]");if(!b)return;state.letter=state.letter===b.dataset.letter?"":b.dataset.letter;state.limit=200;render();$("#collection").scrollIntoView({behavior:"smooth",block:"start"})});
