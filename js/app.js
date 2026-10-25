@@ -23,7 +23,7 @@ const escapeHtml=v=>String(v==null?"":v).replace(/[&<>"']/g,c=>({"&":"&amp;","<"
 const statusLabel=g=>played(g)?"ИГРАЛ":known(g)?"ЗНАЮ":"В СПИСКЕ";
 const statusText=g=>played(g)?"Играл / проходил":known(g)?"Знакомая игра":"Рекомендация";
 function renderAlphabet(){
- alphabetGrid.innerHTML=alphabet.map(l=>{const n=games.filter(g=>letterOf(g)===l).length;return '<button class="letter-button'+(n?' has-games':'')+(state.letter===l?' selected':'')+'" data-letter="'+l+'" aria-label="'+l+', '+n+' игр"><span>'+l+'</span><small>'+n+'</small></button>'}).join("");
+ alphabetGrid.innerHTML=alphabet.map(l=>{const n=games.filter(g=>letterOf(g)===l).length;return '<button class="letter-button'+(n?' has-games':'')+(state.letter===l?' selected':'')+'" data-letter="'+l+'" aria-label="'+l+', '+n+' игр"'+(n?"":" disabled")+'><span>'+l+'</span><small>'+n+'</small></button>'}).join("");
 }
 function renderGenres(){
  genreGrid.innerHTML=genreItems.map(item=>{const match=item.match||item.name;const n=games.filter(g=>g.genre===match||(g.tags||[]).includes(match)).length;return '<button class="genre-card'+(state.genre===match?' active':'')+'" data-genre="'+escapeHtml(match)+'" data-mark="'+item.mark+'"><span class="genre-icon">'+item.icon+'</span><strong>'+item.name+'</strong><small>'+item.desc+' · '+n+'</small></button>'}).join("");
@@ -33,6 +33,7 @@ function filteredGames(){
  const result=games.filter(g=>{
   if(state.status==="known"&&!known(g))return false;
   if(state.status==="played"&&!played(g))return false;
+  if(state.status==="candidate"&&known(g))return false;
   if(state.letter&&letterOf(g)!==state.letter)return false;
   if(state.genre&&g.genre!==state.genre&&!(g.tags||[]).includes(state.genre))return false;
   if(q&&!clean([g.title,g.genre,...(g.tags||[])].join(" ")).includes(q))return false;
@@ -52,7 +53,7 @@ function renderFilters(){
  if(state.query)chips.push(["Поиск: "+state.query,"query"]);
  if(state.letter)chips.push(["Буква: "+state.letter,"letter"]);
  if(state.genre)chips.push(["Жанр: "+state.genre,"genre"]);
- if(state.status!=="all")chips.push(["Статус: "+(state.status==="known"?"Знаю":"Играл"),"status"]);
+ if(state.status!=="all")chips.push(["Статус: "+(state.status==="known"?"Знаю":state.status==="played"?"Играл":"В списке"),"status"]);
  const el=$("#active-filters");el.hidden=!chips.length;
  el.innerHTML=chips.map(([label,key])=>'<span class="filter-chip">'+escapeHtml(label)+'<button data-clear="'+key+'" aria-label="Сбросить фильтр">×</button></span>').join("");
 }
