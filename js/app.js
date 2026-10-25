@@ -77,12 +77,12 @@ function openGame(id){
  $("#dialog-tags").innerHTML='<span class="mini-tag">'+escapeHtml(g.genre)+'</span>'+(g.tags||[]).map(t=>'<span class="mini-tag">'+escapeHtml(t)+'</span>').join("");
  $("#dialog-cover").style.backgroundImage=image(g)?'url("'+image(g)+'")':"linear-gradient(135deg,var(--surface2),var(--accentSoft))";
  $("#steam-link").href=g.appid?"https://store.steampowered.com/app/"+g.appid+"/":"https://store.steampowered.com/search/?term="+encodeURIComponent(g.title);
- const btn=$("#toggle-known");btn.textContent=known(g)?"Убрать отметку «Знаю»":"Отметить как знакомую";btn.dataset.game=id;
+ const btn=$("#toggle-known");btn.textContent=g.status==="played"?"Уже отмечена: играл":g.status==="known"?"Убрать отметку «Знаю»":"Отметить как знакомую";btn.disabled=g.status==="played";btn.dataset.game=id;
  const dialog=$("#game-dialog");if(typeof dialog.showModal==="function")dialog.showModal();else dialog.setAttribute("open","");
 }
 function toggleKnown(id){
- const g=games.find(x=>x.id===id);if(!g)return;
- g.status=known(g)?"candidate":"known";
+ const g=games.find(x=>x.id===id);if(!g||g.status==="played")return;
+ g.status=g.status==="known"?"candidate":"known";
  try{const saved=JSON.parse(localStorage.getItem("german-games-status")||"{}");saved[id]=g.status;localStorage.setItem("german-games-status",JSON.stringify(saved))}catch(_){}
  $("#game-dialog").close();render();
 }
