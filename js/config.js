@@ -1,1 +1,2 @@
-/* Public frontend configuration only. Never put a Steam API key here. */\nwindow.STEAM_SYNC_ENDPOINT = "";\n
+/* Public frontend configuration only. Never put a Steam API key here. */
+window.STEAM_SYNC_ENDPOINT = "";
