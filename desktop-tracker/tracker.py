@@ -196,7 +196,7 @@ def main():
             detail.config(text=str(e)[:75])
         root.after(POLL * 1000, tick)
     def close_window():
-        root.withdraw()
+        root.iconify()
     root.protocol("WM_DELETE_WINDOW", close_window)
     menu = tk.Menu(root, tearoff=0)
     menu.add_command(label="Показать окно", command=root.deiconify)
