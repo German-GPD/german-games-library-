@@ -105,14 +105,14 @@ function importStats(file) {
 function makeEstimates() {
   const estimates = {};
   games().forEach(g => {
-    if (!["played", "known"].includes(g.status)) return;
+    if (g.status !== "played" && g.status !== "known") return;
     let seed = 0;
     for (const ch of g.id) seed = (seed * 31 + ch.charCodeAt(0)) >>> 0;
     const random = max => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed % max; };
-    const hours = Math.round((12 + random(115) + (g.status === "played" ? 18 : 0)) * 10) / 10;
+    const hours = Math.round((18 + random(220)) * 10) / 10;
     const total = 20 + random(61);
     const roll = random(100);
-    const completion = roll < 70 ? "completed-100" : roll < 94 ? "completed" : "playing";
+    const completion = roll < 32 ? "completed-100" : roll < 96 ? "completed" : "playing";
     const ratio = completion === "completed-100" ? 1 : completion === "completed" ? 0.82 + random(19) / 100 : 0.2 + random(61) / 100;
     estimates[g.id] = {hours, achievements:Math.min(total, Math.round(total * ratio)), total, completion, estimated:true};
   });
@@ -121,7 +121,7 @@ function makeEstimates() {
 function init() {
   tracker = read(TRACK_KEY, {});
   const estimates = makeEstimates();
-  Object.entries(estimates).forEach(([id, value]) => { if (!tracker[id]) tracker[id] = value; });
+  Object.entries(estimates).forEach(([id, value]) => { if (!tracker[id] || tracker[id].estimated) tracker[id] = value; });
   write(TRACK_KEY, tracker);
   settings = read(STEAM_KEY, {profile:"",endpoint:""});
   $("#steam-profile").value = settings.profile || "";
