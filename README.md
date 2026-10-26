@@ -36,7 +36,7 @@
 - `css/style.css` — оформление и адаптивность.
 - `js/app.js` — каталог, фильтры, карточки и окно игры.
 - `js/games.js` — каталог и предварительная статистика.
-- `js/tracker.js` — сводка статистики только для чтения.
+- `js/tracker.js` — сводка статистики только для чтения.\n- `js/live-presence.js` — отображение текущей игры из базы трекера.\n- `data/games-db.json` — текущая игра и завершённые игровые сессии, которые публикует Windows EXE.\n- `desktop-tracker/tracker.py` — фоновый трекер Windows с сопоставлением имён процессов.
 - `assets/favicon.svg` — иконка.
 - `LICENSE` — лицензия проекта.
 
@@ -65,3 +65,4 @@ Discord presence can show the game currently being played only when activity sha
 **Скачать EXE:** [German-Games-Tracker.exe](https://github.com/German-GPD/german-games-library-/releases/download/desktop-tracker-latest/German-Games-Tracker.exe). Ссылка станет доступна после успешного завершения сборки GitHub Actions. Если релиз ещё не создан, открой вкладку Actions и скачай артефакт `German-Games-Tracker-Windows` из workflow `Build Windows tracker`.
 
 Локальный трекер считает время активного окна процесса, а не считывает данные изнутри игры. Поэтому название процесса может отличаться от названия игры, а некоторые игры/лаунчеры могут определяться неидеально. Данные остаются на ПК, пока ты сам не экспортируешь файл.
+\n\n## Windows live game tracker (without Cloudflare)\n\nThe Windows EXE writes the current game and completed sessions to `data/games-db.json` using the GitHub Contents API. On first launch, create a fine-grained GitHub token limited to this repository with **Contents: Read and write**. The token is stored locally in `%LOCALAPPDATA%\\GermanGamesTracker\\config.json`; never commit or share it. The public database contains game names and session timestamps, not the Windows process list. The tracker build is published at [latest Windows tracker release](https://github.com/German-GPD/german-games-library-/releases/tag/desktop-tracker-latest).\n
