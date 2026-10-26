@@ -1,69 +1,39 @@
 # German'$ Games Library
 
-Личная игровая библиотека German'$ Team Coding — адаптивный каталог с обложками в стиле Steam, алфавитом, жанрами, поиском и сводкой личной игровой истории.
+Личная игровая библиотека German'$ Team Coding — каталог игр с обложками в стиле Steam, поиском, жанрами, алфавитом и отметкой прохождения.
 
 **Сайт:** https://german-gpd.github.io/german-games-library-/
 
 ## Возможности
 
-- Премиальный нейтральный интерфейс с автоматической светлой/тёмной темой устройства.
-- Адаптивная главная страница с личным профилем и статистикой.
-- Отдельный блок интерактивной аналитики: топ игр по часам, диаграмма статусов, распределение жанров и прогресс достижений.
-- Блок «Во что я играю»: публичный статус двух Steam-аккаунтов, обложка текущей игры, время наблюдения на странице и суммарные часы из Steam.
-- Импорт JSON из локального Windows-трекера — данные активности отображаются отдельно и не меняют каталог/личные отметки.
-- Каталог игр с обложками, фильтрами, поиском, жанрами и A–Z.
-- Карточки с примерным временем игры, прогрессом достижений и статусом завершения.
-- Окно подробностей игры и переход на её страницу в Steam.
-- Статистика только для чтения: сайт не предоставляет ручного редактирования часов, достижений и статусов.
-- Предварительные часы и достижения помечены как оценки и не выдаются за реальные данные аккаунта.
-- Никаких рекламных трекеров и сторонней аналитики.
+- Адаптивный каталог игр с обложками.
+- Автоматическая светлая/тёмная тема по настройке устройства.
+- Поиск по названию, жанру и тегам.
+- Фильтры по жанрам, алфавиту и прохождению.
+- Статусы прохождения хранятся в `game-static.txt`: `true` — пройдена, `false` — не пройдена или прохождение не подтверждено.
+- Без фонового трекера, отслеживания запущенных приложений, времени игровых сессий, статистики Steam и интеграций.
 
-## Интеграция со Steam
+## Как обновить прохождение
 
-Для реальной синхронизации нужен публичный профиль Steam, видимые настройки «Данные об играх» и безопасный серверный посредник (например, Cloudflare Worker или небольшой backend). Steam Web API key хранится только в серверных секретах — никогда в JavaScript-файлах или настройках браузера. После подключения сервер может отдавать библиотеке проверенные часы и достижения.
+Открой `game-static.txt`. Каждая игра записана на отдельной строке:
 
-Официальные материалы: [Steam Web API](https://steamcommunity.com/dev) и [Steamworks Web API overview](https://partner.steamgames.com/doc/webapi_overview).
+```text
+Sleeping Dogs: Definitive Edition = true
+Grand Theft Auto V = false
+```
 
-## Интеграция с Hydra Launcher
-
-У Hydra Launcher не обнаружен подтверждённый публичный облачный API для прямой синхронизации с GitHub Pages. Для настоящего импорта потребуется локальный помощник на ПК, который читает библиотеку/метаданные Hydra и передаёт только необходимые данные по локальному защищённому каналу. Доступ к файлам на ПК нельзя получить напрямую из обычной статической веб-страницы.
-
-Проект Hydra: https://github.com/hydra-launcher/hydra
+Меняй только `true` или `false`. Название должно совпадать с названием в каталоге.
 
 ## Структура
 
 - `index.html` — структура сайта.
 - `css/style.css` — оформление и адаптивность.
 - `js/app.js` — каталог, фильтры, карточки и окно игры.
-- `js/games.js` — каталог и предварительная статистика.
-- `js/tracker.js` — сводка статистики только для чтения.\n- `js/live-presence.js` — отображение текущей игры из базы трекера.\n- `data/games-db.json` — текущая игра и завершённые игровые сессии, которые публикует Windows EXE.\n- `desktop-tracker/tracker.py` — фоновый трекер Windows с сопоставлением имён процессов.
+- `js/games.js` — список игр, жанры, теги и обложки.
+- `game-static.txt` — статусы прохождения.
 - `assets/favicon.svg` — иконка.
 - `LICENSE` — лицензия проекта.
 
 ## Лицензия
 
-См. файл [LICENSE](LICENSE).
-
-
-## Live Steam statistics (optional)
-
-The catalogue starts with clearly marked estimates. To replace playtime with real Steam data:
-
-1. In a terminal, open the repository folder and run `cd worker` then `npx wrangler deploy` (or deploy `worker/steam-sync.js` from the Cloudflare dashboard).
-2. In the `worker` directory, run `npx wrangler secret put STEAM_API_KEY`, `npx wrangler secret put STEAM_ID64`, and `npx wrangler secret put STEAM_ID64_2`. Use the two 17-digit IDs for the two accounts. Never commit the API key to GitHub or put it in browser JavaScript.
-3. Make your Steam profile and **Game details** public.
-4. Set `window.STEAM_SYNC_ENDPOINT` in `js/config.js` to the deployed Worker URL.
-5. Open the site and press **Синхронизировать**. The page sums lifetime playtime from both accounts and polls public current-game presence about once a minute. The on-page timer begins when the page first notices a running game, so it is an observation timer, not an exact game-launch timestamp. Achievement names are unioned for up to 25 most-played games where Steam exposes them; other games keep their previous estimate.
-
-Discord presence can show the game currently being played only when activity sharing is enabled. It does not provide your full library, lifetime hours, or achievements, so Steam remains the right source for automatic statistics. Hydra has no documented public cloud endpoint for this static site.
-
-
-## Windows live game tracker
-
-Трекер для Windows определяет запущенные игры по имени процесса, публикует текущую игру и сохраняет завершённые сессии в `data/games-db.json`. Сайт читает эту базу и показывает обложку, название игры и время текущей сессии. Cloudflare не используется.
-
-**Скачать EXE:** [German-Games-Tracker.exe](https://github.com/German-GPD/german-games-library-/releases/download/desktop-tracker-latest/German-Games-Tracker.exe).
-
-При первом запуске понадобится GitHub fine-grained token с доступом только к этому репозиторию и разрешением **Contents: Read and write**. Он сохраняется локально в `%LOCALAPPDATA%\\GermanGamesTracker\\config.json` и не попадает в репозиторий. База на сайте публичная: в ней находятся названия игр и время сессий, но не список процессов Windows.
-
-Встроены алиасы известных процессов, в том числе `gta_sa.exe` и `playgtasanandreas.exe` → **Grand Theft Auto: San Andreas**. EXE устанавливает копию в `%LOCALAPPDATA%\\GermanGamesTracker` и добавляет её в автозапуск Windows. Первичная настройка токена выполняется один раз.
+См. [LICENSE](LICENSE).
