@@ -19,6 +19,11 @@ POLL = 15
 # Exact executable aliases, including alternate launcher names.
 GAMES = {
  "gta_sa.exe": ("Grand Theft Auto: San Andreas", "12120"),
+ "sanandreas.exe": ("Grand Theft Auto: San Andreas – The Definitive Edition", ""),
+ "gtasa.exe": ("Grand Theft Auto: San Andreas – The Definitive Edition", ""),
+ "gta3.exe": ("Grand Theft Auto III", "12100"),
+ "libertycity.exe": ("Grand Theft Auto III – The Definitive Edition", ""),
+ "vicecity.exe": ("Grand Theft Auto: Vice City – The Definitive Edition", ""),
  "playgtasanandreas.exe": ("Grand Theft Auto: San Andreas", "12120"),
  "gta-sa.exe": ("Grand Theft Auto: San Andreas", "12120"),
  "gta-vc.exe": ("Grand Theft Auto: Vice City", "12130"),
@@ -74,23 +79,73 @@ def request_json(url, token, method="GET", payload=None):
         return json.loads(raw) if raw else {}
 
 def detect_game():
+    """Detect known games and likely game executables without spawning a visible console."""
     try:
-        p = subprocess.run(["tasklist", "/FO", "CSV", "/NH"], capture_output=True, text=True, timeout=8)
-        found = set()
-        import csv, io
-        for row in csv.reader(io.StringIO(p.stdout)):
-            if row:
-                exe = row[0].strip().lower()
-                if exe in GAMES and exe not in IGNORE:
-                    found.add(exe)
-        if not found:
-            return None
-        # Prefer a known title over generic Java; stable order avoids status flicker.
-        chosen = sorted(found, key=lambda n: (n == "javaw.exe", n))[0]
-        title, appid = GAMES[chosen]
-        return {"process": chosen, "title": title, "appid": appid}
-    except Exception:
+        import psutil
+    except ImportError:
         return None
+
+    # These launchers and common helper processes are never games themselves.
+    ignored = IGNORE | {
+        "crashreporter.exe", "crashhandler.exe", "crashpad_handler.exe",
+        "unins000.exe", "unitycrashhandler64.exe", "unitycrashhandler.exe",
+        "easyanticheat.exe", "easyanticheat_eos.exe", "battleye.exe",
+        "start_protected_game.exe", "steamerrorreporter.exe",
+        "gameoverlayui.exe", "overlay.exe", "ubisoftconnect.exe",
+        "epicwebhelper.exe", "epicgameslauncher.exe", "galaxyclient.exe",
+        "xboxapp.exe", "gamingservices.exe", "gamingservicesnet.exe",
+    }
+    game_roots = (
+        "\\steamapps\\common\\", "\\epic games\\", "\\gog galaxy\\games\\",
+        "\\ubisoft game launcher\\games\\", "\\xboxgames\\",
+        "\\windowsapps\\", "\\riot games\\", "\\ea games\\",
+        "\\program files\\games\\", "\\games\\"
+    )
+    found = []
+    for proc in psutil.process_iter(["name", "exe", "cmdline"]):
+        try:
+            name = (proc.info.get("name") or "").strip().lower()
+            if not name or name in ignored:
+                continue
+            exe_path = (proc.info.get("exe") or "").lower().replace("/", "\\")
+            # Exact aliases always win, including non-Steam editions and launchers.
+            if name in GAMES:
+                title, appid = GAMES[name]
+                # Generic Java is accepted only when the command line identifies Minecraft.
+                if name == "javaw.exe":
+                    cmd = " ".join(proc.info.get("cmdline") or []).lower()
+                    if not any(x in cmd for x in ("minecraft", "net.minecraft", "forge", "fabric")):
+                        continue
+                found.append((0 if name != "javaw.exe" else 2, name, title, appid))
+                continue
+            # Broad fallback: recognize executables installed inside known game libraries.
+            if exe_path and any(root in exe_path for root in game_roots):
+                folder = Path(exe_path).parent.name.lower()
+                # Exclude common game services, redistributables and support tools.
+                if any(x in exe_path for x in (
+                    "\\redist\\", "\\redistributable\\", "\\support\\",
+                    "\\easyanticheat\\", "\\battleye\\", "\\_commonredist\\",
+                    "\\engine\\binaries\\thirdparty\\"
+                )):
+                    continue
+                stem = Path(name).stem
+                if stem in ("unins000", "setup", "installer", "crashreporter", "crashhandler"):
+                    continue
+                title = Path(folder).name.replace("_", " ").replace("-", " ").strip()
+                if not title or title.lower() in ("binaries", "win64", "win32"):
+                    title = stem.replace("_", " ").replace("-", " ").strip()
+                # Keep the executable's readable name instead of guessing an incorrect title.
+                title = " ".join(w.capitalize() if w.islower() else w for w in title.split())
+                found.append((1, name, title, ""))
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess, OSError):
+            continue
+        except Exception:
+            continue
+    if not found:
+        return None
+    found.sort(key=lambda x: (x[0], x[1]))
+    _, process, title, appid = found[0]
+    return {"process": process, "title": title, "appid": appid}
 
 def install_startup():
     if getattr(sys, "frozen", False):
