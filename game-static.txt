@@ -185,10 +185,12 @@ Gran Turismo 7 = false
 Hearts of Iron IV = false
 Plants vs. Zombies = false
 Bloons TD 6 = true
-Diablo III = tr
-Among Us = falseue
+Diablo III = false
+Among Us = false
 LEGO Batman = false
 God of War (2018) = false
 God of War Ragnarök = true
 Marvel’s Spider-Man Remastered = true
 Half-Life = true
+
+My Winter Car = true
