@@ -13,6 +13,14 @@ const letterOf=g=>(g.letter||g.title.charAt(0)).toUpperCase();
 const completed=g=>completedByTitle.get(clean(g.title))===true;
 const esc=v=>String(v==null?"":v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const image=g=>g.appid&&Number(g.appid)>0?"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/"+g.appid+"/header.jpg":"";
+function placeholderCover(g){
+ const escSvg=s=>String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+ const title=escSvg(g.title||"GAME"),genre=escSvg(g.genre||"GAME LIBRARY");
+ const hue=(String(g.id||g.title).split("").reduce((n,c)=>n+c.charCodeAt(0),0)*17)%360;
+ const short=title.length>29?title.slice(0,27)+"…":title;
+ const svg='<svg xmlns="http://www.w3.org/2000/svg" width="460" height="215" viewBox="0 0 460 215"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="hsl('+hue+',78%,48%)"/><stop offset="1" stop-color="hsl('+(hue+65)%360+',76%,18%)"/></linearGradient></defs><rect width="460" height="215" fill="url(#bg)"/><circle cx="390" cy="35" r="125" fill="#fff" fill-opacity=".12"/><path d="M-20 215L190 0h80L60 215zM245 230L460 15v90L335 230z" fill="#fff" fill-opacity=".1"/><rect x="22" y="22" width="46" height="4" rx="2" fill="#fff" fill-opacity=".8"/><text x="22" y="48" fill="#fff" fill-opacity=".75" font-family="monospace" font-size="10" letter-spacing="2">GERMAN / GPD · GAME ARCHIVE</text><text x="22" y="139" fill="#fff" font-family="Arial,sans-serif" font-size="'+(short.length>23?21:28)+'" font-weight="700">'+short+'</text><text x="23" y="170" fill="#fff" fill-opacity=".8" font-family="monospace" font-size="12" letter-spacing="2">'+genre.toUpperCase().slice(0,35)+'</text><rect x="22" y="190" width="62" height="3" rx="1.5" fill="#fff"/></svg>';
+ return "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg);
+}
 function readStatic(text){text.split(/\r?\n/).forEach(line=>{const s=line.trim();if(!s||s.startsWith("#"))return;const m=s.match(/^(.*?)\s*=\s*(true|false)\s*$/i);if(m)completedByTitle.set(clean(m[1]),m[2].toLowerCase()==="true")})}
 function renderGenres(){
  genreGrid.innerHTML=genres.map(name=>'<button class="genre-item'+(state.genre===name?' active':'')+'" data-genre="'+esc(name)+'"><span>'+esc(name)+'</span><small>'+games.filter(g=>g.genre===name).length+'</small></button>').join("");
@@ -35,7 +43,7 @@ function filteredGames(){
 function card(g){
  const url=image(g),tags=(g.tags||[]).slice(0,2).map(t=>'<span class="mini-tag">'+esc(t)+'</span>').join("");
  const initials=esc(g.title.split(/[\s:–-]+/).slice(0,2).map(x=>x[0]||"").join("").toUpperCase());
- const poster='<img class="game-cover" loading="lazy" src="'+(url||"data:,")+'" alt="" data-title="'+esc(g.title)+'" data-genre="'+esc(g.genre||"Игра")+'" data-appid="'+(g.appid||"")+'" onerror="window.GPD_IMAGE_FALLBACK&&window.GPD_IMAGE_FALLBACK(this)"><span class="poster-fallback" hidden>'+initials+'</span>';
+ const poster='<img class="game-cover" loading="lazy" src="'+(url||placeholderCover(g))+'" alt="" data-title="'+esc(g.title)+'" data-genre="'+esc(g.genre||"Игра")+'" data-appid="'+(g.appid||"")+'" onerror="window.GPD_IMAGE_FALLBACK&&window.GPD_IMAGE_FALLBACK(this)"><span class="poster-fallback" hidden>'+initials+'</span>';
  const isDone=completed(g);
  return '<article class="game-card" tabindex="0" role="button" data-game="'+esc(g.id)+'" aria-label="Подробнее: '+esc(g.title)+'"><div class="game-poster">'+poster+'<span class="status-badge'+(isDone?" completed":"")+'">'+(isDone?"ПРОЙДЕНА":"НЕ ПРОЙДЕНА")+'</span>'+(g.featured?'<span class="favorite-mark" aria-label="Избранное">✦</span>':"")+'</div><div class="game-info"><h3 class="game-title">'+esc(g.title)+'</h3><div class="game-meta"><span class="game-genre">'+esc(g.genre||"Игра")+'</span></div><div class="game-tags">'+tags+'</div>'+(g.description?'<p class="game-summary">'+esc(g.description)+'</p>':"")+'</div></article>';
 }
