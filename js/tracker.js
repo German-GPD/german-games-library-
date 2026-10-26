@@ -117,7 +117,7 @@ function init() {
   const dialog = $("#game-dialog");
   new MutationObserver(()=>{if(dialog.open)loadGame();}).observe(dialog,{attributes:true,attributeFilter:["open"]});
   $("#game-dialog").addEventListener("click",e=>{if(e.target.closest("#dialog-close"))activeGame=null;});
-  new MutationObserver(refreshAllCards).observe($("#game-sections"),{childList:true,subtree:true});
+  new MutationObserver(refreshAllCards).observe($("#game-sections"),{childList:true});
   refreshAllCards();
 }
 if (document.readyState === "loading") document.addEventListener("DOMContentLoaded",init); else init();
