@@ -128,7 +128,8 @@ function setupMotion(){
  const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("is-visible");observer.unobserve(entry.target)}}),{threshold:.08});
  document.querySelectorAll(".game-card,.stat-card,.integration-card,.sidebar-block").forEach((el,i)=>{el.classList.add("motion-in");el.style.setProperty("--motion-delay",Math.min(i%8,7)*45+"ms");observer.observe(el)});
 }
-\nfunction themeLabel(){
+
+function themeLabel(){
  const media=window.matchMedia("(prefers-color-scheme: dark)"),update=()=>{$("#theme-label").textContent=media.matches?"Тёмная тема":"Светлая тема";const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=media.matches?"#0d0f12":"#f4f5f7"};
  update();if(media.addEventListener)media.addEventListener("change",update);else if(media.addListener)media.addListener(update);
 }
