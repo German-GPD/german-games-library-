@@ -1,7 +1,8 @@
 (() => {
 "use strict";
 const games=Array.isArray(window.GAMES)?window.GAMES:[];
-const stats=window.GAME_STATS||{};\nlet liveSteam=false;
+const stats=window.GAME_STATS||{};
+let liveSteam=false;
 const alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const genres=[...new Set(games.map(g=>g.genre))].sort((a,b)=>a.localeCompare(b,"ru"));
 const state={query:"",status:"all",letter:"",genre:"",sort:"alphabetical",limit:60};
@@ -46,7 +47,7 @@ function card(g){
  const s=stats[g.id],pct=progress(g),url=image(g),tags=(g.tags||[]).slice(0,2).map(t=>'<span class="mini-tag">'+esc(t)+'</span>').join("");
  const initials=esc(g.title.split(/[\s:–-]+/).slice(0,2).map(x=>x[0]||"").join("").toUpperCase());
  const poster='<img class="game-cover" loading="lazy" src="'+(url||"data:,")+'" alt="" data-title="'+esc(g.title)+'" data-genre="'+esc(g.genre)+'" data-appid="'+(g.appid||"")+'" onerror="window.GPD_IMAGE_FALLBACK&&window.GPD_IMAGE_FALLBACK(this)"><span class="poster-fallback" hidden>'+initials+'</span>';
- const meta=s?'<div class="personal-meta"><div class="personal-meta-row"><span>Время</span><b>≈ '+s.hours+' ч</b></div>'+(pct===null?'<div class="personal-meta-row"><span>Достижения</span><b>Нет данных</b></div>':'<div><div class="personal-meta-row"><span>Ачивки</span><b>≈ '+pct+'%</b></div><div class="achievement-track"><span style="width:'+pct+'%"></span></div></div>')+'</div><div class="progress-note">ПРЕДВАРИТЕЛЬНАЯ ОЦЕНКА</div>':'';
+ const meta=s?'<div class="personal-meta"><div class="personal-meta-row"><span>Время</span><b>'+(s.estimated===false?'':'≈ ')+s.hours+' ч</b></div>'+(pct===null?'<div class="personal-meta-row"><span>Достижения</span><b>Нет данных</b></div>':'<div><div class="personal-meta-row"><span>Ачивки</span><b>'+(s.estimated===false?'':'≈ ')+pct+'%</b></div><div class="achievement-track"><span style="width:'+pct+'%"></span></div></div>')+'</div><div class="progress-note">'+(s.estimated===false?'STEAM SYNC':'ПРЕДВАРИТЕЛЬНАЯ ОЦЕНКА')+'</div>':'';
  return '<article class="game-card" tabindex="0" role="button" data-game="'+esc(g.id)+'" aria-label="Подробнее: '+esc(g.title)+'"><div class="game-poster">'+poster+'<span class="status-badge'+(played(g)?" played":"")+(completed(g)?" completed":"")+'">'+statusLabel(g)+'</span>'+(g.featured?'<span class="favorite-mark" aria-label="Избранное">✦</span>':"")+'</div><div class="game-info"><h3 class="game-title">'+esc(g.title)+'</h3><div class="game-meta"><span class="game-genre">'+esc(g.genre)+'</span></div><div class="game-tags">'+tags+'</div>'+meta+'</div></article>';
 }
 function renderFilters(){
@@ -107,7 +108,7 @@ function setupSteamSync(){
    liveSteam=true;stateEl.innerHTML="<i></i> Подключён · актуальные данные";
    status.textContent="Steam обновлён: "+updated+" игр. Часы реальные; достижения обновлены там, где Steam их отдаёт. "+new Date().toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit"});
    const note=$("#stat-hours-note");if(note)note.textContent="реальные данные Steam";
-   render();
+   render();setupMotion();
   }catch(error){status.textContent="Не удалось синхронизировать: "+error.message;status.classList.add("sync-warning");stateEl.innerHTML="<i></i> Нет соединения"}
   finally{button.disabled=false;button.textContent="↻ Синхронизировать"}
  };
