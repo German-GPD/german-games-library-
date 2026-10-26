@@ -5,7 +5,7 @@ window.GAMES = [
 {id:"gta-vice-city",title:"Grand Theft Auto: Vice City",letter:"G",genre:"Открытый мир",tags:["Криминал","Экшен"],status:"played",appid:12110},
 {id:"gta-iii",title:"Grand Theft Auto III",letter:"G",genre:"Открытый мир",tags:["Криминал","Экшен"],status:"played",appid:12100},
 {id:"gta-iv",title:"Grand Theft Auto IV",letter:"G",genre:"Открытый мир",tags:["Криминал","Экшен"],status:"played",appid:12210,featured:true},
-{id:"gta-trilogy",title:"Grand Theft Auto: The Trilogy – Definitive Edition",letter:"G",genre:"Открытый мир",tags:["Криминал","Сборник"],status:"played",appid:1547000,featured:true,description:"Три классические GTA в Definitive Edition. Пройдена."},
+{id:"gta-trilogy",title:"Grand Theft Auto: The Trilogy – Definitive Edition",letter:"G",genre:"Открытый мир",tags:["Криминал","Сборник"],status:"played",appid:1547000,cover:"assets/gta-definitive-trilogy.svg",featured:true,description:"Три классические GTA в Definitive Edition. Пройдена."},
 {id:"gta-online",title:"GTA Online",letter:"G",genre:"Открытый мир",tags:["Криминал","Мультиплеер"],status:"played",appid:271590},
 {id:"forza-5",title:"Forza Horizon 5",letter:"F",genre:"Гонки",tags:["Открытый мир","Автомобили"],status:"played",appid:1551360,featured:true,description:"Открытый мир Мексики, фестиваль Horizon и сотни автомобилей."},
 {id:"forza-4",title:"Forza Horizon 4",letter:"F",genre:"Гонки",tags:["Открытый мир","Автомобили"],status:"played",appid:1293830,featured:true},
