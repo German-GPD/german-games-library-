@@ -291,3 +291,18 @@ body{
 #dialog-extra-info>div{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
 #dialog-extra-info>div span{color:var(--muted)}
 #dialog-extra-info>div b{margin-left:2px;font-weight:800}
+
+.collection-layout{display:flex;flex-direction:column;gap:18px}
+.collection-sidebar.filter-panel{position:static;width:100%;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);gap:12px;order:0}
+.collection-sidebar .sidebar-block{min-width:0}
+.collection-sidebar .genre-list{display:flex;flex-wrap:wrap;gap:6px}
+.collection-sidebar .genre-item{width:auto;min-width:110px;border:1px solid var(--line);background:var(--surface2);padding:9px 12px}
+.collection-sidebar .alphabet-grid{grid-template-columns:repeat(9,minmax(0,1fr));gap:5px}
+.collection-content{width:100%;min-width:0}
+.cult-mark{position:absolute;right:8px;top:8px;padding:5px 7px;border:1px solid rgba(255,255,255,.55);border-radius:6px;background:linear-gradient(110deg,#7c4dff,#db3f9b,#ef9c38);color:white;font-size:8px;font-weight:900;letter-spacing:.08em;box-shadow:0 4px 14px #0005}
+.game-card{border-color:color-mix(in srgb,var(--line),var(--text) 10%);box-shadow:0 3px 12px rgba(0,0,0,.035)}
+.game-card:hover{border-color:var(--accent);box-shadow:0 12px 30px rgba(0,0,0,.13)}
+.game-title{color:var(--text)}.game-summary{color:var(--muted);line-height:1.65}
+.hero-visual .cover-stack img{opacity:0;transition:opacity .24s ease,transform .35s}
+.hero-visual.showcase-ready .cover-stack img{opacity:1}
+@media(max-width:760px){.collection-sidebar.filter-panel{grid-template-columns:1fr}.collection-sidebar .alphabet-grid{grid-template-columns:repeat(7,minmax(0,1fr))}.collection-sidebar .genre-item{min-width:0;flex:1 1 auto}}
