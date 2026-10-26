@@ -285,3 +285,9 @@ body{
 @media(max-width:760px){.game-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.game-card .game-poster{aspect-ratio:460/215}.game-card .game-title{min-height:3.2em}.game-summary{font-size:10px;min-height:3.1em}}
 @media(max-width:420px){.game-grid{gap:8px}.game-info{padding:9px!important}.game-card .game-title{font-size:11px}}
 @media(prefers-reduced-motion:reduce){.game-poster:after{display:none}.game-dialog[open]{animation:none}}
+
+/* Dialog metadata: keep labels and values visually separated */
+#dialog-extra-info{display:grid;gap:10px;margin-top:14px}
+#dialog-extra-info>div{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+#dialog-extra-info>div span{color:var(--muted)}
+#dialog-extra-info>div b{margin-left:2px;font-weight:800}
