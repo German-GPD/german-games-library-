@@ -47,7 +47,7 @@ function card(g){
  const s=stats[g.id],pct=progress(g),url=image(g),tags=(g.tags||[]).slice(0,2).map(t=>'<span class="mini-tag">'+esc(t)+'</span>').join("");
  const initials=esc(g.title.split(/[\s:–-]+/).slice(0,2).map(x=>x[0]||"").join("").toUpperCase());
  const poster='<img class="game-cover" loading="lazy" src="'+(url||"data:,")+'" alt="" data-title="'+esc(g.title)+'" data-genre="'+esc(g.genre)+'" data-appid="'+(g.appid||"")+'" onerror="window.GPD_IMAGE_FALLBACK&&window.GPD_IMAGE_FALLBACK(this)"><span class="poster-fallback" hidden>'+initials+'</span>';
- const meta=s?'<div class="personal-meta"><div class="personal-meta-row"><span>Время</span><b>'+(s.estimated===false?'':'≈ ')+s.hours+' ч</b></div>'+(pct===null?'<div class="personal-meta-row"><span>Достижения</span><b>Нет данных</b></div>':'<div><div class="personal-meta-row"><span>Ачивки</span><b>'+(s.estimated===false?'':'≈ ')+pct+'%</b></div><div class="achievement-track"><span style="width:'+pct+'%"></span></div></div>')+'</div><div class="progress-note">'+(s.estimated===false?'STEAM SYNC':'ПРЕДВАРИТЕЛЬНАЯ ОЦЕНКА')+'</div>':'';
+ const meta=s?'<div class="personal-meta"><div class="personal-meta-row"><span>Время</span><b>'+(s.hoursEstimated===false?'':'≈ ')+s.hours+' ч</b></div>'+(pct===null?'<div class="personal-meta-row"><span>Достижения</span><b>Нет данных</b></div>':'<div><div class="personal-meta-row"><span>Ачивки</span><b>'+(s.achievementsEstimated===false?'':'≈ ')+pct+'%</b></div><div class="achievement-track"><span style="width:'+pct+'%"></span></div></div>')+'</div><div class="progress-note">'+(s.hoursEstimated===false?(s.achievementsEstimated===false?'STEAM SYNC':'STEAM HOURS · ACHIEVEMENT ESTIMATE'):'ПРЕДВАРИТЕЛЬНАЯ ОЦЕНКА')+'</div>':'';
  return '<article class="game-card" tabindex="0" role="button" data-game="'+esc(g.id)+'" aria-label="Подробнее: '+esc(g.title)+'"><div class="game-poster">'+poster+'<span class="status-badge'+(played(g)?" played":"")+(completed(g)?" completed":"")+'">'+statusLabel(g)+'</span>'+(g.featured?'<span class="favorite-mark" aria-label="Избранное">✦</span>':"")+'</div><div class="game-info"><h3 class="game-title">'+esc(g.title)+'</h3><div class="game-meta"><span class="game-genre">'+esc(g.genre)+'</span></div><div class="game-tags">'+tags+'</div>'+meta+'</div></article>';
 }
 function renderFilters(){
@@ -82,7 +82,7 @@ function openGame(id){
  $("#dialog-tags").innerHTML='<span class="mini-tag">'+esc(g.genre)+'</span>'+(g.tags||[]).map(t=>'<span class="mini-tag">'+esc(t)+'</span>').join("");
  $("#dialog-cover").style.backgroundImage=image(g)?'url("'+image(g)+'")':"linear-gradient(135deg,var(--surface2),var(--accent-soft))";
  $("#steam-link").href=g.appid?"https://store.steampowered.com/app/"+g.appid+"/":"https://store.steampowered.com/search/?term="+encodeURIComponent(g.title);
- $("#dialog-stats").innerHTML=s?'<div class="dialog-stat"><span>Время в игре</span><b>≈ '+s.hours+' ч</b><small>оценка</small></div><div class="dialog-stat"><span>Достижения</span><b>'+(pct===null?"—":s.achievements+" / "+s.total)+'</b><small>'+(pct===null?"нет данных":"примерно "+pct+"%")+'</small></div><div class="dialog-stat"><span>Статус</span><b>'+ (completed(g)?"Завершена":played(g)?"Играл":"В списке")+'</b><small>по личной истории</small></div>':'<div class="dialog-stat"><span>Личная статистика</span><b>Нет данных</b><small>игра пока не отмечена</small></div>';
+ $("#dialog-stats").innerHTML=s?'<div class="dialog-stat"><span>Время в игре</span><b>'+(s.hoursEstimated===false?'':'≈ ')+s.hours+' ч</b><small>'+(s.hoursEstimated===false?'Steam':'оценка')+'</small></div><div class="dialog-stat"><span>Достижения</span><b>'+(pct===null?'—':s.achievements+' / '+s.total)+'</b><small>'+(pct===null?'нет данных':(s.achievementsEstimated===false?'Steam':'примерно')+' '+pct+'%')+'</small></div><div class="dialog-stat"><span>Статус</span><b>'+ (completed(g)?"Завершена":played(g)?"Играл":"В списке")+'</b><small>по личной истории</small></div>':'<div class="dialog-stat"><span>Личная статистика</span><b>Нет данных</b><small>игра пока не отмечена</small></div>';
  const dialog=$("#game-dialog");if(typeof dialog.showModal==="function")dialog.showModal();else dialog.setAttribute("open","");
 }
 function setupSteamSync(){
@@ -100,8 +100,8 @@ function setupSteamSync(){
    payload.games.forEach(item=>{
     const game=games.find(g=>String(g.appid)===String(item.appid));if(!game)return;
     const previous=stats[game.id]||{};
-    stats[game.id]={...previous,hours:Math.round((Number(item.playtimeMinutes)||0)/60*10)/10,estimated:false,source:"steam",completion:previous.completion||"playing"};
-    if(Number.isFinite(item.achievements)&&Number.isFinite(item.total)&&item.total>0){stats[game.id].achievements=item.achievements;stats[game.id].total=item.total}
+    stats[game.id]={...previous,hours:Math.round((Number(item.playtimeMinutes)||0)/60*10)/10,hoursEstimated:false,source:"steam",completion:previous.completion||"playing"};
+    if(Number.isFinite(item.achievements)&&Number.isFinite(item.total)&&item.total>0){stats[game.id].achievements=item.achievements;stats[game.id].total=item.total;stats[game.id].achievementsEstimated=false}else{stats[game.id].achievementsEstimated=previous.achievementsEstimated!==false}
     updated++;
    });
    if(!updated)throw new Error("В профиле не найдены игры из каталога");
