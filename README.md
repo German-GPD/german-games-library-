@@ -46,8 +46,8 @@
 
 The catalogue starts with clearly marked estimates. To replace playtime with real Steam data:
 
-1. Deploy `worker/steam-sync.js` as a Cloudflare Worker.
-2. Add Worker secrets `STEAM_API_KEY` and `STEAM_ID64` in Cloudflare. Never commit them to GitHub or put them in browser JavaScript.
+1. In a terminal, open the repository folder and run `cd worker` then `npx wrangler deploy` (or deploy `worker/steam-sync.js` from the Cloudflare dashboard).
+2. In the `worker` directory, run `npx wrangler secret put STEAM_API_KEY` and `npx wrangler secret put STEAM_ID64`. The second value is the 17-digit SteamID64. Never commit either secret to GitHub or put the API key in browser JavaScript.
 3. Make your Steam profile and **Game details** public.
 4. Set `window.STEAM_SYNC_ENDPOINT` in `js/config.js` to the deployed Worker URL.
 5. Open the site and press **Синхронизировать**. The page fetches current playtime whenever it syncs. Achievement counts are requested for up to 25 most-played games; other games keep their previous estimate.
