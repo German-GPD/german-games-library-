@@ -6,7 +6,7 @@ const STEAM_KEY = "german-games-steam-settings-v1";
 const completionLabels = {unplayed:"Не проходил",playing:"Играю",completed:"Прошёл","completed-100":"100% / все ачивки"};
 let tracker = {};
 let settings = {profile:"", endpoint:""};
-let activeGame = null;
+let activeGame = null;\nconst ESTIMATE_NOTE = "Оценка для оформления каталога, не реальные данные Steam.";
 const games = () => Array.isArray(window.GAMES) ? window.GAMES : [];
 const read = (key, fallback) => { try { return JSON.parse(localStorage.getItem(key) || "null") || fallback; } catch (_) { return fallback; } };
 const write = (key, value) => { try { localStorage.setItem(key, JSON.stringify(value)); } catch (_) {} };
@@ -49,7 +49,7 @@ function saveGame() {
   const achievements = Math.max(0, Math.min(10000, Math.floor(Number($("#achievements-input").value) || 0)));
   const total = Math.max(0, Math.min(10000, Math.floor(Number($("#achievements-total-input").value) || 0)));
   if (total && achievements > total) { $("#tracker-summary").textContent = "Полученных ачивок не может быть больше общего количества."; return; }
-  tracker[activeGame.id] = {hours, achievements, total, completion:$("#completion-input").value};
+  tracker[activeGame.id] = {hours, achievements, total, completion:$("#completion-input").value, estimated:false};
   write(TRACK_KEY, tracker);
   if (["completed","completed-100"].includes(tracker[activeGame.id].completion)) {
     activeGame.status = "played";
