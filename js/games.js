@@ -101,7 +101,6 @@ window.GAMES = [
 {id:"far-cry-2",title:"Far Cry 2",letter:"F",genre:"Шутер",tags:["Открытый мир","Выживание"],status:"played",appid:19900},
 {id:"subnautica",title:"Subnautica",letter:"S",genre:"Выживание",tags:["Исследование","Подводный мир"],status:"played",appid:264710},
 {id:"teardown",title:"Teardown",letter:"T",genre:"Песочница",tags:["Разрушения","Физика"],status:"played",appid:1167630},
-,
 {id:"ac-ii",title:"Assassin's Creed II",letter:"A",genre:"Приключение",tags:["Открытый мир","Стелс"],status:"candidate",appid:33230,featured:true},
 {id:"ac-brotherhood",title:"Assassin's Creed Brotherhood",letter:"A",genre:"Приключение",tags:["Открытый мир","Стелс"],status:"played",appid:48190},
 {id:"ac-black-flag",title:"Assassin's Creed IV: Black Flag",letter:"A",genre:"Приключение",tags:["Открытый мир","Пираты"],status:"played",appid:242050,featured:true},
