@@ -20,6 +20,9 @@ POLL = 15
 GAMES = {
  "gta_sa.exe": ("Grand Theft Auto: San Andreas", "12120"),
  "sanandreas.exe": ("Grand Theft Auto: San Andreas – The Definitive Edition", ""),
+ "sanandreas-win64-shipping.exe": ("Grand Theft Auto: San Andreas – The Definitive Edition", ""),
+ "libertycity-win64-shipping.exe": ("Grand Theft Auto III – The Definitive Edition", ""),
+ "vicecity-win64-shipping.exe": ("Grand Theft Auto: Vice City – The Definitive Edition", ""),
  "gtasa.exe": ("Grand Theft Auto: San Andreas – The Definitive Edition", ""),
  "gta3.exe": ("Grand Theft Auto III", "12100"),
  "libertycity.exe": ("Grand Theft Auto III – The Definitive Edition", ""),
@@ -120,7 +123,7 @@ def detect_game():
                 continue
             # Broad fallback: recognize executables installed inside known game libraries.
             if exe_path and any(root in exe_path for root in game_roots):
-                folder = Path(exe_path).parent.name.lower()
+                folder = Path(exe_path).parent.name.lower()\n                # Prefer the game-library folder, even when the executable is nested in Win64/Binaries.\n                for marker in game_roots:\n                    if marker in exe_path:\n                        tail = exe_path.split(marker, 1)[1]\n                        parts = [part for part in tail.split("\\\\") if part]\n                        if parts:\n                            folder = parts[0].lower()\n                        break
                 # Exclude common game services, redistributables and support tools.
                 if any(x in exe_path for x in (
                     "\\redist\\", "\\redistributable\\", "\\support\\",
