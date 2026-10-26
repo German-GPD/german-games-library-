@@ -37,8 +37,8 @@ function refreshCard(id) {
   if (!s || (!(Number(s.hours) > 0) && !(Number(s.total) > 0) && (!s.completion || s.completion === "unplayed"))) return;
   const meta = document.createElement("div");
   meta.className = "personal-meta";
-  if (Number(s.hours) > 0) { const el = document.createElement("span"); el.textContent = "◷ " + s.hours + " ч"; meta.append(el); }
-  if (Number(s.total) > 0) { const el = document.createElement("span"); el.textContent = "◆ " + (s.achievements || 0) + "/" + s.total; meta.append(el); }
+  if (Number(s.hours) > 0) { const el = document.createElement("span"); el.textContent = (s.estimated ? "≈ " : "◷ ") + s.hours + " ч"; meta.append(el); }
+  if (Number(s.total) > 0) { const el = document.createElement("span"); el.textContent = (s.estimated ? "≈ " : "◆ ") + (s.achievements || 0) + "/" + s.total; meta.append(el); }
   if (s.completion && s.completion !== "unplayed") { const el = document.createElement("span"); el.textContent = completionLabels[s.completion] || s.completion; meta.append(el); }
   card.querySelector(".game-info")?.append(meta);
 }
