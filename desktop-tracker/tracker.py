@@ -1,184 +1,211 @@
+"""German'$ Games Library live tracker for Windows.
+Publishes only the current game and completed sessions to the repository JSON database.
+A GitHub fine-grained token with Contents: Read and write is required once.
 """
-German'$ Game Tracker — local foreground-game time tracker for Windows.
-Tracks only the active foreground process; no screenshots, keystrokes, network, or telemetry.
-"""
-import ctypes
-import json
-import os
-import sqlite3
-import sys
-import time
-from datetime import datetime, date
+import base64, ctypes, json, os, shutil, subprocess, sys, time, urllib.error, urllib.request
+from datetime import datetime, timezone
 from pathlib import Path
 import tkinter as tk
-from tkinter import ttk, messagebox, filedialog
+from tkinter import simpledialog, messagebox
 
-APP_NAME = "German'$ Game Tracker"
-APP_DIR = Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / "GermanGamesTracker"
-APP_DIR.mkdir(parents=True, exist_ok=True)
-DB_PATH = APP_DIR / "tracker.sqlite3"
-POLL_SECONDS = 5
-IGNORE = {
-    # Windows shell and system utilities
-    "explorer.exe", "dwm.exe", "searchhost.exe", "startmenuexperiencehost.exe",
-    "applicationframehost.exe", "textinputhost.exe", "shellexperiencehost.exe",
-    "lockapp.exe", "taskmgr.exe", "systemsettings.exe", "runtimebroker.exe",
-    "ctfmon.exe", "searchindexer.exe", "securityhealthsystray.exe",
-    # Common non-game foreground apps
-    "chrome.exe", "msedge.exe", "firefox.exe", "brave.exe", "opera.exe",
-    "yandex.exe", "browser.exe", "discord.exe", "telegram.exe", "whatsapp.exe",
-    "spotify.exe", "yandexmusic.exe", "steam.exe", "steamwebhelper.exe",
-    "epicgameslauncher.exe", "goggalaxy.exe", "ubisoftconnect.exe",
-    "ea.exe", "eadesktop.exe", "battle.net.exe", "battlenet.exe",
-    "code.exe", "webstorm64.exe", "idea64.exe", "notepad.exe",
-    "notepad++.exe", "powershell.exe", "pwsh.exe", "cmd.exe", "windowsterminal.exe",
-    "obs64.exe", "obs.exe", "snippingtool.exe", "photos.exe",
-    "python.exe", "pythonw.exe",
+REPO = "German-GPD/german-games-library-"
+DB_FILE = "data/games-db.json"
+APP = "GermanGamesTracker"
+ROOT = Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / APP
+ROOT.mkdir(parents=True, exist_ok=True)
+CONFIG = ROOT / "config.json"
+POLL = 15
+
+# Exact executable aliases, including alternate launcher names.
+GAMES = {
+ "gta_sa.exe": ("Grand Theft Auto: San Andreas", "12120"),
+ "playgtasanandreas.exe": ("Grand Theft Auto: San Andreas", "12120"),
+ "gta-sa.exe": ("Grand Theft Auto: San Andreas", "12120"),
+ "gta-vc.exe": ("Grand Theft Auto: Vice City", "12130"),
+ "gta3.exe": ("Grand Theft Auto III", "12100"),
+ "gtaiv.exe": ("Grand Theft Auto IV", "12210"),
+ "gta5.exe": ("Grand Theft Auto V", "271590"),
+ "playgtav.exe": ("Grand Theft Auto V", "271590"),
+ "forzahorizon5.exe": ("Forza Horizon 5", "1551360"),
+ "forzahorizon4.exe": ("Forza Horizon 4", "1293830"),
+ "forzahorizon6.exe": ("Forza Horizon 6", ""),
+ "hl2.exe": ("Half-Life 2", "220"),
+ "sleepingdogs.exe": ("Sleeping Dogs: Definitive Edition", "307690"),
+ "maxpayne3.exe": ("Max Payne 3", "204100"),
+ "mafia2.exe": ("Mafia II", "50130"),
+ "mafiadefinitiveedition.exe": ("Mafia: Definitive Edition", "1030840"),
+ "farcry3.exe": ("Far Cry 3", "220240"),
+ "farcry4.exe": ("Far Cry 4", "298110"),
+ "farcry5.exe": ("Far Cry 5", "552520"),
+ "farcry6.exe": ("Far Cry 6", ""),
+ "watchdogs.exe": ("Watch Dogs", "243470"),
+ "watchdogs2.exe": ("Watch Dogs 2", "447040"),
+ "witcher3.exe": ("The Witcher 3: Wild Hunt", "292030"),
+ "cyberpunk2077.exe": ("Cyberpunk 2077", "1091500"),
+ "rdr2.exe": ("Red Dead Redemption 2", "1174180"),
+ "minecraft.exe": ("Minecraft", ""),
+ "javaw.exe": ("Minecraft", ""),
+ "needforspeed.exe": ("Need for Speed", ""),
+ "nfs.exe": ("Need for Speed", ""),
+ "speed.exe": ("Need for Speed: Most Wanted", ""),
+ "eurotrucks2.exe": ("Euro Truck Simulator 2", "227300"),
+ "amtrucks.exe": ("American Truck Simulator", "270880"),
+ "miside.exe": ("MiSide", "2527500"),
+ "eldenring.exe": ("Elden Ring", "1245620"),
+ "r5apex.exe": ("Apex Legends", "1172470"),
+ "cs2.exe": ("Counter-Strike 2", "730"),
+ "dota2.exe": ("Dota 2", "570"),
+ "rocketleague.exe": ("Rocket League", "252950"),
+ "robloxplayerbeta.exe": ("Roblox", ""),
+ "stardew valley.exe": ("Stardew Valley", "413150"),
+ "fallout4.exe": ("Fallout 4", "377160"),
+ "skyrimse.exe": ("The Elder Scrolls V: Skyrim Special Edition", "489830"),
 }
+IGNORE = {"steam.exe","steamwebhelper.exe","epicgameslauncher.exe","goggalaxy.exe","ubisoftconnect.exe","eadesktop.exe","ea.exe","battle.net.exe","battlenet.exe","discord.exe","chrome.exe","msedge.exe","firefox.exe","explorer.exe","dwm.exe","taskmgr.exe","searchhost.exe","code.exe","webstorm64.exe","telegram.exe","spotify.exe","yandexmusic.exe"}
 
-def display_process(name):
-    """Convert known runtime process names to readable game titles."""
-    aliases = {"javaw.exe": "Minecraft", "minecraft.exe": "Minecraft"}
-    return aliases.get(str(name or "").lower(), name or "")
+def request_json(url, token, method="GET", payload=None):
+    data = json.dumps(payload).encode() if payload is not None else None
+    req = urllib.request.Request(url, data=data, method=method, headers={
+        "Authorization": "Bearer " + token, "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28", "Content-Type": "application/json",
+        "User-Agent": "German-Games-Library-Tracker"})
+    with urllib.request.urlopen(req, timeout=20) as r:
+        raw = r.read()
+        return json.loads(raw) if raw else {}
 
-def foreground_process():
+def detect_game():
     try:
-        user32 = ctypes.windll.user32
-        kernel32 = ctypes.windll.kernel32
-        user32.GetForegroundWindow.restype = ctypes.c_void_p
-        user32.GetWindowThreadProcessId.argtypes = [ctypes.c_void_p, ctypes.POINTER(ctypes.c_ulong)]
-        user32.GetWindowThreadProcessId.restype = ctypes.c_ulong
-        kernel32.OpenProcess.argtypes = [ctypes.c_ulong, ctypes.c_bool, ctypes.c_ulong]
-        kernel32.OpenProcess.restype = ctypes.c_void_p
-        kernel32.QueryFullProcessImageNameW.argtypes = [ctypes.c_void_p, ctypes.c_ulong, ctypes.c_wchar_p, ctypes.POINTER(ctypes.c_ulong)]
-        kernel32.QueryFullProcessImageNameW.restype = ctypes.c_bool
-        kernel32.CloseHandle.argtypes = [ctypes.c_void_p]
-        hwnd = user32.GetForegroundWindow()
-        if not hwnd:
+        p = subprocess.run(["tasklist", "/FO", "CSV", "/NH"], capture_output=True, text=True, timeout=8)
+        found = set()
+        import csv, io
+        for row in csv.reader(io.StringIO(p.stdout)):
+            if row:
+                exe = row[0].strip().lower()
+                if exe in GAMES and exe not in IGNORE:
+                    found.add(exe)
+        if not found:
             return None
-        pid = ctypes.c_ulong()
-        user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
-        if not pid.value:
-            return None
-        PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
-        h = kernel32.OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, False, pid.value)
-        if not h:
-            return None
-        try:
-            buf = ctypes.create_unicode_buffer(1024)
-            size = ctypes.c_ulong(len(buf))
-            if kernel32.QueryFullProcessImageNameW(h, 0, buf, ctypes.byref(size)):
-                name = Path(buf.value).name
-                if name.lower() not in IGNORE:
-                    return name
-        finally:
-            kernel32.CloseHandle(h)
+        # Prefer a known title over generic Java; stable order avoids status flicker.
+        chosen = sorted(found, key=lambda n: (n == "javaw.exe", n))[0]
+        title, appid = GAMES[chosen]
+        return {"process": chosen, "title": title, "appid": appid}
     except Exception:
         return None
-    return None
 
-class TrackerApp:
-    def __init__(self, root):
-        self.root = root
-        self.root.title(APP_NAME)
-        self.root.geometry("820x590")
-        self.root.minsize(680, 480)
-        self.root.configure(bg="#101318")
-        self.running = True
-        self.last_proc = None
-        self.last_tick = time.monotonic()
-        self.init_db()
-        self.build_ui()
-        self.refresh()
-        self.tick()
+def install_startup():
+    if getattr(sys, "frozen", False):
+        target = ROOT / "German-Games-Tracker.exe"
+        try:
+            if Path(sys.executable).resolve() != target.resolve():
+                shutil.copy2(sys.executable, target)
+                startup = Path(os.environ.get("APPDATA", str(Path.home()))) / "Microsoft/Windows/Start Menu/Programs/Startup"
+                startup.mkdir(parents=True, exist_ok=True)
+                link = startup / "German Games Tracker.lnk"
+                ps = '$s=(New-Object -COM WScript.Shell).CreateShortcut(' + json.dumps(str(link)) + ');$s.TargetPath=' + json.dumps(str(target)) + ';$s.WorkingDirectory=' + json.dumps(str(ROOT)) + ';$s.Save()'
+                subprocess.run(["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", ps], creationflags=0x08000000, timeout=15)
+                subprocess.Popen([str(target)], close_fds=True)
+                raise SystemExit
+        except SystemExit:
+            raise
+        except Exception:
+            pass
 
-    def init_db(self):
-        with sqlite3.connect(DB_PATH) as db:
-            db.execute("""CREATE TABLE IF NOT EXISTS sessions(
-                id INTEGER PRIMARY KEY, process TEXT NOT NULL, started TEXT NOT NULL,
-                ended TEXT NOT NULL, seconds INTEGER NOT NULL, day TEXT NOT NULL)""")
+def load_config():
+    try:
+        return json.loads(CONFIG.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
 
-    def build_ui(self):
-        style = ttk.Style()
-        style.theme_use("clam")
-        style.configure("TCombobox", fieldbackground="#20252d", background="#20252d", foreground="#f2f4f7")
-        header = tk.Frame(self.root, bg="#101318", padx=24, pady=20)
-        header.pack(fill="x")
-        tk.Label(header, text="G’", font=("Segoe UI", 28, "bold"), fg="#d9e5ef", bg="#101318").pack(side="left")
-        title = tk.Frame(header, bg="#101318")
-        title.pack(side="left", padx=12)
-        tk.Label(title, text="GERMAN'$ GAME TRACKER", font=("Segoe UI", 15, "bold"), fg="#f2f4f7", bg="#101318").pack(anchor="w")
-        tk.Label(title, text="LOCAL PLAYTIME · PRIVATE BY DESIGN", font=("Segoe UI", 9), fg="#91a0b0", bg="#101318").pack(anchor="w", pady=(3,0))
-        self.live = tk.Label(header, text="● TRACKING", fg="#83d6a8", bg="#101318", font=("Segoe UI", 9, "bold"))
-        self.live.pack(side="right", anchor="n", pady=8)
-        self.total_label = tk.Label(self.root, text="0 h", font=("Segoe UI", 32, "bold"), fg="#f2f4f7", bg="#101318")
-        self.total_label.pack(anchor="w", padx=28, pady=(2,0))
-        tk.Label(self.root, text="Tracked foreground-app time", fg="#91a0b0", bg="#101318", font=("Segoe UI", 10)).pack(anchor="w", padx=30)
-        panel = tk.Frame(self.root, bg="#191e25", padx=16, pady=14)
-        panel.pack(fill="both", expand=True, padx=24, pady=18)
-        tk.Label(panel, text="RECENT ACTIVITY", fg="#91a0b0", bg="#191e25", font=("Segoe UI", 9, "bold")).pack(anchor="w", pady=(0,10))
-        cols = ("game", "today", "total")
-        self.tree = ttk.Treeview(panel, columns=cols, show="headings", height=12)
-        self.tree.heading("game", text="Process / game")
-        self.tree.heading("today", text="Today")
-        self.tree.heading("total", text="Total")
-        self.tree.column("game", width=420)
-        self.tree.column("today", width=120, anchor="e")
-        self.tree.column("total", width=120, anchor="e")
-        self.tree.pack(fill="both", expand=True)
-        style.configure("Treeview", background="#191e25", fieldbackground="#191e25", foreground="#f2f4f7", rowheight=28, borderwidth=0)
-        style.configure("Treeview.Heading", background="#252c35", foreground="#dce4eb", padding=8, font=("Segoe UI", 9, "bold"))
-        style.map("Treeview", background=[("selected", "#34495b")])
-        footer = tk.Frame(self.root, bg="#101318", padx=24, pady=0)
-        footer.pack(fill="x", pady=(0,20))
-        tk.Button(footer, text="Export JSON for website", command=self.export_json, bg="#dce7ef", fg="#11161b", relief="flat", padx=14, pady=9).pack(side="left")
-        tk.Button(footer, text="Open data folder", command=self.open_data, bg="#20252d", fg="#f2f4f7", relief="flat", padx=14, pady=9).pack(side="left", padx=8)
-        tk.Label(footer, text="No screenshots · no keystrokes · no network", fg="#91a0b0", bg="#101318", font=("Segoe UI", 9)).pack(side="right")
+def configure_token():
+    root = tk.Tk(); root.withdraw()
+    messagebox.showinfo("German Games Tracker", "Нужен GitHub fine-grained token один раз: только репозиторий German-GPD/german-games-library-, разрешение Contents: Read and write. Создай его: https://github.com/settings/personal-access-tokens/new\nТокен хранится локально на этом ПК и не публикуется в репозитории.")
+    token = simpledialog.askstring("GitHub token", "Вставь токен GitHub (ghp_… или github_pat_…):", show="*")
+    root.destroy()
+    if not token:
+        return None
+    try:
+        request_json("https://api.github.com/repos/" + REPO, token)
+        CONFIG.write_text(json.dumps({"token":token}), encoding="utf-8")
+        return token
+    except Exception as e:
+        messagebox.showerror("Ошибка GitHub", "Токен не подошёл или нет доступа к репозиторию.\n" + str(e))
+        return None
 
-    def tick(self):
-        now = time.monotonic()
-        elapsed = max(0, min(POLL_SECONDS + 2, int(now - self.last_tick)))
-        self.last_tick = now
-        proc = foreground_process()
-        if self.last_proc and elapsed:
-            with sqlite3.connect(DB_PATH) as db:
-                db.execute("INSERT INTO sessions(process,started,ended,seconds,day) VALUES(?,?,?,?,?)",
-                           (display_process(self.last_proc), datetime.now().isoformat(timespec="seconds"), datetime.now().isoformat(timespec="seconds"), elapsed, date.today().isoformat()))
-        self.last_proc = proc
-        self.refresh()
-        self.root.after(POLL_SECONDS * 1000, self.tick)
+def publish(token, game, current, history):
+    api = "https://api.github.com/repos/" + REPO + "/contents/" + DB_FILE
+    try:
+        old = request_json(api, token)
+        sha = old.get("sha")
+        try:
+            db = json.loads(base64.b64decode(old["content"]).decode("utf-8"))
+        except Exception:
+            db = {"current": None, "history": []}
+    except urllib.error.HTTPError as e:
+        if e.code != 404:
+            raise
+        sha = None
+        db = {"current": None, "history": []}
+    if current and current.get("startedAt"):
+        db.setdefault("history", []).append(current)
+    db["history"] = db.get("history", [])[-500:]
+    db["current"] = game
+    payload = {"message": "Update live game presence", "content": base64.b64encode(json.dumps(db, ensure_ascii=False, indent=2).encode()).decode()}
+    if sha: payload["sha"] = sha
+    request_json(api, token, "PUT", payload)
 
-    def refresh(self):
-        with sqlite3.connect(DB_PATH) as db:
-            rows = db.execute("SELECT CASE WHEN lower(process) IN ('javaw.exe','minecraft.exe') THEN 'Minecraft' ELSE process END AS display_name, SUM(seconds), SUM(CASE WHEN day=? THEN seconds ELSE 0 END) FROM sessions GROUP BY display_name ORDER BY SUM(seconds) DESC", (date.today().isoformat(),)).fetchall()
-        total = sum(r[1] or 0 for r in rows)
-        self.total_label.config(text=f"{total/3600:.1f} h")
-        for item in self.tree.get_children():
-            self.tree.delete(item)
-        for name, total_sec, today_sec in rows:
-            self.tree.insert("", "end", values=(name, self.fmt(today_sec), self.fmt(total_sec)))
-
-    @staticmethod
-    def fmt(seconds):
-        seconds = int(seconds or 0)
-        return f"{seconds//3600} h {(seconds%3600)//60:02d} m"
-
-    def export_json(self):
-        with sqlite3.connect(DB_PATH) as db:
-            rows = db.execute("SELECT CASE WHEN lower(process) IN ('javaw.exe','minecraft.exe') THEN 'Minecraft' ELSE process END AS display_name, SUM(seconds) FROM sessions GROUP BY display_name ORDER BY SUM(seconds) DESC").fetchall()
-        payload = {"source":"german-games-tracker","exportedAt":datetime.now().astimezone().isoformat(),
-                   "games":[{"process":name,"playtimeSeconds":int(seconds or 0),"hours":round((seconds or 0)/3600,2)} for name,seconds in rows]}
-        path = filedialog.asksaveasfilename(defaultextension=".json", initialfile="german-games-tracker.json", filetypes=[("JSON","*.json")])
-        if path:
-            Path(path).write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-            messagebox.showinfo(APP_NAME, "Export saved. You can keep it locally or import it into the website when that feature is enabled.")
-
-    def open_data(self):
-        os.startfile(str(APP_DIR))
-
-if __name__ == "__main__":
+def main():
     if os.name != "nt":
         raise SystemExit("Windows only")
+    install_startup()
+    cfg = load_config()
+    token = cfg.get("token") or configure_token()
+    if not token:
+        return
+    # Tiny status window; close button hides to background, explicit Quit exits.
     root = tk.Tk()
-    TrackerApp(root)
+    root.title("German'$ Game Tracker")
+    root.geometry("390x145")
+    root.configure(bg="#11151b")
+    status = tk.Label(root, text="Трекер запущен", fg="#eef3f8", bg="#11151b", font=("Segoe UI", 12, "bold"))
+    status.pack(pady=(22,8))
+    detail = tk.Label(root, text="Ожидание игры…", fg="#9eacba", bg="#11151b", font=("Segoe UI", 10))
+    detail.pack()
+    tk.Label(root, text="Только текущая игра + история сессий · GitHub", fg="#7d8b99", bg="#11151b", font=("Segoe UI", 8)).pack(pady=12)
+    state = {"key": None, "started": None, "title": None, "appid": None}
+    def tick():
+        try:
+            detected = detect_game()
+            key = detected["process"] if detected else None
+            now = datetime.now(timezone.utc).isoformat(timespec="seconds")
+            if key != state["key"]:
+                previous = None
+                if state["key"]:
+                    previous = {"title":state["title"],"appid":state["appid"],"process":state["key"],"startedAt":state["started"],"endedAt":now}
+                    publish(token, None, previous, None)
+                state.update({"key":key,"started":now if detected else None,"title":detected["title"] if detected else None,"appid":detected["appid"] if detected else None})
+                current = ({**detected,"startedAt":state["started"],"updatedAt":now} if detected else None)
+                publish(token, current, None, None)
+            elif detected:
+                status.config(text="● СЕЙЧАС ИГРАЕШЬ", fg="#83d6a8")
+                detail.config(text=detected["title"] + " · " + state["key"])
+            else:
+                status.config(text="● ТРЕКЕР РАБОТАЕТ", fg="#83d6a8")
+                detail.config(text="Игра не запущена")
+        except Exception as e:
+            status.config(text="Нет связи с GitHub", fg="#ffb4a9")
+            detail.config(text=str(e)[:75])
+        root.after(POLL * 1000, tick)
+    def close_window():
+        root.withdraw()
+    root.protocol("WM_DELETE_WINDOW", close_window)
+    menu = tk.Menu(root, tearoff=0)
+    menu.add_command(label="Показать окно", command=root.deiconify)
+    menu.add_command(label="Выход", command=root.destroy)
+    def tray_note():
+        messagebox.showinfo("German Games Tracker", "Окно можно скрыть; автозапуск включён. Чтобы выйти, нажми «Выход» в окне.")
+    root.bind("<Escape>", lambda e: root.withdraw())
+    root.after(500, tick)
     root.mainloop()
+
+if __name__ == "__main__":
+    main()
