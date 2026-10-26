@@ -59,3 +59,37 @@
  .gpd-quip{font-size:11px}
 }
 @media(prefers-reduced-motion:reduce){.quip-cursor{animation:none}}
+
+
+/* 3.0 — modern typography, richer interactions, resilient covers */
+:root{--font-ui:"DM Sans",system-ui,sans-serif;--font-display:"Space Grotesk",var(--font-ui);--font-mono:"IBM Plex Mono",monospace}
+body{font-family:var(--font-ui);letter-spacing:-.012em}
+h1,h2,h3,.stat-card b,.group-title,.hero-title{font-family:var(--font-display);letter-spacing:-.045em}
+.eyebrow,.stat-label,.sidebar-title,.group-letter,.status-badge,.mini-tag,.integration-state{font-family:var(--font-mono);letter-spacing:.045em}
+.hero-title{font-size:clamp(44px,6.8vw,82px);line-height:.99;text-wrap:balance}
+.hero-lead{font-size:clamp(15px,1.4vw,18px);line-height:1.8;max-width:55ch}
+.section-heading h2{font-size:clamp(30px,4vw,46px);line-height:1.05}
+.search-box{min-height:64px;height:64px;border-radius:15px;background:color-mix(in srgb,var(--surface) 90%,transparent);backdrop-filter:blur(14px);box-shadow:0 8px 30px rgba(20,30,40,.045);transition:transform .25s,border-color .25s,box-shadow .25s}
+.search-box:focus-within{transform:translateY(-2px);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 15%,transparent),0 12px 28px rgba(20,30,40,.08)}
+.search-box input{font-family:var(--font-ui);font-size:16px;font-weight:600}
+.filter-pills button,.sort-control select,.button{font-family:var(--font-ui);font-size:13px}
+.game-card{position:relative;border-radius:13px;transform:translateZ(0);transition:transform .32s cubic-bezier(.2,.8,.2,1),border-color .25s,box-shadow .3s}
+.game-card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 18%,transparent),transparent 55%);transition:opacity .25s}
+.game-card:hover{transform:translateY(-6px) scale(1.012);box-shadow:0 16px 34px rgba(0,0,0,.13)}
+.game-card:hover::after{opacity:1}
+.game-poster{aspect-ratio:460/215;background:linear-gradient(120deg,var(--surface2),var(--surface3))}
+.game-poster .game-cover{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;transition:transform .55s cubic-bezier(.2,.8,.2,1),filter .3s}
+.game-card:hover .game-cover{transform:scale(1.055);filter:saturate(1.08)}
+.game-cover.generated-cover{object-fit:cover}
+.game-info{position:relative;z-index:2;padding:14px}
+.game-title{font-size:14px;letter-spacing:-.025em;line-height:1.4}
+.stat-card,.integration-card,.sidebar-block{transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s,border-color .25s}
+.stat-card:hover,.integration-card:hover,.sidebar-block:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.motion-in{opacity:0;transform:translateY(14px) scale(.99);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.8,.2,1);transition-delay:var(--motion-delay,0ms)}
+.motion-in.is-visible{opacity:1;transform:translateY(0) scale(1)}
+.steam-sync-button{width:100%;margin:4px 0 8px}
+.sync-status{font-size:12px;line-height:1.65;color:var(--muted)}
+.sync-status.sync-warning{color:#b76b29}
+.steam-integration .integration-state{font-size:10px}
+@media(max-width:760px){.hero-title{font-size:clamp(40px,11vw,60px)}.search-box{min-height:58px;height:58px}.game-card:hover{transform:translateY(-2px)}}
+@media(prefers-reduced-motion:reduce){.motion-in,.game-card,.game-cover,.search-box{transition:none!important;transform:none!important;opacity:1!important}}
