@@ -61,11 +61,11 @@ function renderCalendar(){
  daysEl.innerHTML=html;$("#calendar-selected-label").textContent=selectedCalendarDay?(playedDays.has(selectedCalendarDay)?selectedCalendarDay+" · игровой день":selectedCalendarDay+" · нажми ещё раз, чтобы отметить игровой день"):"Нажми на дату, чтобы отметить игровой день";
 }
 function render(){
- const all=filteredGames(),shown=all.slice(0,state.limit),groups={};shown.forEach(g=>{const l=letterOf(g);(groups[l]||(groups[l]=[])).push(g)});
+ const all=filteredGames(),shown=all,groups={};shown.forEach(g=>{const l=letterOf(g);(groups[l]||(groups[l]=[])).push(g)});
  sections.innerHTML=Object.keys(groups).sort().map(l=>'<section class="game-group" id="letter-'+l+'"><div class="group-head"><span class="group-letter">'+l+'</span><span class="group-title">На '+l+'</span><span class="group-count">'+groups[l].length+' игр</span></div><div class="game-grid">'+groups[l].map(card).join("")+'</div></section>').join("");
  $("#stat-total").textContent=games.length;$("#stat-completed").textContent=games.filter(completed).length;$("#visible-count").textContent=all.length;
  $("#result-note").textContent=all.length?"Показано "+shown.length+" из "+all.length+" игр":"Нет игр по заданным условиям";
- $("#show-more").hidden=all.length<=shown.length;$("#empty-state").hidden=all.length!==0;renderFilters();renderAlphabet();renderGenres();renderCalendar();setupMotion();
+ $("#empty-state").hidden=all.length!==0;renderFilters();renderAlphabet();renderGenres();renderCalendar();setupMotion();
 }
 function reset(){state.query="";state.status="all";state.letter="";state.genre="";state.limit=60;$("#search-input").value="";$("#sort-select").value="alphabetical";document.querySelectorAll("[data-status]").forEach(b=>b.classList.toggle("active",b.dataset.status==="all"));render()}
 function openGame(id){
@@ -90,7 +90,7 @@ function themeLabel(){const media=window.matchMedia("(prefers-color-scheme: dark
 function setGenre(g){state.genre=state.genre===g?"":g;state.limit=200;render();$("#collection").scrollIntoView({behavior:"smooth",block:"start"})}
 $("#search-input").addEventListener("input",e=>{state.query=e.target.value;state.limit=200;render()});
 $("#status-filters").addEventListener("click",e=>{const b=e.target.closest("[data-status]");if(!b)return;state.status=b.dataset.status;document.querySelectorAll("[data-status]").forEach(x=>x.classList.toggle("active",x===b));state.limit=200;render()});
-$("#sort-select").addEventListener("change",e=>{state.sort=e.target.value;render()});$("#show-more").addEventListener("click",()=>{state.limit+=60;render()});$("#reset-filters").addEventListener("click",reset);
+$("#sort-select").addEventListener("change",e=>{state.sort=e.target.value;render()});$("#reset-filters").addEventListener("click",reset);
 function pickRandomGame(){
  const list=filteredGames();if(!list.length)return;
  const g=list[Math.floor(Math.random()*list.length)];
