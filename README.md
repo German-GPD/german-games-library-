@@ -58,11 +58,12 @@ The catalogue starts with clearly marked estimates. To replace playtime with rea
 Discord presence can show the game currently being played only when activity sharing is enabled. It does not provide your full library, lifetime hours, or achievements, so Steam remains the right source for automatic statistics. Hydra has no documented public cloud endpoint for this static site.
 
 
-## Windows Game Tracker
+## Windows live game tracker
 
-В папке `desktop-tracker/` находится локальная Windows-программа. Она раз в несколько секунд проверяет имя процесса активного окна, исключает типичные системные программы, сохраняет время в SQLite на этом компьютере и ничего не отправляет в сеть. В приложении можно экспортировать JSON и импортировать его в блок «Игровая аналитика» на сайте.
+Трекер для Windows определяет запущенные игры по имени процесса, публикует текущую игру и сохраняет завершённые сессии в `data/games-db.json`. Сайт читает эту базу и показывает обложку, название игры и время текущей сессии. Cloudflare не используется.
 
-**Скачать EXE:** [German-Games-Tracker.exe](https://github.com/German-GPD/german-games-library-/releases/download/desktop-tracker-latest/German-Games-Tracker.exe). Ссылка станет доступна после успешного завершения сборки GitHub Actions. Если релиз ещё не создан, открой вкладку Actions и скачай артефакт `German-Games-Tracker-Windows` из workflow `Build Windows tracker`.
+**Скачать EXE:** [German-Games-Tracker.exe](https://github.com/German-GPD/german-games-library-/releases/download/desktop-tracker-latest/German-Games-Tracker.exe).
 
-Локальный трекер считает время активного окна процесса, а не считывает данные изнутри игры. Поэтому название процесса может отличаться от названия игры, а некоторые игры/лаунчеры могут определяться неидеально. Данные остаются на ПК, пока ты сам не экспортируешь файл.
-\n\n## Windows live game tracker (without Cloudflare)\n\nThe Windows EXE writes the current game and completed sessions to `data/games-db.json` using the GitHub Contents API. On first launch, create a fine-grained GitHub token limited to this repository with **Contents: Read and write**. The token is stored locally in `%LOCALAPPDATA%\\GermanGamesTracker\\config.json`; never commit or share it. The public database contains game names and session timestamps, not the Windows process list. The tracker build is published at [latest Windows tracker release](https://github.com/German-GPD/german-games-library-/releases/tag/desktop-tracker-latest).\n
+При первом запуске понадобится GitHub fine-grained token с доступом только к этому репозиторию и разрешением **Contents: Read and write**. Он сохраняется локально в `%LOCALAPPDATA%\\GermanGamesTracker\\config.json` и не попадает в репозиторий. База на сайте публичная: в ней находятся названия игр и время сессий, но не список процессов Windows.
+
+Встроены алиасы известных процессов, в том числе `gta_sa.exe` и `playgtasanandreas.exe` → **Grand Theft Auto: San Andreas**. EXE устанавливает копию в `%LOCALAPPDATA%\\GermanGamesTracker` и добавляет её в автозапуск Windows. Первичная настройка токена выполняется один раз.
