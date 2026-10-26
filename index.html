@@ -1,23 +1,67 @@
 <!doctype html>
-<html lang="ru"><head>
+<html lang="ru">
+<head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#f4f5f7"><meta name="description" content="German'$ Games Library — личная игровая библиотека с алфавитом, жанрами, поиском и обложками игр."><meta property="og:title" content="German'$ Games Library"><meta property="og:description" content="Личная игровая библиотека: открытые миры, гонки, экшен и сюжетные игры."><meta property="og:type" content="website">
+<meta name="theme-color" content="#111316"><meta name="description" content="German'$ Games Library — личная игровая библиотека с коллекцией, прогрессом и обложками.">
+<meta property="og:title" content="German'$ Games Library"><meta property="og:description" content="Моя коллекция игр — личный игровой профиль German."><meta property="og:type" content="website">
 <title>German'$ Games Library</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://cdn.akamai.steamstatic.com"><link rel="stylesheet" href="css/style.css?v=1.4.0">
-<script src="js/games.js?v=1.4.0" defer></script><script src="js/app.js?v=1.4.0" defer></script><script src="js/tracker.js?v=1.4.0" defer></script></head>
-<body><a class="skip-link" href="#collection">Перейти к библиотеке</a><div class="shell">
-<header class="topbar"><a class="brand" href="#"><span class="brand-mark">G<span>’</span></span><span class="brand-copy"><b>GERMAN'$</b><small>GAMES LIBRARY</small></span></a>
-<nav><a class="active" href="#library">Библиотека</a><a href="#alphabet">Алфавит</a><a href="#genres">Жанры</a></nav>
-<div class="top-actions"><span class="theme-label"><i></i><span id="theme-label">Тема устройства</span></span><a class="github" href="https://github.com/German-GPD/german-games-library-" target="_blank" rel="noreferrer" aria-label="GitHub">↗</a></div></header>
+<link rel="preconnect" href="https://cdn.akamai.steamstatic.com"><link rel="stylesheet" href="css/style.css?v=2.0.0">
+<script src="js/games.js?v=2.0.0" defer></script><script src="js/app.js?v=2.0.0" defer></script><script src="js/tracker.js?v=2.0.0" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#collection">Перейти к библиотеке</a>
+<div class="app-shell">
+<header class="topbar">
+<a class="brand" href="#"><span class="brand-mark">G<span>’</span></span><span class="brand-copy"><b>GERMAN'$</b><small>GAMES LIBRARY</small></span></a>
+<nav class="main-nav"><a href="#collection" class="active">Коллекция</a><a href="#genres">Жанры</a><a href="#alphabet">A–Z</a><a href="#integrations">Интеграции</a></nav>
+<div class="top-actions"><span class="theme-chip"><i></i><span id="theme-label">Тема устройства</span></span><a class="icon-link" href="https://github.com/German-GPD/german-games-library-" target="_blank" rel="noreferrer" aria-label="GitHub">↗</a></div>
+</header>
 <main>
-<section class="hero" id="library"><div class="hero-copy"><div class="eyebrow"><i></i> PERSONAL COLLECTION / 2026</div><h1>Мой мир.<br><span>Мои игры.</span></h1><p>От ночных заездов до больших открытых миров — игры, которые я знаю, люблю и хочу попробовать.</p><div class="hero-actions"><a class="button primary" href="#collection">Открыть библиотеку <b>↘</b></a><a class="button quiet" href="#alphabet">Игровой алфавит</a></div><div class="hero-note"><i></i> Личная подборка German</div></div>
-<div class="hero-art"><div class="glow"></div><div class="hero-cover back one"><img src="https://cdn.akamai.steamstatic.com/steam/apps/271590/header.jpg" alt="" fetchpriority="high"></div><div class="hero-cover back two"><img src="https://cdn.akamai.steamstatic.com/steam/apps/1551360/header.jpg" alt="" fetchpriority="high"></div><div class="hero-cover front"><img src="https://cdn.akamai.steamstatic.com/steam/apps/1091500/header.jpg" alt="Cyberpunk 2077" fetchpriority="high"><span>OPEN WORLDS. NO LIMITS.</span></div><div class="float-card"><b>✦</b><span><strong>GAME ON</strong><small>Выбирай следующий мир</small></span></div><small class="art-index">G / 001</small></div><div class="hero-foot"><span>CURATED BY GERMAN</span><span>EST. 2026</span></div></section>
-<section class="stats"><div><b id="stat-total">—</b><span>Игр в каталоге</span></div><div><b id="stat-played">—</b><span>Играл</span></div><div><b id="stat-completed">—</b><span>Прошёл до конца</span></div><div><b id="stat-genres">—</b><span>Жанров в истории</span></div></section>
-<section class="section sync-section" id="accounts"><div class="section-head"><div><div class="eyebrow">PLAYER PROFILE</div><h2>Моя игровая статистика</h2></div><p>Отмечены только подтверждённые прохождения. Часы и достижения заполняются вручную — без выдуманных цифр.</p></div><div class="account-panel"><div class="account-status"><span class="status-dot"></span><div><strong id="steam-status-title">Steam не подключён</strong><small id="steam-status-text">Для автоматической синхронизации нужен безопасный API-посредник.</small></div></div><div class="account-fields"><label>Ссылка на Steam-профиль<input id="steam-profile" type="url" placeholder="https://steamcommunity.com/id/..." autocomplete="url"></label><label>Адрес API-посредника<input id="steam-endpoint" type="url" placeholder="https://your-worker.example/api/steam"></label></div><div class="account-actions"><button class="button primary" id="steam-connect">Проверить подключение</button><button class="button quiet" id="steam-disconnect">Отключить</button><button class="button quiet" id="export-stats">Экспорт статистики</button><label class="button quiet import-label">Импорт статистики<input id="import-stats" type="file" accept="application/json" hidden></label></div><p class="account-hint">Не вставляй Steam Web API key сюда. GitHub Pages не может безопасно хранить секретный ключ. У Hydra нет общедоступного облачного API для прямой синхронизации с этим сайтом.</p><div id="now-playing" class="now-playing" hidden></div></div></section><section class="section" id="alphabet"><div class="section-head"><div><div class="eyebrow">QUICK NAVIGATION</div><h2>Игровой алфавит</h2></div><p>Нажми на букву, чтобы найти игры на неё.</p></div><div id="alphabet-grid" class="alphabet-grid"></div></section>
-<section class="section" id="genres"><div class="section-head"><div><div class="eyebrow">PICK YOUR MOOD</div><h2>По настроению</h2></div><p>Выбирай по жанру и атмосфере.</p></div><div id="genre-grid" class="genre-grid"></div></section>
-<section class="section collection" id="collection"><div class="section-head"><div><div class="eyebrow">THE COLLECTION</div><h2>Библиотека <small id="visible-count"></small></h2></div><span class="side-note">Плитки в духе Steam</span></div>
-<div class="toolbar"><label class="search"><span>⌕</span><input id="search-input" type="search" placeholder="Найти игру..." autocomplete="off" aria-label="Поиск игр"><kbd>/</kbd></label><div class="pills" id="status-filters"><button class="active" data-status="all">Все игры</button><button data-status="known">Знаю</button><button data-status="played">Играл</button><button data-status="candidate">В списке</button></div><label class="sort"><span>Сортировка</span><select id="sort-select" aria-label="Сортировка"><option value="alphabetical">По алфавиту</option><option value="popular">Избранное</option></select></label></div>
-<div id="active-filters" class="active-filters" hidden></div><div id="game-sections" class="game-sections"></div><div id="empty-state" class="empty" hidden><b>⌕</b><h3>Ничего не найдено</h3><p>Попробуй другое название или сбрось фильтры.</p><button class="button quiet" id="reset-filters">Сбросить фильтры</button></div><div class="load-more"><span id="result-note"></span><button id="show-more" class="button quiet" hidden>Показать ещё</button></div></section>
-</main><footer><a class="brand" href="#"><span class="brand-mark">G<span>’</span></span><span class="brand-copy"><b>GERMAN'$</b><small>GAMES LIBRARY</small></span></a><p>Личная игровая библиотека. Сделано с интересом к играм и вебу.</p><div class="footer-links"><a href="https://github.com/German-GPD/german-games-library-" target="_blank" rel="noreferrer">GitHub</a><a href="README.md">О проекте</a><a href="LICENSE">Лицензия</a></div><small class="copyright">© 2026 German'$ Team Coding</small></footer></div>
-<dialog id="game-dialog"><button id="dialog-close" class="close" aria-label="Закрыть">×</button><div id="dialog-cover" class="dialog-cover"></div><div class="dialog-body"><small id="dialog-kicker">GAME DETAILS</small><h2 id="dialog-title"></h2><p id="dialog-description"></p><div id="dialog-tags" class="dialog-tags"></div><section class="game-tracker"><div class="tracker-heading"><strong>Моя статистика</strong><small>Примерная оценка · можно изменить</small></div><div class="tracker-fields"><label>Время игры (часы)<input id="playtime-input" type="number" min="0" max="100000" step="0.1" placeholder="Например, 42.5"></label><label>Получено ачивок<input id="achievements-input" type="number" min="0" max="10000" step="1" placeholder="0"></label><label>Всего ачивок<input id="achievements-total-input" type="number" min="0" max="10000" step="1" placeholder="Например, 50"></label><label>Прохождение<select id="completion-input"><option value="unplayed">Не отмечено</option><option value="played">Играл, не завершено</option><option value="playing">Играю</option><option value="completed">Прошёл</option><option value="completed-100">100% / все ачивки</option></select></label></div><div id="tracker-summary" class="tracker-summary"></div><button id="save-tracker" class="button primary">Сохранить статистику</button></section><div class="dialog-actions"><button id="toggle-known" class="button primary">Отметить как знакомую</button><a id="steam-link" class="button quiet" href="#" target="_blank" rel="noreferrer">Открыть в Steam ↗</a></div></div></dialog>
-<noscript><p class="noscript">Для работы библиотеки необходимо включить JavaScript.</p></noscript></body></html>
+<section class="hero">
+<div class="hero-copy">
+<div class="eyebrow"><span class="live-dot"></span> PERSONAL GAME ARCHIVE <span class="eyebrow-year">EST. 2026</span></div>
+<h1>Every game.<br><span>Part of the story.</span></h1>
+<p class="hero-lead">Личная игровая коллекция German — открытые миры, культовые серии, гонки и сюжетные приключения.</p>
+<div class="hero-actions"><a class="button primary" href="#collection">Открыть коллекцию <span>↘</span></a><a class="button secondary" href="#profile">Моя статистика <span>↗</span></a></div>
+<div class="hero-meta"><span><b class="avatar">G</b> GERMAN / GPD</span><span class="meta-divider"></span><span>ЛИЧНЫЙ АРХИВ ИГР</span></div>
+</div>
+<div class="hero-visual" aria-label="Обложки игр из коллекции">
+<div class="hero-glow"></div>
+<div class="cover-stack cover-back"><img src="https://cdn.akamai.steamstatic.com/steam/apps/1551360/header.jpg" alt="" fetchpriority="high"></div>
+<div class="cover-stack cover-mid"><img src="https://cdn.akamai.steamstatic.com/steam/apps/1174180/header.jpg" alt="" fetchpriority="high"></div>
+<div class="cover-stack cover-front"><img src="https://cdn.akamai.steamstatic.com/steam/apps/1091500/header.jpg" alt="Cyberpunk 2077" fetchpriority="high"><div class="cover-overlay"><span>FEATURED COLLECTION</span><strong>OPEN WORLDS</strong></div></div>
+<div class="hero-float"><span class="float-icon">✦</span><span><b>YOUR LIBRARY</b><small>Curated by German</small></span></div>
+<div class="hero-index">G / ARCHIVE—001</div>
+</div>
+</section>
+<section class="stats-grid" id="profile">
+<article class="stat-card stat-main"><span class="stat-label">В КАТАЛОГЕ</span><b id="stat-total">—</b><small>игр и изданий</small></article>
+<article class="stat-card"><span class="stat-label">ЗАПУСКАЛ</span><b id="stat-played">—</b><small>игр из коллекции</small></article>
+<article class="stat-card"><span class="stat-label">ЗАВЕРШИЛ</span><b id="stat-completed">—</b><small>по личной отметке</small></article>
+<article class="stat-card"><span class="stat-label">ВРЕМЯ В ИГРАХ</span><b id="stat-hours">—</b><small>предварительная оценка</small></article>
+</section>
+<section class="section collection-section" id="collection">
+<div class="section-heading"><div><div class="eyebrow">THE LIBRARY</div><h2>Коллекция <span id="visible-count">—</span></h2></div><p>Обложки, статусы и прогресс — в одном месте.</p></div>
+<div class="toolbar">
+<label class="search-box"><span class="search-icon">⌕</span><input id="search-input" type="search" placeholder="Название, жанр или серия…" autocomplete="off" aria-label="Поиск игр"><kbd>/</kbd></label>
+<div class="filter-pills" id="status-filters"><button class="active" data-status="all">Все</button><button data-status="played">Играл</button><button data-status="completed">Завершил</button><button data-status="candidate">В списке</button></div>
+<label class="sort-control"><span>Сортировка</span><select id="sort-select" aria-label="Сортировка"><option value="alphabetical">По алфавиту</option><option value="popular">Избранное</option><option value="hours">По времени</option></select></label>
+</div>
+<div id="active-filters" class="active-filters" hidden></div>
+<div class="collection-layout"><aside class="collection-sidebar"><div class="sidebar-block"><span class="sidebar-title">ЖАНРЫ</span><div id="genre-grid" class="genre-list"></div></div><div class="sidebar-block"><span class="sidebar-title">АЛФАВИТ</span><div id="alphabet-grid" class="alphabet-grid"></div></div><div class="sidebar-note"><span>ⓘ</span><p>Часы и достижения помечены как оценки, пока не подключён проверенный источник.</p></div></aside><div class="collection-content"><div id="game-sections" class="game-sections"></div><div id="empty-state" class="empty" hidden><b>⌕</b><h3>Ничего не найдено</h3><p>Попробуй изменить поиск или фильтры.</p><button class="button secondary" id="reset-filters">Сбросить фильтры</button></div><div class="load-more"><span id="result-note"></span><button id="show-more" class="button secondary" hidden>Показать ещё</button></div></div></div>
+</section>
+<section class="section integrations-section" id="integrations">
+<div class="section-heading"><div><div class="eyebrow">CONNECTED SOURCES</div><h2>Интеграции</h2></div><p>Автоматические данные подключаются отдельно от статической страницы.</p></div>
+<div class="integration-grid">
+<article class="integration-card"><div class="integration-head"><span class="integration-logo steam-logo">S</span><div><h3>Steam</h3><span class="integration-state"><i></i> Не подключён</span></div></div><p>Для настоящих часов и достижений нужны публичные данные профиля и безопасный серверный посредник для Steam Web API.</p><a class="integration-link" href="https://steamcommunity.com/dev" target="_blank" rel="noreferrer">Steam Web API <span>↗</span></a></article>
+<article class="integration-card"><div class="integration-head"><span class="integration-logo hydra-logo">H</span><div><h3>Hydra Launcher</h3><span class="integration-state"><i></i> Локальная интеграция</span></div></div><p>У Hydra нет подтверждённого публичного облачного API для этой страницы. Потребуется локальный помощник, который безопасно читает библиотеку на твоём ПК.</p><a class="integration-link" href="https://github.com/hydra-launcher/hydra" target="_blank" rel="noreferrer">Репозиторий Hydra <span>↗</span></a></article>
+</div>
+<div class="integration-footnote"><b>Важно</b><span>Сайт не просит пароль Steam и не хранит API-ключ в браузере. GitHub Pages — статический хостинг, поэтому секреты и локальные файлы нельзя безопасно подключить напрямую.</span></div>
+</section>
+<section class="section genres-section" id="genres"><div class="section-heading"><div><div class="eyebrow">PLAY YOUR WAY</div><h2>Найди по настроению</h2></div><p>Фильтруй библиотеку по любимому жанру.</p></div><div id="genre-grid-secondary" class="genre-grid-secondary"></div></section>
+</main>
+<footer class="footer"><a class="brand" href="#"><span class="brand-mark">G<span>’</span></span><span class="brand-copy"><b>GERMAN'$</b><small>GAMES LIBRARY</small></span></a><p>Собрано для игр, в которые возвращаются.</p><div class="footer-links"><a href="https://github.com/German-GPD/german-games-library-" target="_blank" rel="noreferrer">GitHub</a><a href="README.md">О проекте</a><a href="LICENSE">Лицензия</a></div><small>© 2026 German'$ Team Coding</small></footer>
+</div>
+<dialog id="game-dialog" class="game-dialog"><button id="dialog-close" class="dialog-close" aria-label="Закрыть">×</button><div id="dialog-cover" class="dialog-cover"></div><div class="dialog-body"><div id="dialog-kicker" class="eyebrow">GAME DETAILS</div><h2 id="dialog-title"></h2><p id="dialog-description"></p><div id="dialog-tags" class="dialog-tags"></div><div id="dialog-stats" class="dialog-stats"></div><div class="dialog-note">Оценка до синхронизации Steam — не подтверждённые данные аккаунта.</div><div class="dialog-actions"><a id="steam-link" class="button primary" href="#" target="_blank" rel="noreferrer">Открыть в Steam ↗</a><button id="dialog-close-bottom" class="button secondary">Закрыть</button></div></div></dialog>
+<noscript><p class="noscript">Для работы библиотеки необходимо включить JavaScript.</p></noscript>
+</body></html>
