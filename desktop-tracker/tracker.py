@@ -36,6 +36,11 @@ IGNORE = {
     "python.exe", "pythonw.exe",
 }
 
+def display_process(name):
+    """Convert known runtime process names to readable game titles."""
+    aliases = {"javaw.exe": "Minecraft", "minecraft.exe": "Minecraft"}
+    return aliases.get(str(name or "").lower(), name or "")
+
 def foreground_process():
     try:
         user32 = ctypes.windll.user32
@@ -138,14 +143,14 @@ class TrackerApp:
         if self.last_proc and elapsed:
             with sqlite3.connect(DB_PATH) as db:
                 db.execute("INSERT INTO sessions(process,started,ended,seconds,day) VALUES(?,?,?,?,?)",
-                           (self.last_proc, datetime.now().isoformat(timespec="seconds"), datetime.now().isoformat(timespec="seconds"), elapsed, date.today().isoformat()))
+                           (display_process(self.last_proc), datetime.now().isoformat(timespec="seconds"), datetime.now().isoformat(timespec="seconds"), elapsed, date.today().isoformat()))
         self.last_proc = proc
         self.refresh()
         self.root.after(POLL_SECONDS * 1000, self.tick)
 
     def refresh(self):
         with sqlite3.connect(DB_PATH) as db:
-            rows = db.execute("SELECT process, SUM(seconds), SUM(CASE WHEN day=? THEN seconds ELSE 0 END) FROM sessions GROUP BY process ORDER BY SUM(seconds) DESC", (date.today().isoformat(),)).fetchall()
+            rows = db.execute("SELECT CASE WHEN lower(process) IN ('javaw.exe','minecraft.exe') THEN 'Minecraft' ELSE process END AS display_name, SUM(seconds), SUM(CASE WHEN day=? THEN seconds ELSE 0 END) FROM sessions GROUP BY display_name ORDER BY SUM(seconds) DESC", (date.today().isoformat(),)).fetchall()
         total = sum(r[1] or 0 for r in rows)
         self.total_label.config(text=f"{total/3600:.1f} h")
         for item in self.tree.get_children():
@@ -160,7 +165,7 @@ class TrackerApp:
 
     def export_json(self):
         with sqlite3.connect(DB_PATH) as db:
-            rows = db.execute("SELECT process, SUM(seconds) FROM sessions GROUP BY process ORDER BY SUM(seconds) DESC").fetchall()
+            rows = db.execute("SELECT CASE WHEN lower(process) IN ('javaw.exe','minecraft.exe') THEN 'Minecraft' ELSE process END AS display_name, SUM(seconds) FROM sessions GROUP BY display_name ORDER BY SUM(seconds) DESC").fetchall()
         payload = {"source":"german-games-tracker","exportedAt":datetime.now().astimezone().isoformat(),
                    "games":[{"process":name,"playtimeSeconds":int(seconds or 0),"hours":round((seconds or 0)/3600,2)} for name,seconds in rows]}
         path = filedialog.asksaveasfilename(defaultextension=".json", initialfile="german-games-tracker.json", filetypes=[("JSON","*.json")])
