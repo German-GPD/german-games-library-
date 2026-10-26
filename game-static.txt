@@ -27,7 +27,7 @@ Assassin's Creed Valhalla = false
 # === B ===
 Battlefield 1 = false
 Battlefield 4 = true
-Battlefield V = false
+Battlefield V = true
 BeamNG.drive = false
 Beyond: Two Souls = false
 Black Mesa = false
