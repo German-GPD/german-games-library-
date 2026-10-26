@@ -5,8 +5,8 @@
 <meta name="theme-color" content="#111316"><meta name="description" content="German'$ Games Library — личная игровая библиотека с коллекцией, прогрессом и обложками.">
 <meta property="og:title" content="German'$ Games Library"><meta property="og:description" content="Моя коллекция игр — личный игровой профиль German."><meta property="og:type" content="website">
 <title>German'$ Games Library</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://cdn.akamai.steamstatic.com"><link rel="stylesheet" href="css/style.css?v=2.1.0">
-<script src="js/games.js?v=2.0.0" defer></script><script src="js/app.js?v=2.0.0" defer></script><script src="js/tracker.js?v=2.0.0" defer></script>
+<link rel="preconnect" href="https://shared.fastly.steamstatic.com"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css?v=3.0.0">
+<script src="js/games.js?v=3.0.0" defer></script><script src="js/config.js?v=3.0.0" defer></script><script src="js/app.js?v=3.0.0" defer></script><script src="js/tracker.js?v=3.0.0" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#collection">Перейти к библиотеке</a>
@@ -27,9 +27,9 @@
 </div>
 <div class="hero-visual" aria-label="Обложки игр из коллекции">
 <div class="hero-glow"></div>
-<div class="cover-stack cover-back"><img src="https://cdn.akamai.steamstatic.com/steam/apps/1551360/header.jpg" alt="" fetchpriority="high"></div>
-<div class="cover-stack cover-mid"><img src="https://cdn.akamai.steamstatic.com/steam/apps/1174180/header.jpg" alt="" fetchpriority="high"></div>
-<div class="cover-stack cover-front"><img src="https://cdn.akamai.steamstatic.com/steam/apps/1091500/header.jpg" alt="Cyberpunk 2077" fetchpriority="high"><div class="cover-overlay"><span>FEATURED COLLECTION</span><strong>OPEN WORLDS</strong></div></div>
+<div class="cover-stack cover-back"><img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1551360/header.jpg" alt="" fetchpriority="high"></div>
+<div class="cover-stack cover-mid"><img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg" alt="" fetchpriority="high"></div>
+<div class="cover-stack cover-front"><img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg" alt="Cyberpunk 2077" fetchpriority="high"><div class="cover-overlay"><span>FEATURED COLLECTION</span><strong>OPEN WORLDS</strong></div></div>
 <div class="hero-float"><span class="float-icon">✦</span><span><b>YOUR LIBRARY</b><small>Curated by German</small></span></div>
 <div class="hero-index">G / ARCHIVE—001</div>
 </div>
@@ -38,7 +38,7 @@
 <article class="stat-card stat-main"><span class="stat-label">В КАТАЛОГЕ</span><b id="stat-total">—</b><small>игр и изданий</small></article>
 <article class="stat-card"><span class="stat-label">ЗАПУСКАЛ</span><b id="stat-played">—</b><small>игр из коллекции</small></article>
 <article class="stat-card"><span class="stat-label">ЗАВЕРШИЛ</span><b id="stat-completed">—</b><small>по личной отметке</small></article>
-<article class="stat-card"><span class="stat-label">ВРЕМЯ В ИГРАХ</span><b id="stat-hours">—</b><small>предварительная оценка</small></article>
+<article class="stat-card"><span class="stat-label">ВРЕМЯ В ИГРАХ</span><b id="stat-hours">—</b><small id="stat-hours-note">оценка до синхронизации</small></article>
 </section>
 <section class="section collection-section" id="collection">
 <div class="section-heading"><div><div class="eyebrow">THE LIBRARY</div><h2>Коллекция <span id="visible-count">—</span></h2></div><p>Обложки, статусы и прогресс — в одном месте.</p></div>
@@ -53,7 +53,7 @@
 <section class="section integrations-section" id="integrations">
 <div class="section-heading"><div><div class="eyebrow">CONNECTED SOURCES</div><h2>Интеграции</h2></div><p>Автоматические данные подключаются отдельно от статической страницы.</p></div>
 <div class="integration-grid">
-<article class="integration-card"><div class="integration-head"><span class="integration-logo steam-logo">S</span><div><h3>Steam</h3><span class="integration-state"><i></i> Не подключён</span></div></div><p>Для настоящих часов и достижений нужны публичные данные профиля и безопасный серверный посредник для Steam Web API.</p><a class="integration-link" href="https://steamcommunity.com/dev" target="_blank" rel="noreferrer">Steam Web API <span>↗</span></a></article>
+<article class="integration-card steam-integration"><div class="integration-head"><span class="integration-logo steam-logo">S</span><div><h3>Steam</h3><span class="integration-state" id="steam-state"><i></i> Ожидает настройки</span></div></div><p>После настройки безопасного Worker библиотека подтянет реальные часы и доступные достижения из твоего Steam-профиля.</p><button class="button secondary steam-sync-button" id="steam-sync" type="button">↻ Синхронизировать</button><p class="sync-status" id="steam-sync-status" role="status">Сейчас показаны предварительные оценки. API-ключ хранится только в настройках сервера.</p><a class="integration-link" href="https://steamcommunity.com/dev" target="_blank" rel="noreferrer">Steam Web API <span>↗</span></a></article>
 <article class="integration-card"><div class="integration-head"><span class="integration-logo hydra-logo">H</span><div><h3>Hydra Launcher</h3><span class="integration-state"><i></i> Локальная интеграция</span></div></div><p>У Hydra нет подтверждённого публичного облачного API для этой страницы. Потребуется локальный помощник, который безопасно читает библиотеку на твоём ПК.</p><a class="integration-link" href="https://github.com/hydra-launcher/hydra" target="_blank" rel="noreferrer">Репозиторий Hydra <span>↗</span></a></article>
 </div>
 <div class="integration-footnote"><b>Важно</b><span>Сайт не просит пароль Steam и не хранит API-ключ в браузере. GitHub Pages — статический хостинг, поэтому секреты и локальные файлы нельзя безопасно подключить напрямую.</span></div>
