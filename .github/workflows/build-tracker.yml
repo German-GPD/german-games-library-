@@ -35,7 +35,7 @@ jobs:
           node --check js/live-presence.js
           node --check js/app.js
       - name: Install PyInstaller
-        run: python -m pip install --upgrade pip pyinstaller
+        run: python -m pip install --upgrade pip pyinstaller psutil
       - name: Build EXE
         run: pyinstaller --noconfirm --clean --onefile --windowed --name "German-Games-Tracker" desktop-tracker/tracker.py
       - name: Upload build artifact
