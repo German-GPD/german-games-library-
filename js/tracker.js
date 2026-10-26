@@ -102,7 +102,7 @@ function importStats(file) {
   };
   reader.readAsText(file);
 }
-function init() { {
+function init() {
   tracker = read(TRACK_KEY, {});
   // Remove synthetic values from older versions; never fabricate hours or achievements.
   Object.keys(tracker).forEach(id => { if (tracker[id]?.estimated) delete tracker[id]; });
