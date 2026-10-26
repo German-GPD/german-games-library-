@@ -14,15 +14,21 @@
    if(!r.ok)throw new Error("db unavailable");
    const db=await r.json(), g=db.current;
    if(!g||!g.title||!g.startedAt){
-    box.innerHTML='<div class="now-playing-empty"><span class="now-playing-symbol">Ⅱ</span><div><b>Сейчас не играю</b><p>Когда трекер обнаружит игру на ПК, она появится здесь.</p></div></div>';
+    box.innerHTML='<div class="now-playing-empty"><span class="now-playing-symbol">Ⅱ</span><div><b>Сейчас не играю</b><p>Запусти игру — трекер опубликует её название, обложку и длительность сессии.</p></div></div>';
+    started=0;
     return;
    }
    const start=Date.parse(g.startedAt);
    if(!Number.isFinite(start))throw new Error("invalid session");
    const image=g.appid ? "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/"+encodeURIComponent(g.appid)+"/header.jpg" : "";
-   box.innerHTML='<article style="display:flex;gap:18px;align-items:center;max-width:760px;padding:18px;border:1px solid var(--line);border-radius:16px;background:var(--surface)">'+
-    (image?'<img src="'+image+'" alt="" style="width:min(42%,240px);aspect-ratio:460/215;object-fit:cover;border-radius:10px" onerror="this.style.display=\'none\'">':'')+
-    '<div style="min-width:0"><span class="eyebrow"><span class="live-dot"></span> LIVE · СЕЙЧАС ИГРАЮ</span><h3 style="font-size:clamp(18px,3vw,26px);margin:9px 0">'+esc(g.title)+'</h3><p style="color:var(--muted);margin:0">В этой сессии: <b id="live-session-time">—</b></p></div></article>';
+   box.innerHTML='<article class="now-playing-card">'+
+    '<div class="now-playing-art">'+
+    (image?'<img src="'+image+'" alt="Обложка игры: '+esc(g.title)+'" onerror="this.style.display=\'none\'">':'<div class="now-playing-art-placeholder">G’</div>')+
+    '<span class="now-playing-art-label">GERMAN’$ · GAME SESSION</span></div>'+
+    '<div class="now-playing-details"><span class="now-playing-live"><i></i> LIVE · СЕЙЧАС ИГРАЮ</span>'+
+    '<h3 class="now-playing-game-title">'+esc(g.title)+'</h3>'+
+    '<p class="now-playing-subtitle">Текущая игровая сессия с твоего ПК</p>'+
+    '<div class="now-playing-timer"><strong id="live-session-time">—</strong><span>в игре</span></div></div></article>';
    started=start;
    const t=document.querySelector("#live-session-time");if(t)t.textContent=fmt((Date.now()-started)/1000);
   }catch(_){
