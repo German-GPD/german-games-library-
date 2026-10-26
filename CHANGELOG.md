@@ -11,3 +11,4 @@
 ## 1.0.0
 
 - Initial responsive library, A–Z navigation, genre cards, search, status filters, game details and automatic light/dark theme.
+\n\n## 1.2.0 — 2026-10-26\n\n- Added per-game playtime, achievements and completion tracking.\n- Added local JSON import/export.\n- Added optional Steam status API endpoint configuration without exposing API keys.\n- Documented Steam and Hydra integration limits.\n
