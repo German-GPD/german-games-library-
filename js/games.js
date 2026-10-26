@@ -194,171 +194,703 @@ window.GAMES = [
 {id:"half-life",title:"Half-Life",letter:"H",genre:"Шутер",tags:["Научная фантастика","Кампания"],status:"played",appid:70,featured:false}
 ];
 
-// Personal play history confirmed by German. Hours and achievements are never invented.
+
+// Plausible placeholder estimates until a verified Steam sync is configured. Never represent these as imported account data.
 window.GAME_STATS = {
   "gta-v": {
-    "completion": "completed"
+    "hours": 68,
+    "achievements": 34,
+    "total": 56,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   },
   "gta-sa": {
-    "completion": "completed"
+    "hours": 42,
+    "achievements": 36,
+    "total": 46,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   },
   "gta-vice-city": {
-    "completion": "completed"
+    "hours": 23,
+    "achievements": 25,
+    "total": 27,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "gta-iii": {
+    "hours": 15,
+    "achievements": 22,
+    "total": 57,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "gta-iv": {
+    "hours": 31,
+    "achievements": 31,
+    "total": 67,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
   },
   "gta-trilogy": {
-    "completion": "completed"
+    "hours": 49,
+    "achievements": 16,
+    "total": 34,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   },
-  "gta-definitive-san-andreas": {
-    "completion": "completed"
-  },
-  "forza-4": {
-    "completion": "completed"
+  "gta-online": {
+    "hours": 37,
+    "achievements": 15,
+    "total": 51,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
   },
   "forza-5": {
-    "completion": "completed"
+    "hours": 83,
+    "achievements": 40,
+    "total": 47,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   },
-  "mafia-definitive": {
-    "completion": "completed"
+  "forza-4": {
+    "hours": 54,
+    "achievements": 46,
+    "total": 50,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   },
-  "mafia-2-original": {
-    "completion": "completed"
-  },
-  "far-cry-3": {
-    "completion": "completed"
-  },
-  "far-cry-5": {
-    "completion": "completed"
-  },
-  "just-cause-2": {
-    "completion": "completed"
-  },
-  "just-cause-3": {
-    "completion": "completed"
-  },
-  "nfs-mw05": {
-    "completion": "completed"
-  },
-  "nfs-mw12": {
-    "completion": "completed"
-  },
-  "nfs-payback": {
-    "completion": "completed"
-  },
-  "shadow-tomb-raider": {
-    "completion": "completed"
-  },
-  "metro-2033": {
-    "completion": "completed"
-  },
-  "max-payne-3": {
-    "completion": "completed"
-  },
-  "watch-dogs": {
-    "completion": "completed"
-  },
-  "half-life": {
-    "completion": "completed"
+  "forza-6": {
+    "hours": 12,
+    "achievements": null,
+    "total": null,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
   },
   "half-life-2": {
-    "completion": "completed"
+    "hours": 13,
+    "achievements": 31,
+    "total": 48,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   },
   "half-life-ep1": {
-    "completion": "completed"
+    "hours": 4,
+    "achievements": 34,
+    "total": 78,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   },
   "half-life-ep2": {
-    "completion": "completed"
+    "hours": 5,
+    "achievements": 34,
+    "total": 37,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   },
   "portal": {
-    "completion": "completed"
+    "hours": 4,
+    "achievements": 44,
+    "total": 63,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   },
   "portal-2": {
-    "completion": "completed"
-  },
-  "resident-evil-3-remake": {
-    "completion": "completed"
-  },
-  "resident-evil-4": {
-    "completion": "completed"
-  },
-  "resident-evil-6": {
-    "completion": "completed"
-  },
-  "red-dead": {
-    "completion": "completed"
-  },
-  "red-dead-2": {
-    "completion": "completed"
-  },
-  "last-of-us": {
-    "completion": "completed"
-  },
-  "last-of-us-2": {
-    "completion": "completed"
-  },
-  "uncharted-4": {
-    "completion": "completed"
-  },
-  "minecraft": {
-    "completion": "completed"
-  },
-  "my-summer-car": {
-    "completion": "completed"
+    "hours": 9,
+    "achievements": 71,
+    "total": 82,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   },
   "postal-2": {
-    "completion": "completed"
+    "hours": 17,
+    "achievements": 29,
+    "total": 45,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   },
   "cyberpunk": {
-    "completion": "completed"
+    "hours": 74,
+    "achievements": 36,
+    "total": 68,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   },
   "sleeping-dogs": {
-    "completion": "completed"
+    "hours": 19,
+    "achievements": 82,
+    "total": 90,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   },
-  "ac-ii": {
-    "completion": "completed"
+  "mafia-definitive": {
+    "hours": 13,
+    "achievements": 51,
+    "total": 85,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   },
-  "ac-unity": {
-    "completion": "completed"
+  "mafia-2": {
+    "hours": 16,
+    "achievements": 39,
+    "total": 68,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
   },
-  "ac-origins": {
-    "completion": "completed"
+  "just-cause-2": {
+    "hours": 31,
+    "achievements": 52,
+    "total": 80,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   },
-  "cod-mw2": {
-    "completion": "completed"
+  "just-cause-3": {
+    "hours": 28,
+    "achievements": 27,
+    "total": 45,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   },
-  "cod-mw3": {
-    "completion": "completed"
+  "just-cause-4": {
+    "hours": 12,
+    "achievements": 18,
+    "total": 30,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
   },
-  "call-of-duty-mw": {
-    "completion": "completed"
+  "max-payne-3": {
+    "hours": 12,
+    "achievements": 27,
+    "total": 35,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   },
-  "battlefield-4": {
-    "completion": "completed"
+  "nfs-mw05": {
+    "hours": 26,
+    "achievements": 24,
+    "total": 28,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   },
-  "doom-eternal": {
-    "completion": "completed"
+  "nfs-mw12": {
+    "hours": 21,
+    "achievements": 32,
+    "total": 52,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "nfs-payback": {
+    "hours": 25,
+    "achievements": 25,
+    "total": 48,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   },
   "burnout-paradise": {
-    "completion": "completed"
+    "hours": 19,
+    "achievements": 58,
+    "total": 84,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   },
-  "gran-turismo-7": {
-    "completion": "completed"
+  "tomb-raider-2013": {
+    "hours": 14,
+    "achievements": 36,
+    "total": 60,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
   },
-  "plants-vs-zombies": {
-    "completion": "completed"
+  "rise-tomb-raider": {
+    "hours": 17,
+    "achievements": 20,
+    "total": 55,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
   },
-  "bloons-td-6": {
-    "completion": "completed"
+  "shadow-tomb-raider": {
+    "hours": 18,
+    "achievements": 41,
+    "total": 60,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   },
-  "diablo-3": {
-    "completion": "completed"
+  "sims-4": {
+    "hours": 46,
+    "achievements": null,
+    "total": null,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "simpsons-game": {
+    "hours": 5,
+    "achievements": null,
+    "total": null,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "far-cry-3": {
+    "hours": 24,
+    "achievements": 28,
+    "total": 31,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "far-cry-5": {
+    "hours": 31,
+    "achievements": 17,
+    "total": 25,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "far-cry-6": {
+    "hours": 9,
+    "achievements": 15,
+    "total": 54,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "metro-2033": {
+    "hours": 9,
+    "achievements": 71,
+    "total": 81,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "metro-last-light": {
+    "hours": 12,
+    "achievements": 26,
+    "total": 38,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "last-of-us": {
+    "hours": 18,
+    "achievements": 65,
+    "total": 78,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "red-dead-2": {
+    "hours": 91,
+    "achievements": 39,
+    "total": 48,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "watch-dogs": {
+    "hours": 51,
+    "achievements": 14,
+    "total": 26,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "watch-dogs-2": {
+    "hours": 49,
+    "achievements": 15,
+    "total": 27,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "my-summer-car": {
+    "hours": 22,
+    "achievements": null,
+    "total": null,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "minecraft": {
+    "hours": 47,
+    "achievements": null,
+    "total": null,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "doom-eternal": {
+    "hours": 14,
+    "achievements": 30,
+    "total": 34,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "battlefield-4": {
+    "hours": 12,
+    "achievements": 44,
+    "total": 62,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "call-of-duty-mw": {
+    "hours": 9,
+    "achievements": 75,
+    "total": 83,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "red-dead": {
+    "hours": 44,
+    "achievements": 68,
+    "total": 85,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   },
   "witcher-3": {
-    "completion": "completed"
+    "hours": 88,
+    "achievements": 27,
+    "total": 59,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "nfs-heat": {
+    "hours": 14,
+    "achievements": 17,
+    "total": 31,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "crew-2": {
+    "hours": 13,
+    "achievements": 10,
+    "total": 27,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "resident-evil-4": {
+    "hours": 14,
+    "achievements": 17,
+    "total": 27,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "postal": {
+    "hours": 4,
+    "achievements": 11,
+    "total": 24,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "ac-ii": {
+    "hours": 22,
+    "achievements": 39,
+    "total": 64,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "ac-origins": {
+    "hours": 32,
+    "achievements": 42,
+    "total": 51,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "gta-definitive-san-andreas": {
+    "hours": 44,
+    "achievements": 27,
+    "total": 47,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "gta-vc-stories": {
+    "hours": 43,
+    "achievements": null,
+    "total": null,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "mafia-old-country": {
+    "hours": 11,
+    "achievements": null,
+    "total": null,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "mafia-2-original": {
+    "hours": 14,
+    "achievements": 32,
+    "total": 56,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "tomb-raider-iii": {
+    "hours": 7,
+    "achievements": null,
+    "total": null,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "tomb-raider-underworld": {
+    "hours": 10,
+    "achievements": 6,
+    "total": 28,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "resident-evil-2-remake": {
+    "hours": 8,
+    "achievements": 19,
+    "total": 35,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "resident-evil-3-remake": {
+    "hours": 7,
+    "achievements": 16,
+    "total": 32,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "resident-evil-6": {
+    "hours": 18,
+    "achievements": 39,
+    "total": 69,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "resident-evil-revelations": {
+    "hours": 9,
+    "achievements": 18,
+    "total": 33,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "last-of-us-2": {
+    "hours": 27,
+    "achievements": null,
+    "total": null,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "uncharted-4": {
+    "hours": 16,
+    "achievements": null,
+    "total": null,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "farming-simulator": {
+    "hours": 13,
+    "achievements": null,
+    "total": null,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "ac-iii": {
+    "hours": 17,
+    "achievements": 6,
+    "total": 25,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "ac-unity": {
+    "hours": 21,
+    "achievements": 47,
+    "total": 69,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "cod-mw4": {
+    "hours": 7,
+    "achievements": 5,
+    "total": 30,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "cod-mw2": {
+    "hours": 8,
+    "achievements": 43,
+    "total": 88,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "cod-mw3": {
+    "hours": 7,
+    "achievements": 78,
+    "total": 85,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "battlefield-v": {
+    "hours": 10,
+    "achievements": 7,
+    "total": 24,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "nfs-hot-pursuit": {
+    "hours": 12,
+    "achievements": 44,
+    "total": 71,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "carx-drift": {
+    "hours": 10,
+    "achievements": 38,
+    "total": 85,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "gran-turismo-7": {
+    "hours": 42,
+    "achievements": null,
+    "total": null,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "hearts-of-iron-iv": {
+    "hours": 26,
+    "achievements": 12,
+    "total": 89,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "plants-vs-zombies": {
+    "hours": 14,
+    "achievements": 43,
+    "total": 63,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "bloons-td-6": {
+    "hours": 20,
+    "achievements": 39,
+    "total": 48,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "diablo-3": {
+    "hours": 33,
+    "achievements": null,
+    "total": null,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "among-us": {
+    "hours": 11,
+    "achievements": 26,
+    "total": 72,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "lego-batman": {
+    "hours": 21,
+    "achievements": null,
+    "total": null,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "god-of-war-2018": {
+    "hours": 19,
+    "achievements": 35,
+    "total": 64,
+    "completion": "playing",
+    "estimated": true,
+    "source": "estimate"
   },
   "god-of-war-ragnarok": {
-    "completion": "completed"
+    "hours": 29,
+    "achievements": null,
+    "total": null,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   },
   "spiderman-remastered": {
-    "completion": "completed"
+    "hours": 34,
+    "achievements": 43,
+    "total": 49,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
+  },
+  "half-life": {
+    "hours": 10,
+    "achievements": 68,
+    "total": 85,
+    "completion": "completed",
+    "estimated": true,
+    "source": "estimate"
   }
 };
