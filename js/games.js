@@ -5,7 +5,7 @@ window.GAMES = [
 {id:"gta-vice-city",title:"Grand Theft Auto: Vice City",letter:"G",genre:"Открытый мир",tags:["Криминал","Экшен"],status:"played",appid:12110},
 {id:"gta-iii",title:"Grand Theft Auto III",letter:"G",genre:"Открытый мир",tags:["Криминал","Экшен"],status:"played",appid:12100},
 {id:"gta-iv",title:"Grand Theft Auto IV",letter:"G",genre:"Открытый мир",tags:["Криминал","Экшен"],status:"played",appid:12210,featured:true},
-{id:"gta-trilogy",title:"Grand Theft Auto: The Trilogy – Definitive Edition",letter:"G",genre:"Открытый мир",tags:["Криминал","Сборник"],status:"played",appid:1547000},
+{id:"gta-trilogy",title:"Grand Theft Auto: The Trilogy – Definitive Edition",letter:"G",genre:"Открытый мир",tags:["Криминал","Сборник"],status:"played",appid:1547000,featured:true,description:"Три классические GTA в Definitive Edition. Пройдена."},
 {id:"gta-online",title:"GTA Online",letter:"G",genre:"Открытый мир",tags:["Криминал","Мультиплеер"],status:"played",appid:271590},
 {id:"forza-5",title:"Forza Horizon 5",letter:"F",genre:"Гонки",tags:["Открытый мир","Автомобили"],status:"played",appid:1551360,featured:true,description:"Открытый мир Мексики, фестиваль Horizon и сотни автомобилей."},
 {id:"forza-4",title:"Forza Horizon 4",letter:"F",genre:"Гонки",tags:["Открытый мир","Автомобили"],status:"played",appid:1293830,featured:true},
@@ -192,4 +192,5 @@ window.GAMES = [
 {id:"god-of-war-ragnarok",title:"God of War Ragnarök",letter:"G",genre:"Экшен",tags:["Сюжет","Мифология"],status:"played",appid:2322010,featured:false},
 {id:"spiderman-remastered",title:"Marvel’s Spider-Man Remastered",letter:"M",genre:"Экшен",tags:["Супергерои","Открытый мир"],status:"played",appid:1817070,featured:false},
 {id:"half-life",title:"Half-Life",letter:"H",genre:"Шутер",tags:["Научная фантастика","Кампания"],status:"played",appid:70,featured:false}
+{id:"my-winter-car",title:"My Winter Car",letter:"M",genre:"Симулятор",tags:["Автомобили","Выживание","Зима"],status:"played",appid:0,featured:true,description:"Зимний автомобильный симулятор."},
 ];
