@@ -8,6 +8,8 @@
 
 - Премиальный нейтральный интерфейс с автоматической светлой/тёмной темой устройства.
 - Адаптивная главная страница с личным профилем и статистикой.
+- Отдельный блок интерактивной аналитики: топ игр по часам, диаграмма статусов, распределение жанров и прогресс достижений.
+- Импорт JSON из локального Windows-трекера — данные активности отображаются отдельно и не меняют каталог/личные отметки.
 - Каталог игр с обложками, фильтрами, поиском, жанрами и A–Z.
 - Карточки с примерным временем игры, прогрессом достижений и статусом завершения.
 - Окно подробностей игры и переход на её страницу в Steam.
@@ -53,3 +55,12 @@ The catalogue starts with clearly marked estimates. To replace playtime with rea
 5. Open the site and press **Синхронизировать**. The page fetches current playtime whenever it syncs. Achievement counts are requested for up to 25 most-played games; other games keep their previous estimate.
 
 Discord presence can show the game currently being played only when activity sharing is enabled. It does not provide your full library, lifetime hours, or achievements, so Steam remains the right source for automatic statistics. Hydra has no documented public cloud endpoint for this static site.
+
+
+## Windows Game Tracker
+
+В папке `desktop-tracker/` находится локальная Windows-программа. Она раз в несколько секунд проверяет имя процесса активного окна, исключает типичные системные программы, сохраняет время в SQLite на этом компьютере и ничего не отправляет в сеть. В приложении можно экспортировать JSON и импортировать его в блок «Игровая аналитика» на сайте.
+
+**Скачать EXE:** [German-Games-Tracker.exe](https://github.com/German-GPD/german-games-library-/releases/download/desktop-tracker-latest/German-Games-Tracker.exe). Ссылка станет доступна после успешного завершения сборки GitHub Actions. Если релиз ещё не создан, открой вкладку Actions и скачай артефакт `German-Games-Tracker-Windows` из workflow `Build Windows tracker`.
+
+Локальный трекер считает время активного окна процесса, а не считывает данные изнутри игры. Поэтому название процесса может отличаться от названия игры, а некоторые игры/лаунчеры могут определяться неидеально. Данные остаются на ПК, пока ты сам не экспортируешь файл.
