@@ -31,7 +31,7 @@ window.GAMES = [
 {id:"max-payne-2",title:"Max Payne 2: The Fall of Max Payne",letter:"M",genre:"Шутер",tags:["Криминал","Сюжет"],status:"candidate",appid:12150},
 {id:"max-payne-3",title:"Max Payne 3",letter:"M",genre:"Шутер",tags:["Криминал","Сюжет"],status:"played",appid:204100,featured:true},
 {id:"nfs-mw05",title:"Need for Speed: Most Wanted (2005)",letter:"N",genre:"Гонки",tags:["Уличные гонки","Классика"],status:"played",appid:13240,featured:true},
-{id:"nfs-mw12",title:"Need for Speed: Most Wanted (2012)",letter:"N",genre:"Гонки",tags:["Открытый мир","Автомобили"],status:"played",appid:1262600},
+{id:"nfs-mw12",title:"Need for Speed: Most Wanted (2012)",letter:"N",genre:"Гонки",tags:["Открытый мир","Автомобили"],status:"played",appid:1262560},
 {id:"nfs-payback",title:"Need for Speed Payback",letter:"N",genre:"Гонки",tags:["Открытый мир","Автомобили"],status:"played",appid:1262580},
 {id:"burnout-paradise",title:"Burnout Paradise Remastered",letter:"B",genre:"Гонки",tags:["Открытый мир","Аркада"],status:"played",appid:1238080},
 {id:"tomb-raider-2013",title:"Tomb Raider",letter:"T",genre:"Приключение",tags:["Экшен","Исследование"],status:"played",appid:203160,featured:true},
