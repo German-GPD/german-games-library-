@@ -9,7 +9,7 @@ window.GAMES = [
 {id:"gta-online",title:"GTA Online",letter:"G",genre:"Открытый мир",tags:["Криминал","Мультиплеер"],status:"played",appid:271590},
 {id:"forza-5",title:"Forza Horizon 5",letter:"F",genre:"Гонки",tags:["Открытый мир","Автомобили"],status:"played",appid:1551360,featured:true,description:"Открытый мир Мексики, фестиваль Horizon и сотни автомобилей."},
 {id:"forza-4",title:"Forza Horizon 4",letter:"F",genre:"Гонки",tags:["Открытый мир","Автомобили"],status:"played",appid:1293830,featured:true},
-{id:"forza-6",title:"Forza Horizon 6",letter:"F",genre:"Гонки",tags:["Открытый мир","Автомобили"],status:"played",appid:0,featured:true},
+{id:"forza-6",title:"Forza Horizon 6",letter:"F",genre:"Гонки",tags:["Открытый мир","Автомобили"],status:"played",appid:2483190,featured:true},
 {id:"forza-motorsport",title:"Forza Motorsport",letter:"F",genre:"Гонки",tags:["Трассы","Автомобили"],status:"candidate",appid:2440510},
 {id:"half-life-2",title:"Half-Life 2",letter:"H",genre:"Шутер",tags:["Научная фантастика","Сюжет"],status:"played",appid:220,featured:true,description:"Культовый сюжетный шутер Valve с физическими головоломками."},
 {id:"half-life-ep1",title:"Half-Life 2: Episode One",letter:"H",genre:"Шутер",tags:["Научная фантастика","Сюжет"],status:"played",appid:380},
@@ -162,16 +162,16 @@ window.GAMES = [
 {id:"gta-advance",title:"Grand Theft Auto Advance",letter:"G",genre:"Открытый мир",tags:["Криминал","Классика"],status:"candidate",appid:0},
 {id:"postal-3",title:"POSTAL III",letter:"P",genre:"Экшен",tags:["Чёрный юмор","Песочница"],status:"candidate",appid:0}
 ,
-{id:"mafia-old-country",title:"Mafia: The Old Country",letter:"M",genre:"Криминал",tags:["Сюжет","Экшен"],status:"played",appid:0,featured:false},
+{id:"mafia-old-country",title:"Mafia: The Old Country",letter:"M",genre:"Криминал",tags:["Сюжет","Экшен"],status:"played",appid:1941540,featured:false},
 {id:"mafia-2-original",title:"Mafia II (Original)",letter:"M",genre:"Криминал",tags:["Сюжет","Открытый мир"],status:"played",appid:50130,featured:false},
-{id:"tomb-raider-iii",title:"Tomb Raider III",letter:"T",genre:"Приключения",tags:["Исследование","Экшен"],status:"played",appid:0,featured:false},
+{id:"tomb-raider-iii",title:"Tomb Raider III",letter:"T",genre:"Приключения",tags:["Исследование","Экшен"],status:"played",appid:225320,featured:false},
 {id:"tomb-raider-underworld",title:"Tomb Raider: Underworld",letter:"T",genre:"Приключения",tags:["Исследование","Экшен"],status:"played",appid:8140,featured:false},
 {id:"resident-evil-2-remake",title:"Resident Evil 2 (Remake)",letter:"R",genre:"Хоррор",tags:["Выживание","Экшен"],status:"played",appid:883710,featured:false},
 {id:"resident-evil-3-remake",title:"Resident Evil 3 (Remake)",letter:"R",genre:"Хоррор",tags:["Выживание","Экшен"],status:"played",appid:952060,featured:false},
 {id:"resident-evil-6",title:"Resident Evil 6",letter:"R",genre:"Хоррор",tags:["Экшен","Кооператив"],status:"played",appid:221040,featured:false},
 {id:"resident-evil-revelations",title:"Resident Evil Revelations",letter:"R",genre:"Хоррор",tags:["Выживание","Экшен"],status:"played",appid:222480,featured:false},
-{id:"last-of-us-2",title:"The Last of Us Part II",letter:"T",genre:"Приключения",tags:["Сюжет","Выживание"],status:"played",appid:0,featured:false},
-{id:"uncharted-4",title:"Uncharted 4: A Thief’s End",letter:"U",genre:"Приключения",tags:["Сюжет","Экшен"],status:"played",appid:0,featured:false},
+{id:"last-of-us-2",title:"The Last of Us Part II",letter:"T",genre:"Приключения",tags:["Сюжет","Выживание"],status:"played",appid:2531310,featured:false},
+{id:"uncharted-4",title:"Uncharted 4: A Thief’s End",letter:"U",genre:"Приключения",tags:["Сюжет","Экшен"],status:"played",appid:1659420,featured:false},
 {id:"farming-simulator",title:"Farming Simulator",letter:"F",genre:"Симулятор",tags:["Ферма","Техника"],status:"played",appid:0,featured:false},
 {id:"ac-iii",title:"Assassin’s Creed III",letter:"A",genre:"Экшен",tags:["История","Открытый мир"],status:"played",appid:911400,featured:false},
 {id:"ac-unity",title:"Assassin’s Creed Unity",letter:"A",genre:"Экшен",tags:["Паркур","Открытый мир"],status:"played",appid:289650,featured:false},
@@ -271,8 +271,8 @@ window.GAME_STATS = {
   },
   "forza-6": {
     "hours": 12,
-    "achievements": null,
-    "total": null,
+    "achievements": 48,
+    "total": 88,
     "completion": "playing",
     "estimated": true,
     "source": "estimate"
@@ -655,8 +655,8 @@ window.GAME_STATS = {
   },
   "mafia-old-country": {
     "hours": 11,
-    "achievements": null,
-    "total": null,
+    "achievements": 8,
+    "total": 32,
     "completion": "playing",
     "estimated": true,
     "source": "estimate"
@@ -671,8 +671,8 @@ window.GAME_STATS = {
   },
   "tomb-raider-iii": {
     "hours": 7,
-    "achievements": null,
-    "total": null,
+    "achievements": 13,
+    "total": 29,
     "completion": "playing",
     "estimated": true,
     "source": "estimate"
@@ -719,16 +719,16 @@ window.GAME_STATS = {
   },
   "last-of-us-2": {
     "hours": 27,
-    "achievements": null,
-    "total": null,
+    "achievements": 54,
+    "total": 63,
     "completion": "completed",
     "estimated": true,
     "source": "estimate"
   },
   "uncharted-4": {
     "hours": 16,
-    "achievements": null,
-    "total": null,
+    "achievements": 63,
+    "total": 68,
     "completion": "completed",
     "estimated": true,
     "source": "estimate"
@@ -871,8 +871,8 @@ window.GAME_STATS = {
   },
   "god-of-war-ragnarok": {
     "hours": 29,
-    "achievements": null,
-    "total": null,
+    "achievements": 24,
+    "total": 26,
     "completion": "completed",
     "estimated": true,
     "source": "estimate"
