@@ -20,6 +20,19 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Validate source
+        shell: pwsh
+        run: |
+          python -m py_compile desktop-tracker/tracker.py
+      - name: Setup Node for JavaScript syntax checks
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check JavaScript syntax
+        shell: pwsh
+        run: |
+          node --check js/tracker.js
+          node --check js/app.js
       - name: Install PyInstaller
         run: python -m pip install --upgrade pip pyinstaller
       - name: Build EXE
