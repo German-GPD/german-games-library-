@@ -9,6 +9,7 @@
 - Премиальный нейтральный интерфейс с автоматической светлой/тёмной темой устройства.
 - Адаптивная главная страница с личным профилем и статистикой.
 - Отдельный блок интерактивной аналитики: топ игр по часам, диаграмма статусов, распределение жанров и прогресс достижений.
+- Блок «Во что я играю»: публичный статус двух Steam-аккаунтов, обложка текущей игры, время наблюдения на странице и суммарные часы из Steam.
 - Импорт JSON из локального Windows-трекера — данные активности отображаются отдельно и не меняют каталог/личные отметки.
 - Каталог игр с обложками, фильтрами, поиском, жанрами и A–Z.
 - Карточки с примерным временем игры, прогрессом достижений и статусом завершения.
@@ -49,10 +50,10 @@
 The catalogue starts with clearly marked estimates. To replace playtime with real Steam data:
 
 1. In a terminal, open the repository folder and run `cd worker` then `npx wrangler deploy` (or deploy `worker/steam-sync.js` from the Cloudflare dashboard).
-2. In the `worker` directory, run `npx wrangler secret put STEAM_API_KEY` and `npx wrangler secret put STEAM_ID64`. The second value is the 17-digit SteamID64. Never commit either secret to GitHub or put the API key in browser JavaScript.
+2. In the `worker` directory, run `npx wrangler secret put STEAM_API_KEY`, `npx wrangler secret put STEAM_ID64`, and `npx wrangler secret put STEAM_ID64_2`. Use the two 17-digit IDs for the two accounts. Never commit the API key to GitHub or put it in browser JavaScript.
 3. Make your Steam profile and **Game details** public.
 4. Set `window.STEAM_SYNC_ENDPOINT` in `js/config.js` to the deployed Worker URL.
-5. Open the site and press **Синхронизировать**. The page fetches current playtime whenever it syncs. Achievement counts are requested for up to 25 most-played games; other games keep their previous estimate.
+5. Open the site and press **Синхронизировать**. The page sums lifetime playtime from both accounts and polls public current-game presence about once a minute. The on-page timer begins when the page first notices a running game, so it is an observation timer, not an exact game-launch timestamp. Achievement names are unioned for up to 25 most-played games where Steam exposes them; other games keep their previous estimate.
 
 Discord presence can show the game currently being played only when activity sharing is enabled. It does not provide your full library, lifetime hours, or achievements, so Steam remains the right source for automatic statistics. Hydra has no documented public cloud endpoint for this static site.
 
