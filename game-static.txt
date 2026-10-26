@@ -2,14 +2,14 @@
 # Format: Game title = true|false
 # true = completed; false = not completed (or not confirmed).
 
-Grand Theft Auto V = false
+Grand Theft Auto V = true
 Grand Theft Auto: San Andreas = false
 Grand Theft Auto: Vice City = false
 Grand Theft Auto III = false
 Grand Theft Auto IV = false
 Grand Theft Auto: The Trilogy – Definitive Edition = false
 GTA Online = false
-Forza Horizon 5 = false
+Forza Horizon 5 = true
 Forza Horizon 4 = false
 Forza Horizon 6 = false
 Forza Motorsport = false
@@ -18,7 +18,7 @@ Half-Life 2: Episode One = false
 Half-Life 2: Episode Two = false
 Portal = false
 Portal 2 = false
-POSTAL 2 = false
+POSTAL 2 = true
 POSTAL 4: No Regerts = false
 Cyberpunk 2077 = false
 Sleeping Dogs: Definitive Edition = true
