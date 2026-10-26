@@ -122,3 +122,6 @@ h1,h2,h3,.stat-card b,.group-title,.hero-title{font-family:var(--font-display);l
 .dialog-detail b{display:block;margin-top:5px;font-size:12px;overflow-wrap:anywhere}
 @media(max-width:760px){.now-playing-content{grid-template-columns:1fr}.now-playing-card{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}.now-playing-cover{min-height:170px}.now-playing-details{padding:12px}.now-playing-details h3{font-size:15px}.now-playing-metrics{grid-template-columns:1fr}.now-playing-metrics>div{padding:8px}}
 @media(max-width:420px){.now-playing-card{grid-template-columns:1fr}.now-playing-cover{min-height:155px;aspect-ratio:460/215}.now-playing-metrics{grid-template-columns:1fr 1fr}}
+
+.game-summary{margin:8px 0 0;color:var(--muted);font-size:11px;line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.dialog-details-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}.dialog-detail{padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--surface2)}.dialog-detail small{display:block;color:var(--muted);font-size:9px}.dialog-detail b{display:block;margin-top:5px;font-size:12px;overflow-wrap:anywhere}
