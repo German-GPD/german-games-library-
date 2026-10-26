@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - "desktop-tracker/**"
+      - "js/tracker.js"
       - ".github/workflows/build-tracker.yml"
   workflow_dispatch:
 permissions:
@@ -20,9 +21,22 @@ jobs:
         run: python -m pip install --upgrade pip pyinstaller
       - name: Build EXE
         run: pyinstaller --noconfirm --clean --onefile --windowed --name "German-Games-Tracker" desktop-tracker/tracker.py
-      - name: Upload downloadable EXE
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: German-Games-Tracker-Windows
           path: dist/German-Games-Tracker.exe
           if-no-files-found: error
+      - name: Publish direct download release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: desktop-tracker-latest
+          name: German'$ Game Tracker — latest Windows build
+          body: |
+            Download **German-Games-Tracker.exe** below.
+            Windows desktop tracker. See the repository's desktop-tracker/README.md for privacy and usage details.
+          target_commitish: main
+          prerelease: true
+          make_latest: false
+          overwrite_files: true
+          files: dist/German-Games-Tracker.exe
