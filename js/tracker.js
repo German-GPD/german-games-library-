@@ -120,6 +120,9 @@ function makeEstimates() {
 }
 function init() {
   tracker = read(TRACK_KEY, {});
+  const estimates = makeEstimates();
+  Object.entries(estimates).forEach(([id, value]) => { if (!tracker[id]) tracker[id] = value; });
+  write(TRACK_KEY, tracker);
   settings = read(STEAM_KEY, {profile:"",endpoint:""});
   $("#steam-profile").value = settings.profile || "";
   $("#steam-endpoint").value = settings.endpoint || "";
