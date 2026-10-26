@@ -38,26 +38,36 @@ IGNORE = {
 
 def foreground_process():
     try:
-        hwnd = ctypes.windll.user32.GetForegroundWindow()
+        user32 = ctypes.windll.user32
+        kernel32 = ctypes.windll.kernel32
+        user32.GetForegroundWindow.restype = ctypes.c_void_p
+        user32.GetWindowThreadProcessId.argtypes = [ctypes.c_void_p, ctypes.POINTER(ctypes.c_ulong)]
+        user32.GetWindowThreadProcessId.restype = ctypes.c_ulong
+        kernel32.OpenProcess.argtypes = [ctypes.c_ulong, ctypes.c_bool, ctypes.c_ulong]
+        kernel32.OpenProcess.restype = ctypes.c_void_p
+        kernel32.QueryFullProcessImageNameW.argtypes = [ctypes.c_void_p, ctypes.c_ulong, ctypes.c_wchar_p, ctypes.POINTER(ctypes.c_ulong)]
+        kernel32.QueryFullProcessImageNameW.restype = ctypes.c_bool
+        kernel32.CloseHandle.argtypes = [ctypes.c_void_p]
+        hwnd = user32.GetForegroundWindow()
         if not hwnd:
             return None
         pid = ctypes.c_ulong()
-        ctypes.windll.user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
+        user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
         if not pid.value:
             return None
         PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
-        h = ctypes.windll.kernel32.OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, False, pid.value)
+        h = kernel32.OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, False, pid.value)
         if not h:
             return None
         try:
             buf = ctypes.create_unicode_buffer(1024)
             size = ctypes.c_ulong(len(buf))
-            if ctypes.windll.kernel32.QueryFullProcessImageNameW(h, 0, buf, ctypes.byref(size)):
+            if kernel32.QueryFullProcessImageNameW(h, 0, buf, ctypes.byref(size)):
                 name = Path(buf.value).name
                 if name.lower() not in IGNORE:
                     return name
         finally:
-            ctypes.windll.kernel32.CloseHandle(h)
+            kernel32.CloseHandle(h)
     except Exception:
         return None
     return None
