@@ -171,7 +171,7 @@ def main():
     detail = tk.Label(root, text="Ожидание игры…", fg="#9eacba", bg="#11151b", font=("Segoe UI", 10))
     detail.pack()
     tk.Label(root, text="Только текущая игра + история сессий · GitHub", fg="#7d8b99", bg="#11151b", font=("Segoe UI", 8)).pack(pady=12)
-    state = {"key": None, "started": None, "title": None, "appid": None}
+    state = {"key": "__init__", "started": None, "title": None, "appid": None}
     def tick():
         try:
             detected = detect_game()
@@ -179,7 +179,7 @@ def main():
             now = datetime.now(timezone.utc).isoformat(timespec="seconds")
             if key != state["key"]:
                 previous = None
-                if state["key"]:
+                if state["key"] not in (None, "__init__"):
                     previous = {"title":state["title"],"appid":state["appid"],"process":state["key"],"startedAt":state["started"],"endedAt":now}
                     publish(token, None, previous, None)
                 state.update({"key":key,"started":now if detected else None,"title":detected["title"] if detected else None,"appid":detected["appid"] if detected else None})
