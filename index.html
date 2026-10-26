@@ -5,8 +5,8 @@
 <meta name="theme-color" content="#111316"><meta name="description" content="German\'$ Games Library — личный каталог игр с обложками и отметками прохождения.">
 <meta property="og:title" content="German'$ Games Library"><meta property="og:description" content="Личная игровая коллекция German с отметками прохождения."><meta property="og:type" content="website">
 <title>German'$ Games Library</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://shared.fastly.steamstatic.com"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css?v=4.7.0">
-<script src="js/games.js?v=4.2.0" defer></script><script src="js/app.js?v=4.6.0" defer></script></head>
+<link rel="preconnect" href="https://shared.fastly.steamstatic.com"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css?v=4.8.0">
+<script src="js/games.js?v=4.2.0" defer></script><script src="js/app.js?v=4.8.0" defer></script></head>
 <body>
 <a class="skip-link" href="#collection">Перейти к библиотеке</a>
 <div class="app-shell">
@@ -39,7 +39,7 @@
 <div class="toolbar">
 <label class="search-box"><span class="search-icon">⌕</span><input id="search-input" type="search" placeholder="Название, жанр или серия…" autocomplete="off" aria-label="Поиск игр"><kbd>/</kbd></label>
 <div class="filter-pills" id="status-filters"><button class="active" data-status="all">Все</button><button data-status="completed">Пройдены</button><button data-status="unfinished">Не пройдены</button></div>
-<label class="sort-control"><span>Сортировка</span><select id="sort-select" aria-label="Сортировка"><option value="alphabetical">По алфавиту</option><option value="popular">Избранное</option></select></label>
+<label class="sort-control"><span>Сортировка</span><select id="sort-select" aria-label="Сортировка"><option value="alphabetical">По алфавиту</option></select></label>
 </div>
 <div id="active-filters" class="active-filters" hidden></div>
 <div class="collection-layout"><aside class="collection-sidebar"><div class="sidebar-block"><span class="sidebar-title">ЖАНРЫ</span><div id="genre-grid" class="genre-list"></div></div><div class="sidebar-block"><span class="sidebar-title">АЛФАВИТ</span><div id="alphabet-grid" class="alphabet-grid"></div></div></aside><div class="collection-content"><div id="game-sections" class="game-sections"></div><div id="empty-state" class="empty" hidden><b>⌕</b><h3>Ничего не найдено</h3><p>Попробуй изменить поиск или фильтры.</p><button class="button secondary" id="reset-filters">Сбросить фильтры</button></div><div class="load-more"><span id="result-note"></span><button id="show-more" class="button secondary" hidden>Показать ещё</button></div></div></div>
