@@ -221,3 +221,18 @@ body{
 @media(prefers-reduced-motion:reduce){
  *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
 }
+
+
+/* Editorial library mosaic: varied cover proportions, consistent restrained rhythm */
+.game-grid{grid-auto-flow:dense;align-items:stretch}
+.game-card.tile-wide{grid-column:span 2}
+.game-card.tile-wide .game-poster{aspect-ratio:2.35/1}
+.game-card.tile-tall .game-poster{aspect-ratio:3/3.7}
+.game-card.tile-tall .game-cover{object-fit:cover}
+.game-card.tile-wide .game-title{font-size:clamp(12px,1vw,15px)}
+@media(max-width:760px){
+ .game-card.tile-wide{grid-column:span 2}
+ .game-card.tile-wide .game-poster{aspect-ratio:2.15/1}
+ .game-card.tile-tall .game-poster{aspect-ratio:3/4}
+}
+@media(prefers-reduced-motion:reduce){.game-card{transition:none}}
