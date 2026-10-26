@@ -7,6 +7,7 @@ const sections=$("#game-sections"),alphabetGrid=$("#alphabet-grid"),genreGrid=$(
 const genres=[...new Set(games.map(g=>g.genre).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"ru"));
 const state={query:"",status:"all",letter:"",genre:"",sort:"alphabetical",limit:60};
 const completedByTitle=new Map();
+const playedDays=new Set();let calendarCursor=new Date();calendarCursor.setDate(1);let selectedCalendarDay="";
 const clean=v=>String(v||"").toLocaleLowerCase("ru").replace(/[’']/g,"").trim();
 const letterOf=g=>(g.letter||g.title.charAt(0)).toUpperCase();
 const completed=g=>completedByTitle.get(clean(g.title))===true;
@@ -42,12 +43,19 @@ function renderFilters(){
  const chips=[];if(state.query)chips.push(["Поиск: "+state.query,"query"]);if(state.letter)chips.push(["Буква: "+state.letter,"letter"]);if(state.genre)chips.push(["Жанр: "+state.genre,"genre"]);if(state.status!=="all")chips.push(["Статус: "+(state.status==="completed"?"Пройдены":"Не пройдены"),"status"]);
  const el=$("#active-filters");el.hidden=!chips.length;el.innerHTML=chips.map(([label,key])=>'<span class="filter-chip">'+esc(label)+'<button data-clear="'+key+'" aria-label="Сбросить фильтр">×</button></span>').join("");
 }
+function renderCalendar(){
+ const monthEl=$("#calendar-month"),yearEl=$("#calendar-year"),daysEl=$("#calendar-days");if(!monthEl||!daysEl)return;
+ const year=calendarCursor.getFullYear(),month=calendarCursor.getMonth();monthEl.textContent=new Intl.DateTimeFormat("ru-RU",{month:"long"}).format(calendarCursor);yearEl.textContent=year;
+ const first=new Date(year,month,1),offset=(first.getDay()+6)%7,start=new Date(year,month,1-offset),today=new Date();let html="";
+ for(let i=0;i<42;i++){const d=new Date(start);d.setDate(start.getDate()+i);const key=[d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-");const classes=["calendar-day",d.getMonth()!==month?"outside":"",d.toDateString()===today.toDateString()?"today":"",playedDays.has(key)?"played":"",selectedCalendarDay===key?"selected":""].filter(Boolean).join(" ");html+='<button class="'+classes+'" data-calendar-date="'+key+'" aria-label="'+key+(playedDays.has(key)?", игровой день":"")+'">'+d.getDate()+"</button>"}
+ daysEl.innerHTML=html;$("#calendar-selected-label").textContent=selectedCalendarDay?(playedDays.has(selectedCalendarDay)?selectedCalendarDay+" · игровой день":selectedCalendarDay+" · нажми ещё раз, чтобы отметить игровой день"):"Нажми на дату, чтобы отметить игровой день";
+}
 function render(){
  const all=filteredGames(),shown=all.slice(0,state.limit),groups={};shown.forEach(g=>{const l=letterOf(g);(groups[l]||(groups[l]=[])).push(g)});
  sections.innerHTML=Object.keys(groups).sort().map(l=>'<section class="game-group" id="letter-'+l+'"><div class="group-head"><span class="group-letter">'+l+'</span><span class="group-title">На '+l+'</span><span class="group-count">'+groups[l].length+' игр</span></div><div class="game-grid">'+groups[l].map(card).join("")+'</div></section>').join("");
  $("#stat-total").textContent=games.length;$("#stat-completed").textContent=games.filter(completed).length;$("#visible-count").textContent=all.length;
  $("#result-note").textContent=all.length?"Показано "+shown.length+" из "+all.length+" игр":"Нет игр по заданным условиям";
- $("#show-more").hidden=all.length<=shown.length;$("#empty-state").hidden=all.length!==0;renderFilters();renderAlphabet();renderGenres();setupMotion();
+ $("#show-more").hidden=all.length<=shown.length;$("#empty-state").hidden=all.length!==0;renderFilters();renderAlphabet();renderGenres();renderCalendar();setupMotion();
 }
 function reset(){state.query="";state.status="all";state.letter="";state.genre="";state.limit=60;$("#search-input").value="";$("#sort-select").value="alphabetical";document.querySelectorAll("[data-status]").forEach(b=>b.classList.toggle("active",b.dataset.status==="all"));render()}
 function openGame(id){
@@ -76,6 +84,10 @@ $("#sort-select").addEventListener("change",e=>{state.sort=e.target.value;render
 $("#active-filters").addEventListener("click",e=>{const b=e.target.closest("[data-clear]");if(!b)return;const k=b.dataset.clear;if(k==="query"){state.query="";$("#search-input").value=""}if(k==="letter")state.letter="";if(k==="genre")state.genre="";if(k==="status"){state.status="all";document.querySelectorAll("[data-status]").forEach(x=>x.classList.toggle("active",x.dataset.status==="all"))}render()});
 [sections,genreGrid,$("#genre-grid-secondary"),alphabetGrid].forEach(root=>root?.addEventListener("click",e=>{const c=e.target.closest("[data-game]");if(c){openGame(c.dataset.game);return}const g=e.target.closest("[data-genre]");if(g){setGenre(g.dataset.genre);return}const l=e.target.closest("[data-letter]");if(l){state.letter=state.letter===l.dataset.letter?"":l.dataset.letter;state.limit=200;render();$("#collection").scrollIntoView({behavior:"smooth",block:"start"})}}));
 sections.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.matches("[data-game]")){e.preventDefault();openGame(e.target.dataset.game)}});
+$("#calendar-prev")?.addEventListener("click",()=>{calendarCursor.setMonth(calendarCursor.getMonth()-1);renderCalendar()});
+$("#calendar-next")?.addEventListener("click",()=>{calendarCursor.setMonth(calendarCursor.getMonth()+1);renderCalendar()});
+$("#calendar-days")?.addEventListener("click",e=>{const b=e.target.closest("[data-calendar-date]");if(!b)return;const date=b.dataset.calendarDate;if(selectedCalendarDay===date){if(playedDays.has(date))playedDays.delete(date);else playedDays.add(date)}selectedCalendarDay=date;try{localStorage.setItem("gpd-played-days",JSON.stringify([...playedDays]))}catch(_){}renderCalendar()});
+try{const saved=JSON.parse(localStorage.getItem("gpd-played-days")||"[]");if(Array.isArray(saved))saved.forEach(d=>{if(/^\\d{4}-\\d{2}-\\d{2}$/.test(d))playedDays.add(d)})}catch(_){}
 $("#dialog-close").addEventListener("click",()=>$("#game-dialog").close());$("#dialog-close-bottom").addEventListener("click",()=>$("#game-dialog").close());$("#game-dialog").addEventListener("click",e=>{if(e.target===$("#game-dialog"))$("#game-dialog").close()});
 document.addEventListener("keydown",e=>{if(e.key==="/"&& !["INPUT","TEXTAREA","SELECT"].includes(document.activeElement.tagName)){e.preventDefault();$("#search-input").focus()}if(e.key==="Escape"&&$("#game-dialog").open)$("#game-dialog").close()});
 async function start(){try{const response=await fetch("game-static.txt?v=1",{cache:"no-store"});if(response.ok)readStatic(await response.text())}catch(_){}themeLabel();render()}start();
