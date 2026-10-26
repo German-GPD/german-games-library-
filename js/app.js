@@ -61,7 +61,7 @@ function render(){
  const all=filteredGames(),shown=all.slice(0,state.limit),groups={};
  shown.forEach(g=>{const l=letterOf(g);(groups[l]||(groups[l]=[])).push(g)});
  sections.innerHTML=Object.keys(groups).sort().map(l=>'<section class="game-group" id="letter-'+l+'"><div class="group-head"><span class="group-letter">'+l+'</span><span class="group-title">Игры на '+l+'</span><span class="group-count">'+groups[l].length+' игр</span></div><div class="game-grid">'+groups[l].map(card).join("")+'</div></section>').join("");
- $("#stat-total").textContent=games.length;$("#stat-known").textContent=games.filter(known).length;$("#stat-played").textContent=games.filter(played).length;$("#visible-count").textContent=all.length;
+ $("#stat-total").textContent=games.length;$("#stat-played").textContent=games.filter(played).length;$("#stat-completed").textContent=Object.values(window.GAME_STATS||{}).filter(s=>s.completion==="completed").length;$("#stat-genres").textContent=new Set(games.filter(played).map(g=>g.genre)).size;$("#visible-count").textContent=all.length;
  $("#result-note").textContent=all.length?"Показано "+shown.length+" из "+all.length+" игр":"Нет игр по заданным условиям";
  $("#show-more").hidden=all.length<=shown.length;$("#empty-state").hidden=all.length!==0;
  renderFilters();renderAlphabet();renderGenres();
