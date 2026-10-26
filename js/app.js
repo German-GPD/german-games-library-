@@ -88,7 +88,9 @@ function toggleKnown(id){
  $("#game-dialog").close();render();
 }
 function loadSaved(){
- try{const saved=JSON.parse(localStorage.getItem("german-games-status")||"{}");games.forEach(g=>{if(saved[g.id]==="known"||saved[g.id]==="candidate")g.status=saved[g.id]})}catch(_){}
+ // Keep the catalog as the source of truth for games already marked as played.
+ // Older browser storage could contain stale "candidate" values and hide most of the library.
+ try{const saved=JSON.parse(localStorage.getItem("german-games-status")||"{}");games.forEach(g=>{if(g.status!=="played"&&(saved[g.id]==="known"||saved[g.id]==="candidate"))g.status=saved[g.id]})}catch(_){}
 }
 function themeLabel(){
  const media=window.matchMedia("(prefers-color-scheme: dark)"),update=()=>{$("#theme-label").textContent=media.matches?"Тёмная тема":"Светлая тема";const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=media.matches?"#111316":"#f4f5f7"};
