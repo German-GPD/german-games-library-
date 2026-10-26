@@ -40,7 +40,7 @@
   <article class="an-panel"><h3>Любимые жанры</h3><div class="an-sub">Количество игр в каждом жанре</div><div class="an-bars" id="an-genres"></div></article>
   <article class="an-panel"><h3>Достижения</h3><div class="an-sub">Прогресс там, где для игры есть оценка</div><div class="an-bars" id="an-achievements"></div><p class="an-note">Steam-синхронизация может заменить оценочные часы и достижения доступными данными аккаунта, не меняя твой каталог и личные статусы.</p></article>
  </div>
- <div class="an-import"><div><b>Локальный трекер для Windows</b><p>Импортируй JSON из German'$ Game Tracker. Эти данные показываются отдельно и не меняют библиотеку.</p></div><input id="an-import-file" type="file" accept=".json,application/json" aria-label="Импорт JSON трекера"></div>
+ <div class="an-import"><div><b>Локальный трекер для Windows</b><p>Импортируй JSON из German'$ Game Tracker. Эти данные показываются отдельно и не меняют библиотеку.</p></div><div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><a class="button primary" href="https://github.com/German-GPD/german-games-library-/releases/download/desktop-tracker-latest/German-Games-Tracker.exe">Скачать .EXE ↗</a><input id="an-import-file" type="file" accept=".json,application/json" aria-label="Импорт JSON трекера"></div></div>
  <div class="an-panel" style="margin-top:14px"><h3>Локальная активность с ПК</h3><div class="an-sub" id="an-local-caption">Пока нет импортированных данных</div><div class="an-local" id="an-local"></div></div>
  <p class="an-note">Приватность: сайт не отправляет импортированный файл на сервер. Импорт обрабатывается в этом браузере и сохраняется только локально.</p>`;
  const profile=document.querySelector("#profile");
