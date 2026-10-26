@@ -191,7 +191,7 @@ window.GAMES = [
 {id:"god-of-war-2018",title:"God of War (2018)",letter:"G",genre:"Экшен",tags:["Сюжет","Мифология"],status:"played",appid:1593500,featured:false},
 {id:"god-of-war-ragnarok",title:"God of War Ragnarök",letter:"G",genre:"Экшен",tags:["Сюжет","Мифология"],status:"played",appid:2322010,featured:false},
 {id:"spiderman-remastered",title:"Marvel’s Spider-Man Remastered",letter:"M",genre:"Экшен",tags:["Супергерои","Открытый мир"],status:"played",appid:1817070,featured:false},
-{id:"half-life",title:"Half-Life",letter:"H",genre:"Шутер",tags:["Научная фантастика","Кампания"],status:"played",appid:70,featured:false}
+{id:"half-life",title:"Half-Life",letter:"H",genre:"Шутер",tags:["Научная фантастика","Кампания"],status:"played",appid:70,featured:false},
 {id:"my-winter-car",title:"My Winter Car",letter:"M",genre:"Симулятор",tags:["Автомобили","Выживание","Зима"],status:"played",appid:0,featured:true,description:"Зимний автомобильный симулятор."},
 
 {id:"gta-episodes-liberty-city",title:"Grand Theft Auto: Episodes from Liberty City",letter:"G",genre:"Открытый мир",tags:["Криминал","Классика"],status:"candidate",appid:12220},
