@@ -306,3 +306,5 @@ body{
 .hero-visual .cover-stack img{opacity:0;transition:opacity .24s ease,transform .35s}
 .hero-visual.showcase-ready .cover-stack img{opacity:1}
 @media(max-width:760px){.collection-sidebar.filter-panel{grid-template-columns:1fr}.collection-sidebar .alphabet-grid{grid-template-columns:repeat(7,minmax(0,1fr))}.collection-sidebar .genre-item{min-width:0;flex:1 1 auto}}
+
+.collection-sidebar.filter-panel{align-self:stretch}.collection-layout>.collection-sidebar{order:0}.collection-layout>.collection-content{order:1}
