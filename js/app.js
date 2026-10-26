@@ -110,9 +110,10 @@ function updateNowPlaying(payload){
  root.innerHTML=active.map(x=>{
   const k=String(x.steamid||"")+"-"+String(x.appid||"");const elapsed=now-(sessions[k]?.startedAt||now);
   const game=games.find(g=>String(g.appid)===String(x.appid));
+  const totalHours=Number.isFinite(Number(x.totalHours))?Number(x.totalHours):(game?Number(stats[game.id]?.hours):NaN);
   const art=game&&game.appid?"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/"+game.appid+"/header.jpg":"";
   const cover=art?'<img src="'+art+'" alt="" loading="lazy" onerror="this.style.display=\'none\'">':'';
-  return '<article class="now-playing-card"><div class="now-playing-cover">'+cover+'<span>ИГРАЕТ СЕЙЧАС</span></div><div class="now-playing-details"><div class="now-playing-account">'+esc(x.personaName||"Steam")+'</div><h3>'+esc(x.gameName||"Неизвестная игра")+'</h3><div class="now-playing-metrics"><div><small>На странице</small><b>'+duration(elapsed)+'</b></div><div><small>Всего в Steam</small><b>'+(Number.isFinite(Number(x.totalHours))?Number(x.totalHours).toLocaleString("ru-RU",{maximumFractionDigits:1})+" ч":"—")+'</b></div></div>'+(game?'<a class="now-playing-link" href="#collection" data-now-game="'+esc(game.id)+'">Открыть игру в библиотеке ↗</a>':'<a class="now-playing-link" href="https://store.steampowered.com/app/'+encodeURIComponent(x.appid||"")+'/" target="_blank" rel="noreferrer">Страница в Steam ↗</a>')+'</div></article>';
+  return '<article class="now-playing-card"><div class="now-playing-cover">'+cover+'<span>ИГРАЕТ СЕЙЧАС</span></div><div class="now-playing-details"><div class="now-playing-account">'+esc(x.personaName||"Steam")+'</div><h3>'+esc(x.gameName||"Неизвестная игра")+'</h3><div class="now-playing-metrics"><div><small>На странице</small><b>'+duration(elapsed)+'</b></div><div><small>Всего в Steam</small><b>'+(Number.isFinite(totalHours)?totalHours.toLocaleString("ru-RU",{maximumFractionDigits:1})+" ч":"—")+'</b></div></div>'+(game?'<a class="now-playing-link" href="#collection" data-now-game="'+esc(game.id)+'">Открыть игру в библиотеке ↗</a>':'<a class="now-playing-link" href="https://store.steampowered.com/app/'+encodeURIComponent(x.appid||"")+'/" target="_blank" rel="noreferrer">Страница в Steam ↗</a>')+'</div></article>';
  }).join("");
 }
 
