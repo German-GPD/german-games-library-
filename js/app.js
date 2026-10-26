@@ -85,11 +85,40 @@ function openGame(id){
  $("#dialog-stats").innerHTML=s?'<div class="dialog-stat"><span>Время в игре</span><b>'+(s.hoursEstimated===false?'':'≈ ')+s.hours+' ч</b><small>'+(s.hoursEstimated===false?'Steam':'оценка')+'</small></div><div class="dialog-stat"><span>Достижения</span><b>'+(pct===null?'—':s.achievements+' / '+s.total)+'</b><small>'+(pct===null?'нет данных':(s.achievementsEstimated===false?'Steam':'примерно')+' '+pct+'%')+'</small></div><div class="dialog-stat"><span>Статус</span><b>'+ (completed(g)?"Завершена":played(g)?"Играл":"В списке")+'</b><small>по личной истории</small></div>':'<div class="dialog-stat"><span>Личная статистика</span><b>Нет данных</b><small>игра пока не отмечена</small></div>';
  const dialog=$("#game-dialog");if(typeof dialog.showModal==="function")dialog.showModal();else dialog.setAttribute("open","");
 }
+
+function updateNowPlaying(payload){
+ const root=$("#now-playing-content");if(!root)return;
+ const active=Array.isArray(payload.nowPlaying)?payload.nowPlaying:[];
+ const now=Date.now();
+ const memoryKey="gpd-now-playing-sessions-v1";
+ let sessions={};try{sessions=JSON.parse(sessionStorage.getItem(memoryKey)||"{}")}catch{}
+ const liveKeys=new Set(active.map(x=>String(x.steamid||"")+"-"+String(x.appid||"")));
+ Object.keys(sessions).forEach(k=>{if(!liveKeys.has(k))delete sessions[k]});
+ if(!active.length){
+  root.innerHTML='<div class="now-playing-empty"><span class="now-playing-symbol">Ⅱ</span><div><b>Сейчас не играет</b><p>В публичном статусе Steam ни на одном из подключённых аккаунтов не отображается запущенная игра.</p></div></div>';
+  try{sessionStorage.setItem(memoryKey,JSON.stringify(sessions))}catch{}return;
+ }
+ active.forEach(x=>{const k=String(x.steamid||"")+"-"+String(x.appid||"");if(!sessions[k])sessions[k]={startedAt:now};});
+ try{sessionStorage.setItem(memoryKey,JSON.stringify(sessions))}catch{}
+ const duration=ms=>{const m=Math.max(0,Math.floor(ms/60000));return m<60?m+" мин":Math.floor(m/60)+" ч "+(m%60)+" мин"};
+ root.innerHTML=active.map(x=>{
+  const k=String(x.steamid||"")+"-"+String(x.appid||"");const elapsed=now-(sessions[k]?.startedAt||now);
+  const game=games.find(g=>String(g.appid)===String(x.appid));
+  const art=game&&game.appid?"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/"+game.appid+"/header.jpg":"";
+  const cover=art?'<img src="'+art+'" alt="" loading="lazy" onerror="this.style.display=\'none\'">':'';
+  return '<article class="now-playing-card"><div class="now-playing-cover">'+cover+'<span>ИГРАЕТ СЕЙЧАС</span></div><div class="now-playing-details"><div class="now-playing-account">'+esc(x.personaName||"Steam")+'</div><h3>'+esc(x.gameName||"Неизвестная игра")+'</h3><div class="now-playing-metrics"><div><small>На странице</small><b>'+duration(elapsed)+'</b></div><div><small>Всего в Steam</small><b>'+(Number.isFinite(Number(x.totalHours))?Number(x.totalHours).toLocaleString("ru-RU",{maximumFractionDigits:1})+" ч":"—")+'</b></div></div>'+(game?'<a class="now-playing-link" href="#collection" data-now-game="'+esc(game.id)+'">Открыть игру в библиотеке ↗</a>':'<a class="now-playing-link" href="https://store.steampowered.com/app/'+encodeURIComponent(x.appid||"")+'/" target="_blank" rel="noreferrer">Страница в Steam ↗</a>')+'</div></article>';
+ }).join("");
+}
+
 function setupSteamSync(){
  const button=$("#steam-sync"),status=$("#steam-sync-status"),stateEl=$("#steam-state");
  if(!button||!status||!stateEl)return;
  const endpoint=String(window.STEAM_SYNC_ENDPOINT||"").trim();
  if(!endpoint){button.addEventListener("click",()=>{status.textContent="Нужно развернуть worker/steam-sync.js на Cloudflare и указать URL Worker в js/config.js. API-ключ в браузер не вставлять.";status.classList.add("sync-warning")});return}
+ const pollPresence=async()=>{
+  try{const u=new URL(endpoint);u.searchParams.set("mode","presence");const r=await fetch(u.toString(),{headers:{Accept:"application/json"},cache:"no-store"});const p=await r.json();if(r.ok&&Array.isArray(p.nowPlaying))updateNowPlaying(p)}catch(_){}
+ };
+ pollPresence();window.setInterval(pollPresence,60*1000);
  const sync=async()=>{
   button.disabled=true;button.textContent="↻ Синхронизация…";
   try{
@@ -105,6 +134,7 @@ function setupSteamSync(){
     updated++;
    });
    if(!updated)throw new Error("В профиле не найдены игры из каталога");
+   if(Array.isArray(payload.nowPlaying))updateNowPlaying(payload);
    liveSteam=true;stateEl.innerHTML="<i></i> Подключён · актуальные данные";
    status.textContent="Steam обновлён: "+updated+" игр. Часы реальные; достижения обновлены там, где Steam их отдаёт. "+new Date().toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit"});
    const note=$("#stat-hours-note");if(note)note.textContent="реальные данные Steam";
@@ -148,4 +178,5 @@ $("#dialog-close-bottom").addEventListener("click",()=>$("#game-dialog").close()
 $("#game-dialog").addEventListener("click",e=>{if(e.target===$("#game-dialog"))$("#game-dialog").close()});
 document.addEventListener("keydown",e=>{if(e.key==="/"&&!["INPUT","TEXTAREA","SELECT"].includes(document.activeElement.tagName)){e.preventDefault();$("#search-input").focus()}if(e.key==="Escape"&&$("#game-dialog").open)$("#game-dialog").close()});
 themeLabel();render();setupSteamSync();setupMotion();
+document.querySelector("#now-playing-content")?.addEventListener("click",e=>{const a=e.target.closest("[data-now-game]");if(a){e.preventDefault();openGame(a.dataset.nowGame);document.querySelector("#collection")?.scrollIntoView({behavior:"smooth",block:"start"})}});
 })();
