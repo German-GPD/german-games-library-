@@ -20,3 +20,12 @@
 - Replaced guessed play statuses with owner-confirmed history; unverified catalog entries remain on the list.
 - Removed generated playtime/achievement/completion estimates; completion stats now reflect confirmed completions only.
 - Added a distinct “played, not completed” state and honest completion counters.
+
+
+## 2.0.0 — 2026-10-26
+
+- Rebuilt the layout around a premium game-profile dashboard and a compact sidebar library.
+- Added estimated playtime and varied non-100% achievement progress for confirmed played titles.
+- Clearly labeled estimates until verified Steam synchronization is configured.
+- Removed all in-site personal-stat editing, status toggles, import and export controls.
+- Added read-only Steam/Hydra integration requirements and responsive improvements.
