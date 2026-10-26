@@ -26,3 +26,22 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,.g
 
 /* Personal stats and account integration */
 .account-panel{padding:22px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}.account-status{display:flex;align-items:center;gap:12px;margin-bottom:20px}.account-status>div{display:grid;gap:3px}.account-status strong{font-size:13px}.account-status small,.account-hint{font-size:11px;color:var(--muted)}.status-dot{width:10px;height:10px;border-radius:50%;background:#9a9fa7;box-shadow:0 0 0 5px var(--surface2);flex:none}.account-fields,.tracker-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.account-fields label,.tracker-fields label{display:grid;gap:7px;font-size:11px;color:var(--muted)}.account-fields input,.tracker-fields input,.tracker-fields select{width:100%;min-width:0;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);padding:11px 12px}.account-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}.import-label{position:relative;cursor:pointer}.account-hint{line-height:1.7;margin:16px 0 0}.now-playing{margin-top:16px;padding:12px 14px;background:var(--accentSoft);border-radius:9px;font-size:12px;font-weight:700}.game-tracker{padding:18px 0 20px;margin:10px 0 20px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.tracker-heading{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}.tracker-heading strong{font-size:13px}.tracker-heading small{font-size:10px;color:var(--muted)}.tracker-summary{font-size:11px;color:var(--muted);margin:12px 0}.game-tracker>.button{margin-top:4px}.personal-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;color:var(--muted);font-size:9px}.personal-meta span{padding:3px 6px;border-radius:5px;background:var(--surface2)}@media(max-width:600px){.account-panel{padding:15px}.account-fields,.tracker-fields{grid-template-columns:1fr}.tracker-heading{align-items:flex-start;flex-direction:column}.account-actions .button{flex:1}}
+
+
+/* v1.3 — richer Steam-like library tiles */
+.game-grid{gap:16px}
+.game-card{border-radius:12px;background:var(--surface);box-shadow:0 2px 10px rgba(0,0,0,.035)}
+.game-poster{aspect-ratio:16/9;background:linear-gradient(135deg,var(--surface2),var(--accentSoft))}
+.game-poster img{object-fit:cover;transition:transform .45s ease,filter .35s ease}
+.game-card:hover .game-poster img{transform:scale(1.055);filter:saturate(1.08)}
+.game-poster:after{content:"";position:absolute;inset:45% 0 0;pointer-events:none;background:linear-gradient(transparent,rgba(0,0,0,.24))}
+.status-badge{z-index:2;top:9px;left:9px;padding:5px 8px;border:1px solid rgba(255,255,255,.12);border-radius:6px;letter-spacing:.045em}
+.favorite-mark{z-index:2}
+.game-info{padding:13px 13px 14px}
+.game-title{font-size:12px;line-height:1.45;min-height:35px;margin-bottom:8px;letter-spacing:-.01em}
+.game-meta{font-size:10px}
+.game-tags{margin-top:10px;min-height:20px}
+.mini-tag{font-size:9px;padding:4px 7px;border:1px solid var(--line);border-radius:5px}
+.personal-meta{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px;padding-top:9px;border-top:1px solid var(--line)}
+.personal-meta span{display:inline-flex;align-items:center;max-width:100%;font-size:9px;line-height:1.4;color:var(--muted);background:var(--surface2);padding:4px 6px;border-radius:5px}
+@media(max-width:720px){.game-grid{gap:11px}.game-info{padding:10px}.personal-meta{gap:4px}.personal-meta span{font-size:8px;padding:4px 5px}}
