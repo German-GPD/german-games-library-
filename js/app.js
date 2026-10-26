@@ -1,6 +1,7 @@
 (() => {
 "use strict";
 const games=Array.isArray(window.GAMES)?window.GAMES:[];
+const tileSizes=new Map(games.map(g=>[g.id,Math.random()<.12?"wide":Math.random()<.08?"tall":"normal"]));
 const alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const $=s=>document.querySelector(s);
 const sections=$("#game-sections"),alphabetGrid=$("#alphabet-grid"),genreGrid=$("#genre-grid");
@@ -12,7 +13,7 @@ const clean=v=>String(v||"").toLocaleLowerCase("ru").replace(/[’']/g,"").trim(
 const letterOf=g=>(g.letter||g.title.charAt(0)).toUpperCase();
 const completed=g=>completedByTitle.get(clean(g.title))===true;
 const esc=v=>String(v==null?"":v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const image=g=>g.appid&&Number(g.appid)>0?"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/"+g.appid+"/header.jpg":"";
+const image=g=>g.cover|| (g.appid&&Number(g.appid)>0?"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/"+g.appid+"/header.jpg":"");
 function placeholderCover(g){
  const escSvg=s=>String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
  const title=escSvg(g.title||"GAME"),genre=escSvg(g.genre||"GAME LIBRARY");
@@ -45,7 +46,7 @@ function card(g){
  const initials=esc(g.title.split(/[\s:–-]+/).slice(0,2).map(x=>x[0]||"").join("").toUpperCase());
  const poster='<img class="game-cover" loading="lazy" src="'+(url||placeholderCover(g))+'" alt="" data-title="'+esc(g.title)+'" data-genre="'+esc(g.genre||"Игра")+'" data-appid="'+(g.appid||"")+'" onerror="window.GPD_IMAGE_FALLBACK&&window.GPD_IMAGE_FALLBACK(this)"><span class="poster-fallback" hidden>'+initials+'</span>';
  const isDone=completed(g);
- return '<article class="game-card" tabindex="0" role="button" data-game="'+esc(g.id)+'" aria-label="Подробнее: '+esc(g.title)+'"><div class="game-poster">'+poster+'<span class="status-badge'+(isDone?" completed":"")+'">'+(isDone?"ПРОЙДЕНА":"НЕ ПРОЙДЕНА")+'</span>'+(g.featured?'<span class="favorite-mark" aria-label="Избранное">✦</span>':"")+'</div><div class="game-info"><h3 class="game-title">'+esc(g.title)+'</h3><div class="game-meta"><span class="game-genre">'+esc(g.genre||"Игра")+'</span></div><div class="game-tags">'+tags+'</div>'+(g.description?'<p class="game-summary">'+esc(g.description)+'</p>':"")+'</div></article>';
+ return '<article class="game-card tile-'+(tileSizes.get(g.id)||"normal")+'" tabindex="0" role="button" data-game="'+esc(g.id)+'" aria-label="Подробнее: '+esc(g.title)+'"><div class="game-poster">'+poster+'<span class="status-badge'+(isDone?" completed":"")+'">'+(isDone?"ПРОЙДЕНА":"НЕ ПРОЙДЕНА")+'</span>'+(g.featured?'<span class="favorite-mark" aria-label="Избранное">✦</span>':"")+'</div><div class="game-info"><h3 class="game-title">'+esc(g.title)+'</h3><div class="game-meta"><span class="game-genre">'+esc(g.genre||"Игра")+'</span></div><div class="game-tags">'+tags+'</div>'+(g.description?'<p class="game-summary">'+esc(g.description)+'</p>':"")+'</div></article>';
 }
 function renderFilters(){
  const chips=[];if(state.query)chips.push(["Поиск: "+state.query,"query"]);if(state.letter)chips.push(["Буква: "+state.letter,"letter"]);if(state.genre)chips.push(["Жанр: "+state.genre,"genre"]);if(state.status!=="all")chips.push(["Статус: "+(state.status==="completed"?"Пройдены":"Не пройдены"),"status"]);
