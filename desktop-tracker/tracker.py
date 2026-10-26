@@ -18,9 +18,23 @@ APP_DIR = Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / "GermanGamesT
 APP_DIR.mkdir(parents=True, exist_ok=True)
 DB_PATH = APP_DIR / "tracker.sqlite3"
 POLL_SECONDS = 5
-IGNORE = {"explorer.exe", "dwm.exe", "searchhost.exe", "startmenuexperiencehost.exe",
-          "applicationframehost.exe", "textinputhost.exe", "shellexperiencehost.exe",
-          "lockapp.exe", "taskmgr.exe", "systemsettings.exe", "python.exe", "pythonw.exe"}
+IGNORE = {
+    # Windows shell and system utilities
+    "explorer.exe", "dwm.exe", "searchhost.exe", "startmenuexperiencehost.exe",
+    "applicationframehost.exe", "textinputhost.exe", "shellexperiencehost.exe",
+    "lockapp.exe", "taskmgr.exe", "systemsettings.exe", "runtimebroker.exe",
+    "ctfmon.exe", "searchindexer.exe", "securityhealthsystray.exe",
+    # Common non-game foreground apps
+    "chrome.exe", "msedge.exe", "firefox.exe", "brave.exe", "opera.exe",
+    "yandex.exe", "browser.exe", "discord.exe", "telegram.exe", "whatsapp.exe",
+    "spotify.exe", "yandexmusic.exe", "steam.exe", "steamwebhelper.exe",
+    "epicgameslauncher.exe", "goggalaxy.exe", "ubisoftconnect.exe",
+    "ea.exe", "eadesktop.exe", "battle.net.exe", "battlenet.exe",
+    "code.exe", "webstorm64.exe", "idea64.exe", "notepad.exe",
+    "notepad++.exe", "powershell.exe", "pwsh.exe", "cmd.exe", "windowsterminal.exe",
+    "obs64.exe", "obs.exe", "snippingtool.exe", "photos.exe",
+    "python.exe", "pythonw.exe",
+}
 
 def foreground_process():
     try:
