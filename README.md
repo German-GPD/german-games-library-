@@ -40,3 +40,16 @@
 ## Лицензия
 
 См. файл [LICENSE](LICENSE).
+
+
+## Live Steam statistics (optional)
+
+The catalogue starts with clearly marked estimates. To replace playtime with real Steam data:
+
+1. Deploy `worker/steam-sync.js` as a Cloudflare Worker.
+2. Add Worker secrets `STEAM_API_KEY` and `STEAM_ID64` in Cloudflare. Never commit them to GitHub or put them in browser JavaScript.
+3. Make your Steam profile and **Game details** public.
+4. Set `window.STEAM_SYNC_ENDPOINT` in `js/config.js` to the deployed Worker URL.
+5. Open the site and press **Синхронизировать**. The page fetches current playtime whenever it syncs. Achievement counts are requested for up to 25 most-played games; other games keep their previous estimate.
+
+Discord presence can show the game currently being played only when activity sharing is enabled. It does not provide your full library, lifetime hours, or achievements, so Steam remains the right source for automatic statistics. Hydra has no documented public cloud endpoint for this static site.
