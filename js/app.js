@@ -63,9 +63,9 @@ function render(){
  const all=filteredGames(),shown=all.slice(0,state.limit),groups={};
  shown.forEach(g=>{const l=letterOf(g);(groups[l]||(groups[l]=[])).push(g)});
  sections.innerHTML=Object.keys(groups).sort().map(l=>'<section class="game-group" id="letter-'+l+'"><div class="group-head"><span class="group-letter">'+l+'</span><span class="group-title">На '+l+'</span><span class="group-count">'+groups[l].length+' игр</span></div><div class="game-grid">'+groups[l].map(card).join("")+'</div></section>').join("");
- const totalHours=Object.values(stats).reduce((n,s)=>n+((!liveSteam||s.source==="steam")?(Number(s.hours)||0):0),0);
+ const totalHours=Object.values(stats).reduce((n,s)=>n+(Number(s.hours)||0),0);
  $("#stat-total").textContent=games.length;
- $("#stat-played").textContent=liveSteam?games.filter(g=>stats[g.id]?.source==="steam"&&Number(stats[g.id]?.hours)>0).length:games.filter(played).length;
+ $("#stat-played").textContent=games.filter(g=>played(g)||(stats[g.id]?.source==="steam"&&Number(stats[g.id]?.hours)>0)).length;
  $("#stat-completed").textContent=Object.values(stats).filter(s=>s.completion==="completed").length;
  $("#stat-hours").textContent=totalHours>=1000?(totalHours/1000).toFixed(1)+"k":totalHours.toLocaleString("ru-RU");
  $("#visible-count").textContent=all.length;
