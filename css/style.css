@@ -9,3 +9,53 @@
 @media(max-width:1100px){.game-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.collection-layout{grid-template-columns:190px minmax(0,1fr)}.main-nav{gap:16px}.hero{min-height:460px}.stats-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.stat-card{padding:17px}}
 @media(max-width:760px){.app-shell{padding:0 16px}.topbar{height:66px}.main-nav{display:none}.theme-chip span{display:none}.hero{grid-template-columns:1fr;padding:40px 0 22px;gap:0}.hero h1{font-size:clamp(42px,11vw,62px);margin-top:20px}.hero-lead{font-size:13px}.hero-meta{margin-top:25px}.hero-visual{min-height:285px;margin-top:10px}.cover-front{width:75%}.cover-mid{width:65%}.cover-back{width:58%}.hero-float{bottom:0;right:0}.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.stat-card{min-height:105px;padding:15px}.stat-card b{font-size:29px}.section{padding-top:48px}.section-heading{align-items:start;flex-direction:column;gap:8px}.section-heading>p{max-width:none}.toolbar{gap:8px}.search-box{flex-basis:100%;order:0}.filter-pills{flex:1;justify-content:space-between}.filter-pills button{padding:8px}.sort-control{margin-left:auto}.collection-layout{grid-template-columns:1fr;gap:17px}.collection-sidebar{position:static;grid-template-columns:1fr 1fr;gap:10px}.sidebar-block{padding:12px}.sidebar-note{grid-column:1/-1;padding:2px 6px}.alphabet-grid{grid-template-columns:repeat(6,1fr)}.game-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.game-info{padding:10px}.game-title{font-size:10px;min-height:30px}.personal-meta-row{font-size:8px}.integration-grid{grid-template-columns:1fr}.integration-card p{min-height:0}.footer{grid-template-columns:1fr;justify-items:start;gap:14px;margin-top:45px}.footer>p{text-align:left}.footer-links{justify-content:flex-start}.footer>small{grid-column:auto;text-align:left}.dialog-cover{height:170px}.dialog-body{padding:0 17px 18px}.dialog-body h2{font-size:25px}.dialog-stats{grid-template-columns:repeat(2,1fr)}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+
+/* GPD readability pass + playful pixel details */
+:root { --text:#202329; --muted:#5f6874; }
+@media(prefers-color-scheme:dark){:root{--text:#f4f6f8;--muted:#b0bac5}}
+.search-box{min-height:58px;height:58px;min-width:min(100%,300px);padding:0 17px;gap:13px;border-width:1.5px;border-radius:12px;box-shadow:0 3px 0 color-mix(in srgb,var(--line) 70%,transparent);transition:border-color .18s,box-shadow .18s,transform .18s}
+.search-box:focus-within{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 15%,transparent),0 3px 0 color-mix(in srgb,var(--line) 70%,transparent)}
+.search-box input{font-size:15px;line-height:1.4;font-weight:550}
+.search-box input::placeholder{color:var(--muted);opacity:1}
+.search-icon{font-size:25px;line-height:1}
+.search-box kbd{font-size:11px;padding:4px 8px;color:var(--text);background:var(--surface2)}
+.filter-pills{gap:5px;padding:5px}
+.filter-pills button{padding:10px 13px;font-size:12px;color:var(--text);min-height:38px}
+.sort-control{font-size:12px;color:var(--text);font-weight:650}
+.sort-control select{font-size:13px;min-height:42px;padding:10px 13px}
+.sidebar-title{font-size:11px;letter-spacing:.12em;color:var(--muted)}
+.genre-item{font-size:13px;color:var(--text);padding:9px 10px}
+.genre-item small{font-size:11px}
+.letter-button{font-size:12px;min-height:31px}
+.sidebar-note{font-size:12px;color:var(--muted);line-height:1.7}
+.game-title{font-size:13px;line-height:1.45;min-height:38px}
+.game-genre{font-size:11px}
+.mini-tag{font-size:10px;padding:4px 7px}
+.personal-meta-row{font-size:11px}
+.progress-note{font-size:10px}
+.status-badge{font-size:9px;padding:5px 7px}
+.group-title{font-size:14px}
+.group-count{font-size:12px}
+.gpd-quip{display:flex;align-items:center;gap:10px;max-width:470px;margin-top:20px;padding:11px 13px;border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--surface);color:var(--muted);font-size:12px;line-height:1.55}
+.gpd-quip b{color:var(--text)}
+.quip-pixel{display:grid;place-items:center;flex:none;width:28px;height:28px;background:var(--accent-soft);color:var(--accent-strong);font-size:11px;font-weight:950;box-shadow:3px 3px 0 var(--line)}
+.quip-cursor{font-style:normal;font-weight:900;color:var(--accent);animation:quip-blink 1s steps(1) infinite}
+@keyframes quip-blink{50%{opacity:0}}
+.game-card{border-radius:8px}
+.game-card:hover{box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 30%,transparent),var(--shadow)}
+@media(max-width:760px){
+ .search-box{flex:1 1 100%;min-width:0}
+ .filter-pills{width:100%;overflow-x:auto}
+ .filter-pills button{flex:1;white-space:nowrap;padding-inline:9px}
+ .sort-control{flex:1;justify-content:space-between}
+ .sort-control select{flex:1;max-width:70%}
+ .game-title{font-size:13px}
+}
+@media(max-width:420px){
+ .search-box{height:56px;min-height:56px}
+ .search-box input{font-size:14px}
+ .filter-pills button{font-size:11px}
+ .gpd-quip{font-size:11px}
+}
+@media(prefers-reduced-motion:reduce){.quip-cursor{animation:none}}
