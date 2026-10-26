@@ -18,7 +18,7 @@ export default {
   const headers = { ...cors(allowed), "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" };
   if (request.method === "OPTIONS") return new Response(null, { status: 204, headers });
   if (request.method !== "GET") return new Response(JSON.stringify({ error: "GET only" }), { status: 405, headers });
-  if (!env.STEAM_API_KEY || !/^\\d{17}$/.test(env.STEAM_ID64 || "")) return new Response(JSON.stringify({ error: "Set STEAM_API_KEY and STEAM_ID64 as Worker secrets." }), { status: 503, headers });
+  if (!env.STEAM_API_KEY || !/^\d{17}$/.test(env.STEAM_ID64 || "")) return new Response(JSON.stringify({ error: "Set STEAM_API_KEY and STEAM_ID64 as Worker secrets." }), { status: 503, headers });
   try {
    const base = "https://api.steampowered.com";
    const ownedUrl = new URL(base + "/IPlayerService/GetOwnedGames/v1/");
