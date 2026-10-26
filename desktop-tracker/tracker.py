@@ -123,7 +123,15 @@ def detect_game():
                 continue
             # Broad fallback: recognize executables installed inside known game libraries.
             if exe_path and any(root in exe_path for root in game_roots):
-                folder = Path(exe_path).parent.name.lower()\n                # Prefer the game-library folder, even when the executable is nested in Win64/Binaries.\n                for marker in game_roots:\n                    if marker in exe_path:\n                        tail = exe_path.split(marker, 1)[1]\n                        parts = [part for part in tail.split("\\\\") if part]\n                        if parts:\n                            folder = parts[0].lower()\n                        break
+                folder = Path(exe_path).parent.name.lower()
+                # Prefer the game-library folder, even when the executable is nested in Win64/Binaries.
+                for marker in game_roots:
+                    if marker in exe_path:
+                        tail = exe_path.split(marker, 1)[1]
+                        parts = [part for part in tail.split("\\") if part]
+                        if parts:
+                            folder = parts[0].lower()
+                        break
                 # Exclude common game services, redistributables and support tools.
                 if any(x in exe_path for x in (
                     "\\redist\\", "\\redistributable\\", "\\support\\",
