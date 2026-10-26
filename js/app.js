@@ -112,7 +112,7 @@ function setupSteamSync(){
   }catch(error){status.textContent="Не удалось синхронизировать: "+error.message;status.classList.add("sync-warning");stateEl.innerHTML="<i></i> Нет соединения"}
   finally{button.disabled=false;button.textContent="↻ Синхронизировать"}
  };
- button.addEventListener("click",sync);sync();
+ button.addEventListener("click",sync);sync();window.setInterval(()=>{if(!button.disabled)sync()},30*60*1000);
 }
 window.GPD_IMAGE_FALLBACK=function(img){
  const id=String(img.dataset.appid||"");const n=Number(img.dataset.attempt||0);
