@@ -193,4 +193,11 @@ window.GAMES = [
 {id:"spiderman-remastered",title:"Marvel’s Spider-Man Remastered",letter:"M",genre:"Экшен",tags:["Супергерои","Открытый мир"],status:"played",appid:1817070,featured:false},
 {id:"half-life",title:"Half-Life",letter:"H",genre:"Шутер",tags:["Научная фантастика","Кампания"],status:"played",appid:70,featured:false}
 {id:"my-winter-car",title:"My Winter Car",letter:"M",genre:"Симулятор",tags:["Автомобили","Выживание","Зима"],status:"played",appid:0,featured:true,description:"Зимний автомобильный симулятор."},
+
+{id:"gta-episodes-liberty-city",title:"Grand Theft Auto: Episodes from Liberty City",letter:"G",genre:"Открытый мир",tags:["Криминал","Классика"],status:"candidate",appid:12220},
+{id:"gta-liberty-city-stories",title:"Grand Theft Auto: Liberty City Stories",letter:"G",genre:"Открытый мир",tags:["Криминал","Классика"],status:"candidate",appid:0},
+{id:"gta-chinatown-wars",title:"Grand Theft Auto: Chinatown Wars",letter:"G",genre:"Открытый мир",tags:["Криминал","Классика"],status:"candidate",appid:0},
+{id:"nfs-undercover",title:"Need for Speed: Undercover",letter:"N",genre:"Гонки",tags:["Погони","Уличные гонки"],status:"candidate",appid:17470},
+{id:"test-drive-unlimited-2",title:"Test Drive Unlimited 2",letter:"T",genre:"Гонки",tags:["Открытый мир","Автомобили"],status:"candidate",appid:9930},
+{id:"driver-parallel-lines",title:"Driver: Parallel Lines",letter:"D",genre:"Экшен",tags:["Криминал","Вождение"],status:"candidate",appid:0},
 ];
