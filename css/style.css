@@ -516,3 +516,69 @@ body{font-size:16px;line-height:1.5;font-weight:500}
 .hero h1 span{background:var(--rainbow);background-clip:text;-webkit-background-clip:text;color:transparent}
 .hero-float .float-icon{background:var(--rainbow);color:#17191c}
 @media(max-width:760px){.game-poster{aspect-ratio:460/215}.game-card:hover{transform:none}}
+
+
+/* 2026-10-27: refined details dialog, responsive UX and motion */
+.game-dialog{
+ width:min(920px,calc(100vw - 28px));
+ max-width:920px;
+ max-height:min(92dvh,960px);
+ border-radius:16px!important;
+ overscroll-behavior:contain;
+ scrollbar-width:thin;
+ scrollbar-color:var(--muted) transparent;
+ animation:dialog-enter .24s cubic-bezier(.2,.8,.2,1) both;
+}
+.game-dialog::backdrop{background:rgba(5,7,10,.76);backdrop-filter:blur(8px)}
+.dialog-cover{
+ aspect-ratio:460/215;
+ height:auto;
+ max-height:none;
+ overflow:hidden;
+ display:grid;
+ place-items:center;
+ background:var(--surface2);
+}
+.dialog-cover img{
+ display:block;
+ width:100%;
+ height:100%;
+ aspect-ratio:460/215;
+ object-fit:contain!important;
+ object-position:center;
+ background:var(--surface2);
+}
+.dialog-cover:after{pointer-events:none;background:linear-gradient(0deg,var(--surface),transparent 42%)}
+.dialog-body{padding:0 clamp(18px,3vw,34px) 30px;margin-top:-18px}
+.dialog-body .eyebrow{font-size:11px;letter-spacing:.12em}
+.dialog-body h2{font-size:clamp(26px,4vw,42px);margin:12px 0;overflow-wrap:anywhere}
+.dialog-body>p{font-size:14px;max-width:75ch;line-height:1.75}
+.dialog-tags{gap:7px;margin:16px 0 20px}
+.dialog-tags .mini-tag{border:1px solid var(--line);background:var(--surface2);padding:5px 9px}
+.dialog-details-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.dialog-details-grid>div{display:flex;flex-direction:column;gap:5px;min-width:0;padding:14px;border:1px solid var(--line);background:var(--surface2);border-radius:8px}
+.dialog-details-grid>div span{font-size:10px;color:var(--muted);font-weight:750;text-transform:uppercase;letter-spacing:.08em}
+.dialog-details-grid>div b{font-size:14px;overflow-wrap:anywhere}
+.dialog-actions{position:sticky;bottom:-30px;padding:16px 0 0;background:linear-gradient(0deg,var(--surface) 75%,transparent);z-index:2}
+.dialog-close{display:grid;place-items:center;width:40px;height:40px;border-radius:9px!important;border:1px solid rgba(255,255,255,.5);font-size:26px;line-height:1;transition:transform .18s,background .18s}
+.dialog-close:hover{transform:rotate(90deg);background:var(--accent)}
+.game-card{contain:layout paint;transition:border-color .18s,background .18s,box-shadow .18s}
+.game-poster img{transition:transform .35s cubic-bezier(.2,.7,.2,1),filter .25s}
+.game-card:hover .game-poster img{filter:saturate(1.08)}
+.motion-in{opacity:0;transform:translateY(9px);transition:opacity .32s ease,transform .32s ease;transition-delay:var(--motion-delay,0ms)}
+.motion-in.is-visible{opacity:1;transform:translateY(0)}
+.button:focus-visible,.game-card:focus-visible,.icon-link:focus-visible,.letter-button:focus-visible,.genre-item:focus-visible,.genre-pill:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@keyframes dialog-enter{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:760px){
+ .game-dialog{width:calc(100vw - 16px);max-height:94dvh}
+ .dialog-cover,.dialog-cover img{aspect-ratio:460/215}
+ .dialog-body{padding:0 16px 20px;margin-top:-10px}
+ .dialog-body>p{font-size:13px}
+ .dialog-details-grid{grid-template-columns:1fr 1fr;gap:7px}
+ .dialog-details-grid>div{padding:10px}
+ .dialog-actions{bottom:-20px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+ .motion-in{opacity:1;transform:none}
+}
