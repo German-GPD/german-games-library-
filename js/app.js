@@ -15,7 +15,7 @@ const clean=v=>String(v||"").toLocaleLowerCase("ru").replace(/[’']/g,"").trim(
 const letterOf=g=>(g.letter||g.title.charAt(0)).toUpperCase();
 
 const esc=v=>String(v==null?"":v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const image=g=>g.cover||(g.appid&&Number(g.appid)>0?"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/"+g.appid+"/library_600x900.jpg":"");
+const image=g=>g.cover||(g.appid&&Number(g.appid)>0?"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/"+g.appid+"/header.jpg":"");
 function placeholderCover(g){
  const safe=s=>String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
  const title=String(g.title||"GAME"),genre=safe(g.genre||"GAME LIBRARY");
@@ -99,11 +99,11 @@ function openGame(id){
 window.GPD_IMAGE_FALLBACK=function(img){
  const id=String(img.dataset.appid||""),n=Number(img.dataset.attempt||0);
  const urls=id&&Number(id)>0?[
-  "https://cdn.akamai.steamstatic.com/steam/apps/"+id+"/library_600x900.jpg",
-  "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/"+id+"/library_600x900.jpg",
-  "https://cdn.akamai.steamstatic.com/steam/apps/"+id+"/header.jpg",
   "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/"+id+"/header.jpg",
-  "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/"+id+"/library_hero.jpg"
+  "https://cdn.akamai.steamstatic.com/steam/apps/"+id+"/header.jpg",
+  "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/"+id+"/library_hero.jpg",
+  "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/"+id+"/library_600x900.jpg",
+  "https://cdn.akamai.steamstatic.com/steam/apps/"+id+"/library_600x900.jpg"
  ]:[];
  if(n<urls.length){img.dataset.attempt=String(n+1);img.src=urls[n];return}
  img.onerror=null;img.classList.add("generated-cover");
