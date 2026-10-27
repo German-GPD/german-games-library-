@@ -6,6 +6,8 @@
 
 ## Возможности
 
+- Расширенный каталог: отдельные карточки GTA III – The Definitive Edition и GTA: Vice City – The Definitive Edition, а также игры из серий Assassin’s Creed, Resident Evil, Half-Life, Need for Speed и других.
+
 - Адаптивный каталог игр с обложками.
 - Автоматическая светлая/тёмная тема по настройке устройства.
 - Поиск по названию, жанру и тегам.
