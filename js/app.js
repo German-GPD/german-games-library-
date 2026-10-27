@@ -15,13 +15,16 @@ const clean=v=>String(v||"").toLocaleLowerCase("ru").replace(/[’']/g,"").trim(
 const letterOf=g=>(g.letter||g.title.charAt(0)).toUpperCase();
 
 const esc=v=>String(v==null?"":v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const image=g=>g.cover||(g.appid&&Number(g.appid)>0?"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/"+g.appid+"/header.jpg":"");
+const image=g=>g.cover||(g.appid&&Number(g.appid)>0?"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/"+g.appid+"/library_600x900.jpg":"");
 function placeholderCover(g){
- const escSvg=s=>String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
- const title=escSvg(g.title||"GAME"),genre=escSvg(g.genre||"GAME LIBRARY");
+ const safe=s=>String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+ const title=String(g.title||"GAME"),genre=safe(g.genre||"GAME LIBRARY");
  const hue=(String(g.id||g.title).split("").reduce((n,c)=>n+c.charCodeAt(0),0)*17)%360;
- const short=title.length>29?title.slice(0,27)+"…":title;
- const svg='<svg xmlns="http://www.w3.org/2000/svg" width="460" height="215" viewBox="0 0 460 215"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="hsl('+hue+',78%,48%)"/><stop offset="1" stop-color="hsl('+(hue+65)%360+',76%,18%)"/></linearGradient></defs><rect width="460" height="215" fill="url(#bg)"/><circle cx="390" cy="35" r="125" fill="#fff" fill-opacity=".12"/><path d="M-20 215L190 0h80L60 215zM245 230L460 15v90L335 230z" fill="#fff" fill-opacity=".1"/><rect x="22" y="22" width="46" height="4" rx="2" fill="#fff" fill-opacity=".8"/><text x="22" y="48" fill="#fff" fill-opacity=".75" font-family="monospace" font-size="10" letter-spacing="2">GERMAN / GPD · GAME ARCHIVE</text><text x="22" y="139" fill="#fff" font-family="Arial,sans-serif" font-size="'+(short.length>23?21:28)+'" font-weight="700">'+short+'</text><text x="23" y="170" fill="#fff" fill-opacity=".8" font-family="monospace" font-size="12" letter-spacing="2">'+genre.toUpperCase().slice(0,35)+'</text><rect x="22" y="190" width="62" height="3" rx="1.5" fill="#fff"/></svg>';
+ const words=title.split(/\s+/),lines=[];let line="";
+ words.forEach(word=>{if((line+" "+word).trim().length>22&&line){lines.push(line);line=word}else line=(line+" "+word).trim()});
+ if(line)lines.push(line);if(lines.length>4)lines.splice(4,lines.length-4);
+ const titleSvg=lines.map((part,i)=>'<text x="36" y="'+(365+i*42)+'" fill="#fff" font-family="Arial,sans-serif" font-size="'+(part.length>20?23:30)+'" font-weight="700">'+safe(part)+'</text>').join("");
+ const svg='<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="hsl('+hue+',70%,42%)"/><stop offset="1" stop-color="hsl('+(hue+65)%360+',68%,12%)"/></linearGradient><pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0V30" fill="none" stroke="#fff" stroke-opacity=".07"/></pattern></defs><rect width="600" height="600" fill="url(#bg)"/><rect width="600" height="600" fill="url(#grid)"/><circle cx="505" cy="105" r="155" fill="#fff" fill-opacity=".1"/><path d="M-80 600L300 0h130L50 600zM250 650L650 180v170L410 650z" fill="#fff" fill-opacity=".08"/><rect x="36" y="42" width="54" height="5" rx="2.5" fill="#fff" fill-opacity=".85"/><text x="36" y="75" fill="#fff" fill-opacity=".78" font-family="monospace" font-size="13" letter-spacing="2">GERMAN / GPD</text><text x="36" y="112" fill="#fff" fill-opacity=".7" font-family="monospace" font-size="12" letter-spacing="3">GAME ARCHIVE</text>'+titleSvg+'<text x="36" y="545" fill="#fff" fill-opacity=".78" font-family="monospace" font-size="14" letter-spacing="2">'+genre.toUpperCase().slice(0,35)+'</text><rect x="36" y="562" width="70" height="4" rx="2" fill="#fff"/></svg>';
  return "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg);
 }
 function readStatic(text){text.split(/\r?\n/).forEach(line=>{const s=line.trim();if(!s||s.startsWith("#"))return;const m=s.match(/^(.*?)\s*=\s*(0|1|2|3|4|true|false)\s*$/i);if(m){const raw=m[2].toLowerCase();statusByTitle.set(clean(m[1]),raw==="true"?3:raw==="false"?0:Number(raw))}})}
@@ -86,7 +89,7 @@ function render(){
 function reset(){state.query="";state.status="all";state.letter="";state.genre="";state.limit=60;$("#search-input").value="";$("#sort-select").value="alphabetical";document.querySelectorAll("[data-status]").forEach(b=>b.classList.toggle("active",b.dataset.status==="all"));render()}
 function openGame(id){
  const g=games.find(x=>x.id===id);if(!g)return;const progress=gameStatus(g),isDone=progress>=3,url=image(g);
- $("#dialog-cover").innerHTML=url?'<img src="'+url+'" alt="" onerror="this.style.display=\'none\'">':"";
+ $("#dialog-cover").innerHTML=url?'<img src="'+url+'" alt="" data-appid="'+(g.appid||"")+'" data-title="'+esc(g.title)+'" data-genre="'+esc(g.genre||"Игра")+'" onerror="window.GPD_IMAGE_FALLBACK&&window.GPD_IMAGE_FALLBACK(this)">':'<img src="'+placeholderCover(g)+'" alt="">';
  $("#dialog-kicker").textContent=STATUS_LABELS[progress];$("#dialog-title").textContent=g.title;$("#dialog-description").textContent=descriptionFor(g);
  $("#dialog-tags").innerHTML='<span class="mini-tag">'+esc(g.genre||"Игра")+'</span>'+(g.tags||[]).map(t=>'<span class="mini-tag">'+esc(t)+'</span>').join("");
  $("#dialog-extra-info").innerHTML='<div><span>Статус</span><b>'+STATUS_LABELS[progress]+'</b></div><div><span>Культовая игра</span><b>'+(g.cult?"Да":"Нет")+'</b></div>';
@@ -94,12 +97,17 @@ function openGame(id){
  $("#steam-link").href=g.appid?"https://store.steampowered.com/app/"+encodeURIComponent(g.appid)+"/":"https://store.steampowered.com/search/?term="+encodeURIComponent(g.title);$("#game-dialog").showModal();
 }
 window.GPD_IMAGE_FALLBACK=function(img){
- const id=String(img.dataset.appid||""),n=Number(img.dataset.attempt||0),title=img.dataset.title||"GAME",genre=img.dataset.genre||"GAME LIBRARY";
- const urls=id&&Number(id)>0?["https://cdn.akamai.steamstatic.com/steam/apps/"+id+"/header.jpg","https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/"+id+"/header.jpg","https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/"+id+"/library_600x900.jpg"]:[];
+ const id=String(img.dataset.appid||""),n=Number(img.dataset.attempt||0);
+ const urls=id&&Number(id)>0?[
+  "https://cdn.akamai.steamstatic.com/steam/apps/"+id+"/library_600x900.jpg",
+  "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/"+id+"/library_600x900.jpg",
+  "https://cdn.akamai.steamstatic.com/steam/apps/"+id+"/header.jpg",
+  "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/"+id+"/header.jpg",
+  "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/"+id+"/library_hero.jpg"
+ ]:[];
  if(n<urls.length){img.dataset.attempt=String(n+1);img.src=urls[n];return}
- const safe=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
- const svg='<svg xmlns="http://www.w3.org/2000/svg" width="460" height="215" viewBox="0 0 460 215"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#17212b"/><stop offset=".55" stop-color="#344a5b"/><stop offset="1" stop-color="#11151b"/></linearGradient><pattern id="p" width="22" height="22" patternUnits="userSpaceOnUse"><path d="M22 0H0V22" fill="none" stroke="#fff" stroke-opacity=".08"/></pattern></defs><rect width="460" height="215" fill="url(#g)"/><rect width="460" height="215" fill="url(#p)"/><path d="M-20 200L170 10h85L65 200zM240 220L460 0v90L330 220z" fill="#b7d7e8" fill-opacity=".12"/><text x="24" y="36" fill="#b7d7e8" font-family="monospace" font-size="10" letter-spacing="3">GERMAN / GPD · ARCHIVE</text><text x="24" y="137" fill="#fff" font-family="Arial,sans-serif" font-weight="700" font-size="'+(title.length>27?21:29)+'">'+safe(title)+'</text><text x="25" y="171" fill="#b7d7e8" font-family="monospace" font-size="12" letter-spacing="2">'+safe(genre).slice(0,35)+'</text><rect x="24" y="188" width="56" height="3" fill="#b7d7e8"/></svg>';
- img.onerror=null;img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg);img.classList.add("generated-cover");
+ img.onerror=null;img.classList.add("generated-cover");
+ img.src=placeholderCover({id:img.dataset.title||"unknown",title:img.dataset.title||"GAME",genre:img.dataset.genre||"GAME LIBRARY"});
 };
 function setupMotion(){if(window.matchMedia("(prefers-reduced-motion: reduce)").matches||!("IntersectionObserver" in window))return;const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("is-visible");observer.unobserve(entry.target)}}),{threshold:.08});document.querySelectorAll(".game-card,.stat-card,.sidebar-block").forEach((el,i)=>{el.classList.add("motion-in");el.style.setProperty("--motion-delay",Math.min(i%8,7)*45+"ms");observer.observe(el)})}
 function themeLabel(){const media=window.matchMedia("(prefers-color-scheme: dark)"),update=()=>{$("#theme-label").textContent=media.matches?"Тёмная тема":"Светлая тема";const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=media.matches?"#0d0f12":"#f4f5f7"};update();if(media.addEventListener)media.addEventListener("change",update);else if(media.addListener)media.addListener(update)}
