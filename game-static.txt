@@ -1,240 +1,274 @@
 # GERMAN'$ GAMES LIBRARY — ПРОХОЖДЕНИЕ
 #
 # Как пользоваться:
-#   true  = игру прошёл
-#   false = ещё не прошёл ИЛИ прохождение не подтверждено
+#   0 = не играл
+#   1 = играл
+#   2 = почти прошёл
+#   3 = прошёл
+#   4 = все достижения
 #
-# Меняй только true/false справа от знака =.
+# Меняй только цифру справа от знака =.
 # Названия не переименовывай: сайт сопоставляет их с каталогом.
 # Строки, начинающиеся с #, — комментарии; сайт их игнорирует.
 # Игры отсортированы по алфавиту. Повторы удалены.
 
 # === A ===
-Alan Wake = false
-Alan Wake 2 = false
-American Truck Simulator = false
-Among Us = false
-Aperture Desk Job = false
-Assassin's Creed Brotherhood = false
-Assassin's Creed II = false
-Assassin’s Creed III = true
-Assassin's Creed IV: Black Flag = false
-Assassin's Creed Odyssey = false
-Assassin's Creed Origins = false
-Assassin’s Creed Unity = true
-Assassin's Creed Valhalla = false
-
+Alan Wake = 0
+Alan Wake 2 = 0
+American Truck Simulator = 0
+Among Us = 1
+Aperture Desk Job = 0
+Assassin's Creed Brotherhood = 0
+Assassin's Creed II = 0
+Assassin’s Creed III = 3
+Assassin's Creed IV: Black Flag = 0
+Assassin's Creed Odyssey = 0
+Assassin's Creed Origins = 0
+Assassin’s Creed Unity = 3
+Assassin's Creed Valhalla = 0
 # === B ===
-Battlefield 1 = false
-Battlefield 4 = true
-Battlefield V = true
-BeamNG.drive = false
-Beyond: Two Souls = false
-Black Mesa = false
-Bloons TD 6 = true
-Bully: Scholarship Edition = false
-Burnout 3: Takedown = false
-Burnout Paradise Remastered = true
-
+Battlefield 1 = 0
+Battlefield 4 = 3
+Battlefield V = 3
+BeamNG.drive = 0
+Beyond: Two Souls = 0
+Black Mesa = 0
+Bloons TD 6 = 3
+Bully: Scholarship Edition = 0
+Burnout 3: Takedown = 0
+Burnout Paradise Remastered = 3
 # === C ===
-Call of Duty 4: Modern Warfare = true
-Call of Duty: Modern Warfare = true
-Call of Duty: Modern Warfare 2 = true
-Call of Duty: Modern Warfare 3 = true
-Car Mechanic Simulator 2021 = false
-CarX Drift Racing Online = false
-Control = false
-Counter-Strike 2 = false
-Crackdown 3 = false
-Crysis 2 = false
-Cyberpunk 2077 = false
-
+Call of Duty 4: Modern Warfare = 3
+Call of Duty: Modern Warfare = 3
+Call of Duty: Modern Warfare 2 = 3
+Call of Duty: Modern Warfare 3 = 3
+Car Mechanic Simulator 2021 = 0
+CarX Drift Racing Online = 0
+Control = 0
+Counter-Strike 2 = 0
+Crackdown 3 = 0
+Crysis 2 = 0
+Cyberpunk 2077 = 0
 # === D ===
-Days Gone = false
-Dead Space = false
-Detroit: Become Human = false
-Diablo III = false
-DiRT Rally 2.0 = false
-Dishonored = false
-Dishonored 2 = false
-DOOM Eternal = false
-Driver: San Francisco = false
-Dying Light = false
-Dying Light 2 Stay Human = false
-
+Days Gone = 0
+Dead Space = 0
+Detroit: Become Human = 0
+Diablo III = 0
+DiRT Rally 2.0 = 0
+Dishonored = 0
+Dishonored 2 = 0
+DOOM Eternal = 0
+Driver: San Francisco = 0
+Dying Light = 0
+Dying Light 2 Stay Human = 0
 # === E ===
-Elden Ring = false
-Euro Truck Simulator 2 = false
-
+Elden Ring = 0
+Euro Truck Simulator 2 = 0
 # === F ===
-Fallout 4 = true
-Fallout: New Vegas = false
-Far Cry = false
-Far Cry 2 = false
-Far Cry 3 = true
-Far Cry 3: Blood Dragon = false
-Far Cry 4 = false
-Far Cry 5 = true
-Far Cry 6 = true
-Far Cry New Dawn = false
-Far Cry Primal = true
-Farming Simulator = false
-FlatOut 2 = false
-Forza Horizon 4 = true
-Forza Horizon 5 = true
-Forza Horizon 6 = true
-Forza Motorsport = false
-
+Fallout 4 = 3
+Fallout: New Vegas = 0
+Far Cry = 0
+Far Cry 2 = 0
+Far Cry 3 = 3
+Far Cry 3: Blood Dragon = 0
+Far Cry 4 = 0
+Far Cry 5 = 3
+Far Cry 6 = 3
+Far Cry New Dawn = 0
+Far Cry Primal = 3
+Farming Simulator = 0
+FlatOut 2 = 0
+Forza Horizon 4 = 3
+Forza Horizon 5 = 3
+Forza Horizon 6 = 3
+Forza Motorsport = 0
 # === G ===
-Garry's Mod = false
-God of War (2018) = false
-God of War Ragnarök = true
-Gran Turismo 7 = false
-Grand Theft Auto Advance = false
-Grand Theft Auto III = false
-Grand Theft Auto IV = false
-Grand Theft Auto V = true
-Grand Theft Auto: London 1969 = false
-Grand Theft Auto: San Andreas = true
-Grand Theft Auto: The Trilogy – Definitive Edition = true
-Grand Theft Auto: Vice City = true
-Grand Theft Auto: Vice City Stories = false
-GRID Legends = false
-GTA Online = false
-GTA: San Andreas – The Definitive Edition = true
-
+Garry's Mod = 1
+God of War (2018) = 0
+God of War Ragnarök = 3
+Gran Turismo 7 = 0
+Grand Theft Auto Advance = 0
+Grand Theft Auto III = 0
+Grand Theft Auto IV = 0
+Grand Theft Auto V = 3
+Grand Theft Auto: London 1969 = 0
+Grand Theft Auto: San Andreas = 3
+Grand Theft Auto: The Trilogy – Definitive Edition = 3
+Grand Theft Auto: Vice City = 3
+Grand Theft Auto: Vice City Stories = 0
+GRID Legends = 0
+GTA Online = 0
+GTA: San Andreas – The Definitive Edition = 3
 # === H ===
-Half-Life = true
-Half-Life 2 = true
-Half-Life 2: Episode One = true
-Half-Life 2: Episode Two = true
-Half-Life: Source = true
-Hearts of Iron IV = false
-Heavy Rain = false
-Hitman: World of Assassination = false
-
+Half-Life = 3
+Half-Life 2 = 3
+Half-Life 2: Episode One = 3
+Half-Life 2: Episode Two = 3
+Half-Life: Source = 3
+Hearts of Iron IV = 0
+Heavy Rain = 0
+Hitman: World of Assassination = 0
 # === J ===
-Just Cause = false
-Just Cause 2 = true
-Just Cause 3 = true
-Just Cause 4 = false
-
+Just Cause = 0
+Just Cause 2 = 3
+Just Cause 3 = 3
+Just Cause 4 = 0
 # === K ===
-Kingdom Come: Deliverance II = false
-
+Kingdom Come: Deliverance II = 0
 # === L ===
-L.A. Noire = false
-Left 4 Dead 2 = true
-LEGO Batman = false
-LEGO City Undercover = false
-Life is Strange = false
-
+L.A. Noire = 0
+Left 4 Dead 2 = 3
+LEGO Batman = 0
+LEGO City Undercover = 0
+Life is Strange = 0
 # === M ===
-Mad Max = false
-Mafia II (Original) = false
-Mafia II: Definitive Edition = true
-Mafia III: Definitive Edition = false
-Mafia: Definitive Edition = true
-Mafia: The Old Country = false
-Marvel’s Spider-Man Remastered = true
-Max Payne = false
-Max Payne 2: The Fall of Max Payne = false
-Max Payne 3 = false
-Metro 2033 Redux = true
-Metro Exodus = false
-Metro: Last Light Redux = false
-Midnight Club 3: DUB Edition = false
-Minecraft = true
-MiSide = false
-My Summer Car = true
-My Winter Car = true
-
+Mad Max = 0
+Mafia II (Original) = 0
+Mafia II: Definitive Edition = 3
+Mafia III: Definitive Edition = 0
+Mafia: Definitive Edition = 3
+Mafia: The Old Country = 0
+Marvel’s Spider-Man Remastered = 3
+Max Payne = 0
+Max Payne 2: The Fall of Max Payne = 0
+Max Payne 3 = 0
+Metro 2033 Redux = 3
+Metro Exodus = 0
+Metro: Last Light Redux = 0
+Midnight Club 3: DUB Edition = 0
+Minecraft = 3
+MiSide = 0
+My Summer Car = 3
+My Winter Car = 3
 # === N ===
-Need for Speed (2015) = false
-Need for Speed Heat = false
-Need for Speed Payback = true
-Need for Speed Rivals = false
-Need for Speed Unbound = false
-Need for Speed: Carbon = false
-Need for Speed: Hot Pursuit = true
-Need for Speed: Most Wanted (2005) = true
-Need for Speed: Most Wanted (2012) = true
-Need for Speed: Underground = false
-Need for Speed: Underground 2 = false
-
+Need for Speed (2015) = 0
+Need for Speed Heat = 0
+Need for Speed Payback = 3
+Need for Speed Rivals = 0
+Need for Speed Unbound = 0
+Need for Speed: Carbon = 0
+Need for Speed: Hot Pursuit = 3
+Need for Speed: Most Wanted (2005) = 3
+Need for Speed: Most Wanted (2012) = 3
+Need for Speed: Underground = 0
+Need for Speed: Underground 2 = 0
 # === O ===
-Outlast = false
-
+Outlast = 0
 # === P ===
-Phasmophobia = false
-Plants vs. Zombies = false
-Portal = false
-Portal 2 = true
-Portal Reloaded = false
-Portal Stories: Mel = false
-POSTAL = false
-POSTAL 2 = true
-POSTAL 4: No Regerts = false
-POSTAL III = false
-POSTAL Redux = false
-POSTAL: Brain Damaged = false
-Prototype = false
-Prototype 2 = false
-
+Phasmophobia = 0
+Plants vs. Zombies = 0
+Portal = 0
+Portal 2 = 3
+Portal Reloaded = 0
+Portal Stories: Mel = 0
+POSTAL = 0
+POSTAL 2 = 3
+POSTAL 4: No Regerts = 0
+POSTAL III = 0
+POSTAL Redux = 0
+POSTAL: Brain Damaged = 0
+Prototype = 0
+Prototype 2 = 0
 # === R ===
-Red Dead Redemption = true
-Red Dead Redemption 2 = false
-Resident Evil 2 (Remake) = true
-Resident Evil 3 (Remake) = false
-Resident Evil 4 = false
-Resident Evil 6 = true
-Resident Evil Requiem = false
-Resident Evil Revelations = false
-Rise of the Tomb Raider = false
-Rocket League = false
-
+Red Dead Redemption = 3
+Red Dead Redemption 2 = 0
+Resident Evil 2 (Remake) = 3
+Resident Evil 3 (Remake) = 0
+Resident Evil 4 = 0
+Resident Evil 6 = 3
+Resident Evil Requiem = 0
+Resident Evil Revelations = 0
+Rise of the Tomb Raider = 0
+Rocket League = 0
 # === S ===
-S.T.A.L.K.E.R. 2: Heart of Chornobyl = false
-S.T.A.L.K.E.R.: Call of Pripyat = false
-S.T.A.L.K.E.R.: Shadow of Chernobyl = false
-Saints Row IV = false
-Saints Row: The Third = false
-Shadow of the Tomb Raider = true
-Sherlock Holmes: Crimes & Punishments = false
-Sleeping Dogs: Definitive Edition = true
-Street Legal Racing: Redline = false
-Subnautica = false
-
+S.T.A.L.K.E.R. 2: Heart of Chornobyl = 0
+S.T.A.L.K.E.R.: Call of Pripyat = 0
+S.T.A.L.K.E.R.: Shadow of Chernobyl = 0
+Saints Row IV = 0
+Saints Row: The Third = 0
+Shadow of the Tomb Raider = 3
+Sherlock Holmes: Crimes & Punishments = 0
+Sleeping Dogs: Definitive Edition = 3
+Street Legal Racing: Redline = 0
+Subnautica = 0
 # === T ===
-Team Fortress 2 = false
-Teardown = false
-The Crew 2 = true
-The Crew Motorfest = false
-The Elder Scrolls V: Skyrim = false
-The Forest = false
-The Last of Us Part I = true
-The Last of Us Part II = false
-The Long Drive = false
-The Saboteur = false
-The Simpsons Game = false
-The Simpsons: Hit & Run = false
-The Sims 4 = false
-The Walking Dead: The Telltale Definitive Series = false
-The Witcher 3: Wild Hunt = false
-Tom Clancy's Ghost Recon Wildlands = false
-Tom Clancy's The Division 2 = false
-Tomb Raider = false
-Tomb Raider III = false
-Tomb Raider Trilogy = false
-Tomb Raider: Underworld = false
-
+Team Fortress 2 = 0
+Teardown = 0
+The Crew 2 = 3
+The Crew Motorfest = 0
+The Elder Scrolls V: Skyrim = 0
+The Forest = 0
+The Last of Us Part I = 3
+The Last of Us Part II = 0
+The Long Drive = 0
+The Saboteur = 0
+The Simpsons Game = 0
+The Simpsons: Hit & Run = 0
+The Sims 4 = 0
+The Walking Dead: The Telltale Definitive Series = 0
+The Witcher 3: Wild Hunt = 0
+Tom Clancy's Ghost Recon Wildlands = 0
+Tom Clancy's The Division 2 = 0
+Tomb Raider = 0
+Tomb Raider III = 0
+Tomb Raider Trilogy = 0
+Tomb Raider: Underworld = 0
 # === U ===
-Uncharted 4: A Thief’s End = false
-Uncharted: Legacy of Thieves Collection = false
-
+Uncharted 4: A Thief’s End = 0
+Uncharted: Legacy of Thieves Collection = 0
 # === W ===
-Watch Dogs = true
-Watch Dogs 2 = false
-Watch Dogs: Bad Blood = false
-Watch Dogs: Legion = false
-Wreckfest = false
+Watch Dogs = 3
+Watch Dogs 2 = 0
+Watch Dogs: Bad Blood = 0
+Watch Dogs: Legion = 0
+Wreckfest = 0
+# === Дополнительные игры ===
+A Way Out = 0
+Atomic Heart = 0
+Baldur's Gate 3 = 0
+Borderlands 2 = 0
+Borderlands 3 = 0
+Cities: Skylines = 0
+Cuphead = 0
+Dark Souls III = 0
+Deep Rock Galactic = 0
+Devil May Cry 5 = 0
+Fall Guys = 0
+Gang Beasts = 0
+Hades = 0
+Hollow Knight = 0
+Human: Fall Flat = 0
+Lethal Company = 0
+Mortal Kombat 11 = 0
+No Man's Sky = 0
+PAYDAY 2 = 0
+Project Zomboid = 0
+Sea of Thieves = 0
+Stardew Valley = 0
+Terraria = 0
+Titanfall 2 = 0
+Valheim = 0
+Vampire Survivors = 0
+War Thunder = 0
+Age of Empires II: Definitive Edition = 0
+ARK: Survival Evolved = 0
+Call of Duty: Black Ops II = 0
+Call of Duty: Black Ops III = 0
+Darksiders II = 0
+Don't Starve Together = 0
+Ghostrunner = 0
+Goat Simulator 3 = 0
+Inscryption = 0
+LIMBO = 0
+Ori and the Blind Forest = 0
+Ori and the Will of the Wisps = 0
+Overcooked! 2 = 0
+Risk of Rain 2 = 0
+Sekiro: Shadows Die Twice = 0
+Slime Rancher = 0
+Spore = 0
+The Binding of Isaac: Rebirth = 0
+The Outer Worlds = 0
+The Stanley Parable: Ultra Deluxe = 0
+Unturned = 0
+World of Tanks = 0
