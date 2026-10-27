@@ -154,7 +154,6 @@ window.GAMES = [
 {id:"the-division-2",title:"Tom Clancy's The Division 2",letter:"T",genre:"Шутер",tags:["Открытый мир","Кооператив"],status:"candidate",appid:2221490},
 {id:"watch-dogs-bad-blood",title:"Watch Dogs: Bad Blood",letter:"W",genre:"Открытый мир",tags:["Хакерство","Криминал"],status:"candidate",appid:0}
 ,
-{id:"nfs-mw-2015",title:"Need for Speed (2015)",letter:"N",genre:"Гонки",tags:["Уличные гонки","Тюнинг"],status:"candidate",appid:1262540},
 {id:"tomb-raider-trilogy",title:"Tomb Raider Trilogy",letter:"T",genre:"Приключение",tags:["Экшен","Исследование"],status:"candidate",appid:0},
 {id:"nfs-underground-2",title:"Need for Speed: Underground 2",letter:"N",genre:"Гонки",tags:["Уличные гонки","Тюнинг"],status:"candidate",appid:0},
 {id:"nfs-underground",title:"Need for Speed: Underground",letter:"N",genre:"Гонки",tags:["Уличные гонки","Классика"],status:"candidate",appid:0},
@@ -200,8 +199,6 @@ window.GAMES = [
 {id:"nfs-undercover",title:"Need for Speed: Undercover",letter:"N",genre:"Гонки",tags:["Погони","Уличные гонки"],status:"candidate",appid:17470},
 {id:"test-drive-unlimited-2",title:"Test Drive Unlimited 2",letter:"T",genre:"Гонки",tags:["Открытый мир","Автомобили"],status:"candidate",appid:9930},
 {id:"driver-parallel-lines",title:"Driver: Parallel Lines",letter:"D",genre:"Экшен",tags:["Криминал","Вождение"],status:"candidate",appid:0},,
-{id:"among-us",title:"Among Us",letter:"A",genre:"Социальная дедукция",tags:["Мультиплеер","Обман"],status:"candidate",appid:0},
-{id:"garrys-mod",title:"Garry's Mod",letter:"G",genre:"Песочница",tags:["Физика","Мультиплеер"],status:"candidate",appid:4000},
 {id:"a-way-out",title:"A Way Out",letter:"A",genre:"Приключение",tags:["Кооператив","Сюжет"],status:"candidate",appid:1222700},
 {id:"atomic-heart",title:"Atomic Heart",letter:"A",genre:"Шутер",tags:["Научная фантастика","Экшен"],status:"candidate",appid:668580},
 {id:"baldurs-gate-3",title:"Baldur's Gate 3",letter:"B",genre:"RPG",tags:["Фэнтези","Тактика"],status:"candidate",appid:1086940},
