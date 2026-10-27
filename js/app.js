@@ -63,7 +63,7 @@ function card(g){
  const url=image(g),tags=(g.tags||[]).slice(0,2).map(t=>'<span class="mini-tag">'+esc(t)+'</span>').join("");
  const poster='<img class="game-cover" loading="lazy" src="'+(url||placeholderCover(g))+'" alt="" data-title="'+esc(g.title)+'" data-genre="'+esc(g.genre||"Игра")+'" data-appid="'+(g.appid||"")+'" onerror="window.GPD_IMAGE_FALLBACK&&window.GPD_IMAGE_FALLBACK(this)">';
  const progress=gameStatus(g),isDone=progress>=3;
- return '<article class="game-card" tabindex="0" role="button" data-game="'+esc(g.id)+'" aria-label="Подробнее: '+esc(g.title)+'"><div class="game-poster">'+poster+'<span class="status-badge'+(isDone?" completed":"")+'">'+STATUS_LABELS[progress]+'</span>'+(g.cult?'<span class="favorite-mark" aria-label="Культовая игра">✦ КУЛЬТ</span>':"")+'</div><div class="game-info"><h3 class="game-title">'+esc(g.title)+'</h3><div class="game-meta"><span class="game-genre">'+esc(g.genre||"Игра")+'</span></div><div class="game-tags">'+tags+'</div><p class="game-summary">'+esc(descriptionFor(g))+'</p></div></article>';
+ return '<article class="game-card" tabindex="0" role="button" data-game="'+esc(g.id)+'" aria-label="Подробнее: '+esc(g.title)+'"><div class="game-poster">'+poster+'<span class="status-badge status-'+progress+(isDone?" completed":"")+'">'+STATUS_LABELS[progress]+'</span>'+(g.cult?'<span class="favorite-mark" aria-label="Культовая игра">✦ КУЛЬТ</span>':"")+'</div><div class="game-info"><h3 class="game-title">'+esc(g.title)+'</h3><div class="game-meta"><span class="game-genre">'+esc(g.genre||"Игра")+'</span></div><div class="game-tags">'+tags+'</div><p class="game-summary">'+esc(descriptionFor(g))+'</p></div></article>';
 }
 function renderFilters(){
  const chips=[];if(state.query)chips.push(["Поиск: "+state.query,"query"]);if(state.letter)chips.push(["Буква: "+state.letter,"letter"]);if(state.genre)chips.push(["Жанр: "+state.genre,"genre"]);if(state.status!=="all")chips.push(["Статус: "+(state.status==="completed"?"Пройдены":"Не пройдены"),"status"]);
@@ -89,7 +89,7 @@ function openGame(id){
  $("#dialog-cover").innerHTML=url?'<img src="'+url+'" alt="" onerror="this.style.display=\'none\'">':"";
  $("#dialog-kicker").textContent=STATUS_LABELS[progress];$("#dialog-title").textContent=g.title;$("#dialog-description").textContent=descriptionFor(g);
  $("#dialog-tags").innerHTML='<span class="mini-tag">'+esc(g.genre||"Игра")+'</span>'+(g.tags||[]).map(t=>'<span class="mini-tag">'+esc(t)+'</span>').join("");
- $("#dialog-extra-info").innerHTML='<div><span>Прохождение</span><b>'+(isDone?"Да":"Нет")+'</b></div><div><span>Культовая игра</span><b>'+(g.cult?"Да":"Нет")+'</b></div>';
+ $("#dialog-extra-info").innerHTML='<div><span>Статус</span><b>'+STATUS_LABELS[progress]+'</b></div><div><span>Культовая игра</span><b>'+(g.cult?"Да":"Нет")+'</b></div>';
  $("#dialog-stats").innerHTML="";$(".dialog-note").textContent="Статус прохождения хранится в game-static.txt.";
  $("#steam-link").href=g.appid?"https://store.steampowered.com/app/"+encodeURIComponent(g.appid)+"/":"https://store.steampowered.com/search/?term="+encodeURIComponent(g.title);$("#game-dialog").showModal();
 }
