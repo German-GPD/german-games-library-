@@ -88,13 +88,13 @@ function render(){
 }
 function reset(){state.query="";state.status="all";state.letter="";state.genre="";state.limit=60;$("#search-input").value="";$("#sort-select").value="alphabetical";document.querySelectorAll("[data-status]").forEach(b=>b.classList.toggle("active",b.dataset.status==="all"));render()}
 function openGame(id){
- const g=games.find(x=>x.id===id);if(!g)return;const progress=gameStatus(g),isDone=progress>=3,url=image(g);
+ const key=String(id||"").trim();const g=games.find(x=>String(x.id)===key);if(!g){console.warn("Game not found:",key);return}const progress=gameStatus(g),isDone=progress>=3,url=image(g);
  $("#dialog-cover").innerHTML=url?'<img src="'+url+'" alt="" data-appid="'+(g.appid||"")+'" data-title="'+esc(g.title)+'" data-genre="'+esc(g.genre||"Игра")+'" onerror="window.GPD_IMAGE_FALLBACK&&window.GPD_IMAGE_FALLBACK(this)">':'<img src="'+placeholderCover(g)+'" alt="">';
  $("#dialog-kicker").textContent=STATUS_LABELS[progress];$("#dialog-title").textContent=g.title;$("#dialog-description").textContent=descriptionFor(g);
  $("#dialog-tags").innerHTML='<span class="mini-tag">'+esc(g.genre||"Игра")+'</span>'+(g.tags||[]).map(t=>'<span class="mini-tag">'+esc(t)+'</span>').join("");
  $("#dialog-extra-info").innerHTML='<div><span>Статус</span><b>'+STATUS_LABELS[progress]+'</b></div><div><span>Культовая игра</span><b>'+(g.cult?"Да":"Нет")+'</b></div>';
  $("#dialog-stats").innerHTML="";$(".dialog-note").textContent="Статус прохождения хранится в game-static.txt.";
- $("#steam-link").href=g.appid?"https://store.steampowered.com/app/"+encodeURIComponent(g.appid)+"/":"https://store.steampowered.com/search/?term="+encodeURIComponent(g.title);$("#game-dialog").showModal();
+ $("#steam-link").href=g.appid&&Number(g.appid)>0&&g.id!=="gta-definitive-san-andreas"?"https://store.steampowered.com/app/"+encodeURIComponent(g.appid)+"/":"https://store.steampowered.com/search/?term="+encodeURIComponent(g.title);const dialog=$("#game-dialog");if(dialog.open)dialog.close();if(typeof dialog.showModal==="function")dialog.showModal();else dialog.setAttribute("open","");
 }
 window.GPD_IMAGE_FALLBACK=function(img){
  const id=String(img.dataset.appid||""),n=Number(img.dataset.attempt||0);
@@ -124,7 +124,7 @@ $("#random-game")?.addEventListener("click",pickRandomGame);
 $("#random-game-bottom")?.addEventListener("click",pickRandomGame);
 
 $("#active-filters").addEventListener("click",e=>{const b=e.target.closest("[data-clear]");if(!b)return;const k=b.dataset.clear;if(k==="query"){state.query="";$("#search-input").value=""}if(k==="letter")state.letter="";if(k==="genre")state.genre="";if(k==="status"){state.status="all";document.querySelectorAll("[data-status]").forEach(x=>x.classList.toggle("active",x.dataset.status==="all"))}render()});
-[sections,genreGrid,$("#genre-grid-secondary"),alphabetGrid].forEach(root=>root?.addEventListener("click",e=>{const c=e.target.closest("[data-game]");if(c){openGame(c.dataset.game);return}const g=e.target.closest("[data-genre]");if(g){setGenre(g.dataset.genre);return}const l=e.target.closest("[data-letter]");if(l){state.letter=state.letter===l.dataset.letter?"":l.dataset.letter;state.limit=200;render();$("#collection").scrollIntoView({behavior:"smooth",block:"start"})}}));
+document.addEventListener("click",e=>{const c=e.target instanceof Element?e.target.closest("[data-game]"):null;if(c){e.preventDefault();openGame(c.getAttribute("data-game"));return}const root=e.target instanceof Element?e.target.closest("#genre-grid,#genre-grid-secondary,#alphabet-grid"):null;if(!root)return;const g=e.target.closest("[data-genre]");if(g){setGenre(g.dataset.genre);return}const l=e.target.closest("[data-letter]");if(l&&!l.disabled){state.letter=state.letter===l.dataset.letter?"":l.dataset.letter;state.limit=200;render();$("#collection").scrollIntoView({behavior:"smooth",block:"start"})}},true);
 sections.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.matches("[data-game]")){e.preventDefault();openGame(e.target.dataset.game)}});
 $("#calendar-prev")?.addEventListener("click",()=>{calendarCursor.setMonth(calendarCursor.getMonth()-1);renderCalendar()});
 $("#calendar-next")?.addEventListener("click",()=>{calendarCursor.setMonth(calendarCursor.getMonth()+1);renderCalendar()});
