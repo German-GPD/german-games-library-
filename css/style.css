@@ -394,3 +394,96 @@ body{font-size:16px;line-height:1.65}
  .game-grid{gap:9px}.game-info{padding:10px}.game-title{font-size:14px}
  .game-summary{font-size:11px}
 }
+
+
+/* 2026-10-27: high-contrast, compact, square-edged library */
+:root{
+ --bg:#f0f1f2;--surface:#fff;--surface2:#e5e7e9;--surface3:#d4d7da;
+ --text:#17191c;--muted:#555b63;--line:#bfc3c8;--accent:#454b52;
+ --accent-strong:#17191c;--accent-soft:#dfe2e5;--green:#343a40;
+ --shadow:0 8px 24px rgba(0,0,0,.10);--radius:2px;--library-card-radius:2px
+}
+@media(prefers-color-scheme:dark){
+ :root{--bg:#101112;--surface:#191b1e;--surface2:#24272b;--surface3:#34383d;
+ --text:#f5f6f7;--muted:#c0c4c9;--line:#484d53;--accent:#d2d6da;
+ --accent-strong:#fff;--accent-soft:#2c3035;--green:#c4c9ce;--shadow:0 10px 26px rgba(0,0,0,.28)}
+}
+body{font-size:16px;line-height:1.5;font-weight:500}
+.app-shell{max-width:1920px;padding-inline:clamp(12px,2vw,32px)}
+.topbar{height:76px}
+.brand-mark,.icon-link,.button,.search-box,.filter-pills,.filter-pills button,.sort-control select,
+.sidebar-block,.genre-item,.letter-button,.game-card,.game-dialog,.dialog-stat,.mini-tag,.empty,
+.integration-card,.integration-footnote,.genre-pill,.extra-card,.faq-list details,.hero-float,.float-icon,
+.cover-stack,.stat-card{border-radius:2px!important}
+.brand-mark{font-size:25px;border-width:2px}
+.brand-copy b{font-size:15px;font-weight:900}
+.brand-copy small{font-size:10px;font-weight:700}
+.main-nav a{font-size:14px;font-weight:800}
+.section{padding-top:54px}
+.section-heading h2{font-size:clamp(30px,3vw,40px);font-weight:900;letter-spacing:-.045em}
+.section-heading>p{font-size:14px}
+.toolbar{gap:10px;margin-bottom:16px}
+.search-box{height:52px;min-height:52px;border:2px solid var(--line);box-shadow:none}
+.search-box input{font-size:16px;font-weight:650}
+.search-box:focus-within{border-color:var(--text);box-shadow:0 0 0 2px var(--accent-soft)}
+.filter-pills{border:1px solid var(--line)}
+.filter-pills button{font-weight:800}
+.sort-control{font-weight:750}
+.collection-layout{display:flex;flex-direction:column;gap:14px}
+.collection-sidebar.filter-panel{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr);gap:10px;width:100%}
+.collection-sidebar .sidebar-block{padding:13px;border:1px solid var(--line)}
+.sidebar-title{font-size:11px;font-weight:900;color:var(--text)}
+.collection-sidebar .genre-list{gap:5px}
+.collection-sidebar .genre-item{min-width:0;padding:7px 10px;border-radius:2px!important;font-size:13px;font-weight:750}
+.collection-sidebar .alphabet-grid{grid-template-columns:repeat(10,minmax(0,1fr));gap:4px}
+.letter-button{min-height:29px;font-size:12px;font-weight:850;border-radius:2px!important}
+.game-sections{gap:21px}
+.group-head{margin-bottom:10px}
+.group-letter{width:32px;height:32px;border-radius:2px!important;background:var(--text);color:var(--bg);font-size:15px}
+.group-title{font-size:16px;font-weight:900}
+.group-count{font-size:12px;font-weight:750}
+.game-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.game-card{border:1px solid var(--line);box-shadow:none;transition:border-color .15s,background .15s}
+.game-card:hover{transform:none;border-color:var(--text);box-shadow:0 5px 15px rgba(0,0,0,.12);background:var(--surface2)}
+.game-poster{aspect-ratio:1/1}
+.game-poster img{object-fit:cover}
+.game-info{padding:10px 11px}
+.game-title{font-size:14px;line-height:1.35;font-weight:850;letter-spacing:-.01em;min-height:2.7em}
+.game-genre{font-size:12px;font-weight:600}
+.game-meta{margin-top:4px}
+.game-tags{gap:4px;margin-top:6px}
+.mini-tag{font-size:10px;padding:3px 5px;font-weight:700}
+.game-summary{font-size:12px;line-height:1.45}
+.status-badge{border-radius:2px!important;background:rgba(15,17,19,.9)!important;color:#fff!important;border:1px solid rgba(255,255,255,.65);font-size:10px;font-weight:900;padding:5px 7px;backdrop-filter:none}
+.status-badge.status-1,.status-badge.played,.status-badge.status-2,.status-badge.status-3,.status-badge.status-4,.status-badge.completed{background:rgba(15,17,19,.9)!important;color:#fff!important;box-shadow:none}
+.cult-mark{border-radius:2px!important;background:#202327!important;color:#fff!important;box-shadow:none!important}
+.favorite-mark{font-size:15px}
+.load-more{margin-top:15px}
+.button{font-weight:850;border-radius:2px!important}
+.hero h1{font-weight:900}
+.hero h1 span{font-weight:800;color:var(--muted)}
+.hero-glow{display:none}
+.hero-visual .cover-stack{border-radius:2px!important}
+.stat-card b{font-weight:900}
+.dialog-body h2{font-weight:900}
+@media(min-width:1600px){.game-grid{grid-template-columns:repeat(6,minmax(0,1fr))}}
+@media(max-width:1250px){.game-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:950px){.game-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.collection-sidebar.filter-panel{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){
+ .app-shell{padding-inline:12px}
+ .topbar{height:66px}
+ .section{padding-top:40px}
+ .section-heading h2{font-size:30px}
+ .collection-sidebar.filter-panel{grid-template-columns:1fr;gap:8px}
+ .collection-sidebar .alphabet-grid{grid-template-columns:repeat(9,minmax(0,1fr))}
+ .game-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .game-info{padding:9px}
+ .game-title{font-size:14px;min-height:2.7em}
+ .game-genre{font-size:11px}
+ .mini-tag{font-size:9px}
+ .status-badge{font-size:9px;padding:4px 5px}
+ .hero{padding-top:30px}
+ .hero h1{font-size:clamp(38px,10vw,58px)}
+ .hero-visual{min-height:230px}
+}
+@media(max-width:360px){.game-grid{gap:6px}.game-title{font-size:13px}.game-info{padding:7px}}
