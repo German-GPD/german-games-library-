@@ -62,7 +62,7 @@ function filteredGames(){
 function card(g){
  const url=image(g),tags=(g.tags||[]).slice(0,2).map(t=>'<span class="mini-tag">'+esc(t)+'</span>').join("");
  const poster='<img class="game-cover" loading="lazy" src="'+(url||placeholderCover(g))+'" alt="" data-title="'+esc(g.title)+'" data-genre="'+esc(g.genre||"Игра")+'" data-appid="'+(g.appid||"")+'" onerror="window.GPD_IMAGE_FALLBACK&&window.GPD_IMAGE_FALLBACK(this)">';
- const isDone=completed(g);
+ const progress=gameStatus(g),isDone=progress>=3;
  return '<article class="game-card" tabindex="0" role="button" data-game="'+esc(g.id)+'" aria-label="Подробнее: '+esc(g.title)+'"><div class="game-poster">'+poster+'<span class="status-badge'+(isDone?" completed":"")+'">'+STATUS_LABELS[progress]+'</span>'+(g.cult?'<span class="favorite-mark" aria-label="Культовая игра">✦ КУЛЬТ</span>':"")+'</div><div class="game-info"><h3 class="game-title">'+esc(g.title)+'</h3><div class="game-meta"><span class="game-genre">'+esc(g.genre||"Игра")+'</span></div><div class="game-tags">'+tags+'</div><p class="game-summary">'+esc(descriptionFor(g))+'</p></div></article>';
 }
 function renderFilters(){
