@@ -317,3 +317,80 @@ body{
 .status-badge.status-2{background:rgba(158,105,35,.96);color:#fff}
 .status-badge.status-3{background:rgba(65,77,111,.96);color:#fff}
 .status-badge.status-4{background:linear-gradient(105deg,#7650b4,#b04f93);color:#fff;box-shadow:0 2px 12px rgba(176,79,147,.25)}
+
+/* 2026 refresh: square covers, larger type, cleaner browsing */
+:root{--library-card-radius:16px}
+body{font-size:16px;line-height:1.65}
+.app-shell{max-width:1800px;padding-left:clamp(16px,3.4vw,58px);padding-right:clamp(16px,3.4vw,58px)}
+.topbar{height:84px}
+.brand-copy b{font-size:14px}.brand-copy small{font-size:11px}
+.main-nav a{font-size:14px}.theme-chip{font-size:12px}
+.section{padding-top:76px}
+.section-heading h2{font-size:clamp(30px,3.2vw,42px)}
+.section-heading>p{font-size:14px}
+.toolbar{gap:14px;margin-bottom:22px}
+.search-box{height:52px;padding:0 16px;border-radius:13px}
+.search-box input{font-size:16px}
+.search-box kbd{font-size:12px}
+.filter-pills button{font-size:14px;padding:10px 13px}
+.sort-control{font-size:13px}.sort-control select{font-size:14px;padding:12px 14px}
+.collection-layout{grid-template-columns:250px minmax(0,1fr);gap:28px}
+.sidebar-block{padding:20px;border-radius:16px}
+.sidebar-title{font-size:12px}
+.genre-item{font-size:14px;padding:10px 11px}
+.genre-item small{font-size:12px}
+.letter-button{font-size:13px;border-radius:8px}
+.group-head{gap:12px;margin-bottom:16px}
+.group-letter{width:38px;height:38px;font-size:16px;border-radius:11px}
+.group-title{font-size:16px}.group-count{font-size:13px}
+.game-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.game-card{border-radius:var(--library-card-radius)}
+.game-poster{aspect-ratio:1/1}
+.game-poster img,.game-cover{width:100%;height:100%;object-fit:cover}
+.game-info{padding:16px}
+.game-title{font-size:16px;line-height:1.4;min-height:45px;letter-spacing:-.02em}
+.game-meta{margin-top:8px}.game-genre{font-size:13px}
+.game-tags{gap:6px;margin-top:10px}
+.mini-tag{font-size:11px;padding:4px 8px;border-radius:7px}
+.game-summary{font-size:13px;line-height:1.6;margin-top:10px}
+.status-badge{font-size:10px;padding:6px 9px;border-radius:7px;letter-spacing:.02em;backdrop-filter:blur(12px)}
+.favorite-mark{font-size:12px;top:10px;right:10px}
+.stat-label{font-size:12px}.stat-card small{font-size:13px}.stat-card b{font-size:40px}
+.button{font-size:14px;min-height:48px;padding:0 19px}
+#dialog-cover{aspect-ratio:1/1;max-height:340px;overflow:hidden}
+#dialog-cover img{display:block;width:100%;height:100%;object-fit:cover}
+.dialog-body{padding:24px}
+.dialog-body h2{font-size:clamp(25px,4vw,36px);line-height:1.2}
+.dialog-body p{font-size:16px;line-height:1.7}
+.dialog-details-grid .dialog-detail small{font-size:12px}
+.dialog-details-grid .dialog-detail b{font-size:15px}
+.dialog-tags .mini-tag{font-size:12px}
+@media(max-width:1250px){.collection-layout{grid-template-columns:220px minmax(0,1fr)}.game-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){
+ .app-shell{padding-left:16px;padding-right:16px}
+ .topbar{height:70px;gap:12px}.main-nav{gap:12px}.main-nav a{font-size:12px}
+ .brand-mark{width:36px;height:36px}.brand-copy b{font-size:12px}.brand-copy small{font-size:9px}
+ .theme-chip{display:none}
+ .hero{min-height:auto;padding:38px 0 30px;grid-template-columns:1fr;gap:16px}
+ .hero h1{font-size:clamp(40px,10vw,62px)}.hero-lead{font-size:16px}
+ .hero-visual{min-height:280px}.hero-meta{flex-wrap:wrap;font-size:10px;gap:9px}
+ .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .stat-card{min-height:110px;padding:16px}.stat-card b{font-size:34px}
+ .section{padding-top:48px}.section-heading{align-items:flex-start;flex-direction:column;gap:10px}
+ .section-heading h2{font-size:32px}.section-heading>p{font-size:14px}
+ .toolbar{align-items:stretch;gap:10px}.search-box{min-width:100%;flex-basis:100%}
+ .filter-pills{width:100%;overflow-x:auto;justify-content:flex-start}.filter-pills button{white-space:nowrap}
+ .sort-control{justify-content:space-between}
+ .collection-layout{display:block}.collection-sidebar{position:static;grid-template-columns:1fr;gap:12px;margin-bottom:22px}
+ .sidebar-block{padding:15px}.alphabet-grid{grid-template-columns:repeat(9,minmax(0,1fr))}
+ .game-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ .game-info{padding:12px}.game-title{font-size:15px;min-height:42px}.game-genre{font-size:12px}
+ .mini-tag{font-size:10px}.game-summary{font-size:12px}
+ .status-badge{font-size:9px;left:7px;top:7px;padding:5px 7px}
+ .group-title{font-size:15px}.group-count{font-size:12px}
+}
+@media(max-width:390px){
+ .main-nav{gap:8px}.main-nav a{font-size:11px}
+ .game-grid{gap:9px}.game-info{padding:10px}.game-title{font-size:14px}
+ .game-summary{font-size:11px}
+}
